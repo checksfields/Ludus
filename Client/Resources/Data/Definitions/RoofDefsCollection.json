@@ -1,0 +1,46 @@
+{
+  "Key": "RoofDefsCollection",
+  "ClassName": "Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof.RoofDefsCollection",
+  "AssemblyName": "Shared",
+  "Defs": {
+    "constructed": {
+      "ElevationMultiplier": 1.4,
+      "Key": "constructed",
+      "IsNatural": false,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "LabelKey": "LOC_CONSTRUCTED",
+      "DescriptionKey": "LOC_DESC_CONSTRUCTED"
+    },
+    "thick": {
+      "ElevationMultiplier": 1.4,
+      "Key": "thick",
+      "IsNatural": true,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "LabelKey": "LOC_THICK",
+      "DescriptionKey": "LOC_DESC_THICK"
+    },
+    "normal": {
+      "ElevationMultiplier": 1.0,
+      "Key": "normal",
+      "IsNatural": true,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "LabelKey": "LOC_NORMAL",
+      "DescriptionKey": "LOC_DESC_NORMAL"
+    }
+  }
+}

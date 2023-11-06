@@ -1,0 +1,96 @@
+{
+  "Key": "LayerAffordanceDefsCollection",
+  "ClassName": "Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Affordances.LayerAffordanceDefsCollection",
+  "AssemblyName": "Shared",
+  "Defs": {
+    "LightStructures": {
+      "Key": "LightStructures",
+      "OrderIndex": 100,
+      "LayerOverlayDef": {
+        "ColourDef": {
+          "Red": 0.5647059,
+          "Green": 0.93333334,
+          "Blue": 0.5647059,
+          "Alpha": 1.0
+        }
+      },
+      "LabelKey": "LOC_LIGHTSTRUCTURES",
+      "DescriptionKey": "LOC_DESC_LIGHTSTRUCTURES"
+    },
+    "MediumStructures": {
+      "Key": "MediumStructures",
+      "OrderIndex": 200,
+      "LayerOverlayDef": {
+        "ColourDef": {
+          "Red": 1.0,
+          "Green": 0.64705884,
+          "Alpha": 1.0
+        }
+      },
+      "LabelKey": "LOC_MEDIUMSTRUCTURES",
+      "DescriptionKey": "LOC_DESC_MEDIUMSTRUCTURES"
+    },
+    "HeavyStructures": {
+      "Key": "HeavyStructures",
+      "OrderIndex": 300,
+      "LayerOverlayDef": {
+        "ColourDef": {
+          "Red": 1.0,
+          "Alpha": 1.0
+        }
+      },
+      "LabelKey": "LOC_HEAVYSTRUCTURES",
+      "DescriptionKey": "LOC_DESC_HEAVYSTRUCTURES"
+    },
+    "WaterResistant": {
+      "Key": "WaterResistant",
+      "OrderIndex": 400,
+      "LayerOverlayDef": {
+        "ColourDef": {
+          "Red": 0.6784314,
+          "Green": 0.84705883,
+          "Blue": 0.9019608,
+          "Alpha": 1.0
+        }
+      },
+      "LabelKey": "LOC_WATERRESISTANT",
+      "DescriptionKey": "LOC_DESC_WATERRESISTANT"
+    },
+    "WaterProof": {
+      "Key": "WaterProof",
+      "OrderIndex": 500,
+      "LayerOverlayDef": {
+        "ColourDef": {
+          "Blue": 1.0,
+          "Alpha": 1.0
+        }
+      },
+      "LabelKey": "LOC_WATERPROOF",
+      "DescriptionKey": "LOC_DESC_WATERPROOF"
+    },
+    "MovingFluid": {
+      "Key": "MovingFluid",
+      "OrderIndex": 600,
+      "LayerOverlayDef": {
+        "ColourDef": {
+          "Blue": 0.54509807,
+          "Alpha": 1.0
+        }
+      },
+      "LabelKey": "LOC_MOVINGFLUID",
+      "DescriptionKey": "LOC_DESC_MOVINGFLUID"
+    },
+    "Growable": {
+      "Key": "Growable",
+      "OrderIndex": 700,
+      "LabelKey": "LOC_GROWABLE",
+      "DescriptionKey": "LOC_DESC_GROWABLE"
+    },
+    "Diggable": {
+      "Key": "Diggable",
+      "OrderIndex": 800,
+      "LabelKey": "LOC_DIGGABLE",
+      "DescriptionKey": "LOC_DESC_DIGGABLE"
+    }
+  }
+}

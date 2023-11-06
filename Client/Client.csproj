@@ -1,0 +1,16 @@
+<Project Sdk="Godot.NET.Sdk/4.1.2">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bitspoke\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Bitspoke\GodotEngine\GodotEngine.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GodotSharp">
+      <HintPath>..\..\..\..\Program Files\Godot_Current\GodotSharp\Api\Release\GodotSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

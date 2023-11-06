@@ -1,0 +1,17 @@
+{
+  "Key": "FloorLayerDefsCollection",
+  "ClassName": "Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Floors.FloorLayerDefsCollection",
+  "AssemblyName": "Shared",
+  "OrderIndex": 200,
+  "Defs": {
+    "wood": {
+      "Key": "wood",
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      }
+    }
+  }
+}

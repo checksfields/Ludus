@@ -1,0 +1,162 @@
+{
+  "Key": "RockDefsCollection",
+  "ClassName": "Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural.Rocks.Definitions.RockDefsCollection",
+  "AssemblyName": "Shared",
+  "Defs": {
+    "sandstone": {
+      "Key": "sandstone",
+      "Type": "Structure",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "Modulate": {
+          "Red": 0.49411765,
+          "Green": 0.40784314,
+          "Blue": 0.36862746,
+          "Alpha": 1.0
+        },
+        "TextureDef": {
+          "TextureResourcePath": "res://Resources//Images/Entities/Structure/Natural/Rocks/rockatlas.png",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.AtlasTextureTypeDetailsDef, Core",
+            "TextureType": "Atlas"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "LinkDef": {
+        "LinkFlags": "Rock, Edge"
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "Ascii": "s"
+    },
+    "granite": {
+      "Key": "granite",
+      "Type": "Structure",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "Modulate": {
+          "Red": 0.4117647,
+          "Green": 0.37254903,
+          "Blue": 0.38039216,
+          "Alpha": 1.0
+        },
+        "TextureDef": {
+          "TextureResourcePath": "res://Resources//Images/Entities/Structure/Natural/Rocks/rockatlas.png",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.AtlasTextureTypeDetailsDef, Core",
+            "TextureType": "Atlas"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "LinkDef": {
+        "LinkFlags": "Rock, Edge"
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "Ascii": "g"
+    },
+    "marble": {
+      "Key": "marble",
+      "Type": "Structure",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "Modulate": {
+          "Red": 0.5176471,
+          "Green": 0.5294118,
+          "Blue": 0.5176471,
+          "Alpha": 1.0
+        },
+        "TextureDef": {
+          "TextureResourcePath": "res://Resources//Images/Entities/Structure/Natural/Rocks/rockatlas.png",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.AtlasTextureTypeDetailsDef, Core",
+            "TextureType": "Atlas"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "LinkDef": {
+        "LinkFlags": "Rock, Edge"
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "Ascii": "m"
+    },
+    "limestone": {
+      "Key": "limestone",
+      "Type": "Structure",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "Modulate": {
+          "Red": 0.61960787,
+          "Green": 0.6,
+          "Blue": 0.5294118,
+          "Alpha": 1.0
+        },
+        "TextureDef": {
+          "TextureResourcePath": "res://Resources//Images/Entities/Structure/Natural/Rocks/rockatlas.png",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.AtlasTextureTypeDetailsDef, Core",
+            "TextureType": "Atlas"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "LinkDef": {
+        "LinkFlags": "Rock, Edge"
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "Ascii": "l"
+    },
+    "slate": {
+      "Key": "slate",
+      "Type": "Structure",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "Modulate": {
+          "Red": 0.27450982,
+          "Green": 0.27450982,
+          "Blue": 0.27450982,
+          "Alpha": 1.0
+        },
+        "TextureDef": {
+          "TextureResourcePath": "res://Resources//Images/Entities/Structure/Natural/Rocks/rockatlas.png",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.AtlasTextureTypeDetailsDef, Core",
+            "TextureType": "Atlas"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "LinkDef": {
+        "LinkFlags": "Rock, Edge"
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "Ascii": "t"
+    }
+  }
+}

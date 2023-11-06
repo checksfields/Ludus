@@ -1,0 +1,109 @@
+{
+  "Key": "BiomeDefsCollection",
+  "ClassName": "Bitspoke.Ludus.Shared.Environment.Biome.Definitions.BiomeDefsCollection",
+  "AssemblyName": "Shared",
+  "Defs": {
+    "BiomeA": {
+      "Key": "BiomeA",
+      "ClassName": "Bitspoke.Ludus.Shared.Environment.Biome.Definitions.BiomeDef",
+      "AssemblyName": "Shared",
+      "BiomePlantsDef": {
+        "Density": 0.65,
+        "GrowthRate": 10,
+        "PlantWeights": {
+          "grass": {
+            "Key": "grass",
+            "Frequency": 4.0
+          },
+          "tallgrass": {
+            "Key": "tallgrass",
+            "Frequency": 1.5
+          },
+          "brambles": {
+            "Key": "brambles",
+            "Frequency": 1.0
+          },
+          "bush": {
+            "Key": "bush",
+            "Frequency": 0.6
+          },
+          "dandelion": {
+            "Key": "dandelion",
+            "Frequency": 0.5
+          },
+          "treeoak": {
+            "Key": "treeoak",
+            "Frequency": 0.5
+          },
+          "treepoplar": {
+            "Key": "treepoplar",
+            "Frequency": 0.5
+          },
+          "healroot": {
+            "Key": "healroot",
+            "Frequency": 0.05
+          },
+          "berryplant": {
+            "Key": "berry",
+            "Frequency": 0.05
+          }
+        }
+      },
+      "BiomeAnimalsDef": {
+        "Density": 5.0,
+        "GrowthRate": -1,
+        "AnimalDefs": {}
+      },
+      "ElevationTerrainDefs": {
+        "gravel": {
+          "Key": "gravel",
+          "Min": 0.49,
+          "Max": 0.53
+        }
+      },
+      "FertilityTerrainDefs": {
+        "soil": {
+          "Key": "soil",
+          "Min": -9999.0,
+          "Max": 0.7
+        },
+        "soilrich": {
+          "Key": "soilrich",
+          "Min": 0.7,
+          "Max": 9999.0
+        }
+      },
+      "TerrainPatchDefs": [
+        {
+          "NoiseDef": {
+            "Frequency": 35.0,
+            "Octaves": 6,
+            "Lacunarity": 2.0,
+            "Persistence": 0.5
+          },
+          "ThresholdDefs": [
+            {
+              "Key": "mud",
+              "Min": 0.29,
+              "Max": 0.36
+            },
+            {
+              "Key": "water",
+              "Min": 0.36,
+              "Max": 0.48
+            },
+            {
+              "Key": "waterdeep",
+              "Min": 0.48,
+              "Max": 1000.0
+            }
+          ]
+        }
+      ],
+      "IsModdable": true,
+      "Name": "BiomeA",
+      "LabelKey": "BIOMEA_DESC",
+      "DescriptionKey": "BIOMEA_DESC"
+    }
+  }
+}

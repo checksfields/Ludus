@@ -1,0 +1,573 @@
+{
+  "Key": "PlantDefsCollection",
+  "ClassName": "Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants.PlantDefsCollection",
+  "AssemblyName": "Shared",
+  "Defs": {
+    "grass": {
+      "Key": "grass",
+      "Type": "Plant",
+      "SubTypes": "Cover",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 1.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 4,
+            "Wieght": 10
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.35,
+            "Max": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "ScaleRange": {
+              "Min": 0.4,
+              "Max": 0.6
+            },
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Grass/grassa",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.MultiMeshTextureTypeDetailsDef, Core",
+                "MaxCountInCell": 9,
+                "LocationVariationX": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "LocationVariationY": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "TextureType": "MultiMesh"
+              },
+              "Opacity": 0.65
+            }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 2.5,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
+          }
+        }
+      },
+      "Ascii": "g"
+    },
+    "tallgrass": {
+      "Key": "tallgrass",
+      "Type": "Plant",
+      "SubTypes": "Cover",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 1.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 4,
+            "Wieght": 10
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.35,
+            "Max": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "ScaleRange": {
+              "Min": 0.6,
+              "Max": 0.85
+            },
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Grass/grassb",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.MultiMeshTextureTypeDetailsDef, Core",
+                "MaxCountInCell": 9,
+                "LocationVariationX": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "LocationVariationY": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "TextureType": "MultiMesh"
+              },
+              "Opacity": 0.65
+            }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 3.0,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
+          }
+        }
+      },
+      "Ascii": "G"
+    },
+    "brambles": {
+      "Key": "brambles",
+      "Type": "Plant",
+      "SubTypes": "Cover",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 1.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 4,
+            "Wieght": 10
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.7,
+            "Max": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "ScaleRange": {
+              "Min": 0.7,
+              "Max": 0.85
+            },
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Brambles/bramblesa",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.MultiMeshTextureTypeDetailsDef, Core",
+                "MaxCountInCell": 4,
+                "LocationVariationX": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "LocationVariationY": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "TextureType": "MultiMesh"
+              },
+              "Opacity": 1.0
+            }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 3.0,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
+          }
+        }
+      },
+      "Ascii": "r"
+    },
+    "bush": {
+      "Key": "bush",
+      "Type": "Plant",
+      "SubTypes": "Bush",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 2.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 4,
+            "Wieght": 5
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.45,
+            "Max": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "ScaleRange": {
+              "Min": 0.7,
+              "Max": 1.1
+            },
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Bush/busha",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+                "TextureType": "Single"
+              },
+              "Opacity": 1.0
+            }
+          }
+        }
+      },
+      "Ascii": "B"
+    },
+    "dandelion": {
+      "Key": "dandelion",
+      "Type": "Plant",
+      "SubTypes": "Cover",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 3.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 8,
+            "Wieght": 20
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.7,
+            "Max": 1.0
+          },
+          "MovementCostDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Movement.MovementCostDef, Shared",
+            "Type": "Impassable",
+            "Cost": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "ScaleRange": {
+              "Min": 0.3,
+              "Max": 0.4
+            },
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Dandelion/dandelion",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.MultiMeshTextureTypeDetailsDef, Core",
+                "MaxCountInCell": 25,
+                "LocationVariationX": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "LocationVariationY": {
+                  "Min": -24,
+                  "Max": 24
+                },
+                "TextureType": "MultiMesh"
+              },
+              "Opacity": 1.0
+            }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 2.5,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
+          }
+        }
+      },
+      "Ascii": "D"
+    },
+    "treeoak": {
+      "Key": "treeoak",
+      "Type": "Plant",
+      "SubTypes": "Tree, Deciduous",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 3.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 8,
+            "Wieght": 20
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.6,
+            "Max": 1.0
+          },
+          "MovementCostDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Movement.MovementCostDef, Shared",
+            "Type": "Impassable",
+            "Cost": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Tree/treeoaka",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+                "TextureType": "Single"
+              },
+              "Opacity": 1.0
+            }
+          }
+        }
+      },
+      "Ascii": "T"
+    },
+    "treepoplar": {
+      "Key": "treepoplar",
+      "Type": "Plant",
+      "SubTypes": "Tree, Deciduous",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 3.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 8,
+            "Wieght": 20
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.6,
+            "Max": 1.0
+          },
+          "MovementCostDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Movement.MovementCostDef, Shared",
+            "Type": "Impassable",
+            "Cost": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Tree/treepoplara",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+                "TextureType": "Single"
+              },
+              "Opacity": 1.0
+            }
+          }
+        }
+      },
+      "Ascii": "T"
+    },
+    "healroot": {
+      "Key": "healroot",
+      "Type": "Plant",
+      "SubTypes": "Bush, Harvestable",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 3.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 8,
+            "Wieght": 20
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.7,
+            "Max": 1.0
+          },
+          "MovementCostDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Movement.MovementCostDef, Shared",
+            "Type": "Impassable",
+            "Cost": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "ScaleRange": {
+              "Min": 0.3,
+              "Max": 1.0
+            },
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/Healroot/healroota",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+                "TextureType": "Single"
+              },
+              "Opacity": 1.0
+            }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 10.0,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
+          }
+        }
+      },
+      "Ascii": "H"
+    },
+    "berryplant": {
+      "Key": "berryplant",
+      "Type": "Plant",
+      "SubTypes": "Bush, Harvestable",
+      "IsWild": true,
+      "CanCluster": true,
+      "Order": 3.0,
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {
+          "PlacementMaskDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Placement.PlacementMaskDef, Shared",
+            "BannedPlacements": {
+              "Item": -1,
+              "Pawn": -1,
+              "Structure": -1,
+              "Plant": 4
+            }
+          },
+          "ClusterDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
+            "Radius": 8,
+            "Wieght": 20
+          },
+          "fertilityrange": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
+            "Min": 0.5,
+            "Max": 1.0
+          },
+          "MovementCostDef": {
+            "$type": "Bitspoke.Ludus.Shared.Common.Definitions.Movement.MovementCostDef, Shared",
+            "Type": "Impassable",
+            "Cost": 1.0
+          },
+          "GraphicDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.GraphicDef, Core",
+            "Scale": 1.0,
+            "ScaleRange": {
+              "Min": 0.3,
+              "Max": 1.0
+            },
+            "TextureDef": {
+              "TextureResourcePath": "Entities/Plants/Natural/BerryPlant/berrybusha",
+              "TextureTypeDetails": {
+                "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+                "TextureType": "Single"
+              },
+              "Opacity": 1.0
+            }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 6.0,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
+          }
+        }
+      },
+      "Ascii": "S"
+    }
+  }
+}

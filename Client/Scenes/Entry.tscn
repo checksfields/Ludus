@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://dikm5qflxfn2d"]
+
+[ext_resource type="Script" path="res://Scenes/Entry.cs" id="1"]
+
+[node name="Entry" type="Node2D"]
+script = ExtResource("1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Settings" type="Popup" parent="CanvasLayer"]
+exclusive = true
+
+[node name="MainContainer" type="VBoxContainer" parent="CanvasLayer/Settings"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1890.0
+offset_top = -1050.0
+offset_right = 1890.0
+offset_bottom = 1050.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="BodyContainer" type="VBoxContainer" parent="CanvasLayer/Settings/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Settings/MainContainer/BodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/Settings/MainContainer/BodyContainer/HBoxContainer"]
+layout_mode = 2
+text = "Full Screen"
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer/Settings/MainContainer/BodyContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Settings/MainContainer/BodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/Settings/MainContainer/BodyContainer/HBoxContainer2"]
+layout_mode = 2
+text = "UI Scale
+"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Settings/MainContainer/BodyContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 0.5
+max_value = 4.0
+step = 0.25
+value = 1.0
+tick_count = 4
+ticks_on_borders = true
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/Settings/MainContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Settings/MainContainer/BottomRow"]
+layout_mode = 2
+text = "Exit"
+flat = true

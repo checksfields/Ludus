@@ -1,0 +1,385 @@
+{
+  "Key": "TerrainDefsCollection",
+  "ClassName": "Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain.TerrainDefsCollection",
+  "AssemblyName": "Shared",
+  "OrderIndex": 100,
+  "Defs": {
+    "soil": {
+      "OrderIndex": 0,
+      "Fertility": 1.0,
+      "Key": "soil",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "MediumStructures",
+        "HeavyStructures",
+        "Growable",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/soil",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "soil",
+      "LabelKey": "LOC_SOIL",
+      "DescriptionKey": "LOC_SOIL_DESC",
+      "Ascii": "."
+    },
+    "soilrich": {
+      "OrderIndex": 1,
+      "Fertility": 1.4,
+      "Key": "soilrich",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "MediumStructures",
+        "HeavyStructures",
+        "Growable",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/soilrich",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "soilrich",
+      "LabelKey": "LOC_SOILRICH",
+      "DescriptionKey": "LOC_SOILRICH_DESC",
+      "Ascii": "r"
+    },
+    "gravel": {
+      "OrderIndex": 2,
+      "Fertility": 0.7,
+      "Key": "gravel",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "MediumStructures",
+        "HeavyStructures",
+        "Growable",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/gravel",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "gravel",
+      "LabelKey": "LOC_GRAVEL",
+      "DescriptionKey": "LOC_GRAVEL_DESC",
+      "Ascii": "°"
+    },
+    "softsand": {
+      "OrderIndex": 3,
+      "Fertility": 0.0,
+      "Key": "softsand",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/softsand",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "softsand",
+      "LabelKey": "LOC_SOFTSAND",
+      "DescriptionKey": "LOC_SOFTSAND_DESC",
+      "Ascii": "f"
+    },
+    "sand": {
+      "OrderIndex": 4,
+      "Fertility": 0.10000001,
+      "Key": "sand",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "MediumStructures",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/sand",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "sand",
+      "LabelKey": "LOC_SAND",
+      "DescriptionKey": "LOC_SAND_DESC",
+      "Ascii": "n"
+    },
+    "mud": {
+      "OrderIndex": 5,
+      "Fertility": 0.0,
+      "Key": "mud",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/mud",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "mud",
+      "LabelKey": "LOC_MUD",
+      "DescriptionKey": "LOC_MUD_DESC",
+      "Ascii": "m"
+    },
+    "mossy": {
+      "OrderIndex": 6,
+      "Fertility": 1.0,
+      "Key": "mossy",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "MediumStructures",
+        "HeavyStructures",
+        "Growable",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/mossy",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "mossy",
+      "LabelKey": "LOC_MOSSY",
+      "DescriptionKey": "LOC_MOSSY_DESC",
+      "Ascii": "y"
+    },
+    "marshy": {
+      "OrderIndex": 7,
+      "Fertility": 1.0,
+      "Key": "marshy",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "Growable",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/marshy",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "marshy",
+      "LabelKey": "LOC_MARSHY",
+      "DescriptionKey": "LOC_MARSHY_DESC",
+      "Ascii": "h"
+    },
+    "ice": {
+      "OrderIndex": 8,
+      "Fertility": 0.0,
+      "Key": "ice",
+      "AvailableAffordanceKeys": [
+        "LightStructures",
+        "MediumStructures",
+        "Diggable"
+      ],
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/ice",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "ice",
+      "LabelKey": "LOC_ICE",
+      "DescriptionKey": "LOC_ICE_DESC",
+      "Ascii": "i"
+    },
+    "water": {
+      "OrderIndex": 9,
+      "Fertility": 0.0,
+      "Key": "water",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/water",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "water",
+      "LabelKey": "LOC_WATER",
+      "DescriptionKey": "LOC_WATER_DESC",
+      "Ascii": "w"
+    },
+    "waterdeep": {
+      "OrderIndex": 10,
+      "Fertility": 0.0,
+      "Key": "waterdeep",
+      "GraphicDef": {
+        "Scale": 1.0,
+        "LinkDef": {
+          "LinkFlags": "Rock, Edge, Wall"
+        },
+        "TextureDef": {
+          "TextureResourcePath": "/Images/Layers/waterdeep",
+          "TextureTypeDetails": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef, Core",
+            "TextureType": "Single"
+          },
+          "Opacity": 1.0
+        }
+      },
+      "DefCollectionComponent": {
+        "Key": "DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "AssemblyName": "Core",
+        "Defs": {}
+      },
+      "IsModdable": true,
+      "Name": "waterdeep",
+      "LabelKey": "LOC_WATERDEEP",
+      "DescriptionKey": "LOC_WATERDEEP_DESC",
+      "Ascii": "d"
+    }
+  }
+}
