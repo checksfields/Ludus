@@ -1,0 +1,7 @@
+﻿/Client/.godot/
+/Shared/.godot/
+/.idea/
+/Shared/obj/
+*.old*
+/Shared/bin
+/Client/.idea/
