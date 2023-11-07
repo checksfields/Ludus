@@ -31,6 +31,29 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
         protected override void StepGenerate()
         {
             Profiler.Start();
+            ProcessCells();
+            ProcessCellsOld();
+            Profiler.End();
+        }
+
+        private void ProcessCells()
+        {
+            Profiler.Start();
+            foreach (var mapCell in Map.Data.CellsContainer.Cells.Array)
+            {
+                mapCell.TerrainDef = GetTerrainLayerDefFor(mapCell)?.Clone() ?? null;
+                if (mapCell.TerrainDef == null)
+                {
+                    Log.Warning($"Could not generate a terrain for cell: {mapCell}", -9999999);
+                    mapCell.TerrainDef = TerrainDefsCollection.DEFAULT_DEF;
+                }
+            }
+            Profiler.End(message:"NEW +++");
+        }
+        
+        private void ProcessCellsOld()
+        {
+            Profiler.Start();
             foreach (var mapCell in Map.Cells.All)
             {
                 mapCell.TerrainDef = GetTerrainLayerDefFor(mapCell)?.Clone() ?? null;
@@ -41,9 +64,8 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
                 }
                 
                 mapCell.TerrainDef.Index = mapCell.Index;
-                mapCell.Values.Add("TerrainDef", mapCell.TerrainDef.Key);
             }
-            Profiler.End();
+            Profiler.End(message:"OLD +++");
         }
         
         private TerrainDef GetTerrainLayerDefFor(MapCell mapCell)

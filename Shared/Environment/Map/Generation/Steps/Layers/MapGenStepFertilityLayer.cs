@@ -28,12 +28,42 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
             Profiler.Start();
             
             var seed = Rand.NextInt(int.MaxValue);
-            Log.Debug($"Seed: {seed}");
             Noise = new GodotNoise(seed, MapGenStepDef.NoiseDef);
-            //Noise = new GodotNoise(seed, NoiseDef.DEFAULT);
             
-            if (CoreGlobal.DEBUG_ENABLED)
-                Noise.GenerateImageTexture(325, 325, $"{GodotGlobal.SAVE_ROOT_PATH}/fertility.png");
+            // if (CoreGlobal.DEBUG_ENABLED)
+            //     Noise.GenerateImageTexture(325, 325, $"{GodotGlobal.SAVE_ROOT_PATH}/fertility.png");
+            
+            ProcessCells();
+            ProcessCellsOld();
+            
+            Profiler.End();
+        }
+        
+        private void ProcessCells()
+        {
+            Profiler.Start();
+            var tasks = new List<Task>();
+            
+            foreach (var cells in Map.Data.CellsContainer.CellsByRegion.Array)
+            {
+                tasks.Add(Task.Run(() =>
+                {
+                    foreach (var mapCell in cells)
+                    {
+                        mapCell.Fertility = Noise.GetValue(mapCell.Location, GetFertilityValueFunc);
+                    }
+                        
+                }));
+            }
+             
+            Task.WaitAll(tasks.ToArray());
+            
+            Profiler.End(message:"NEW +++");
+        }
+        
+        private void ProcessCellsOld()
+        {
+            Profiler.Start();
             
             var tasks = new List<Task>();
             foreach (var bucket in Map.Cells.Buckets)
@@ -42,16 +72,13 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
                 {
                     foreach (var mapCell in bucket.Values)
                     {
-                        var fertilityNoiseValue = Noise.GetValue(mapCell.Location, GetFertilityValueFunc);
-                        mapCell.Fertility = fertilityNoiseValue;
-                        lock (mapCell.Values)
-                            mapCell.Values.Add("Fertility", mapCell.Fertility);
+                        mapCell.Fertility = Noise.GetValue(mapCell.Location, GetFertilityValueFunc);
                     }
+                    
                 }));
             }
             Task.WaitAll(tasks.ToArray());
-            
-            Profiler.End();
+            Profiler.End(message:"OLD +++");
         }
         
         private float GetFertilityValueFunc(int x, int y, float value)

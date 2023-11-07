@@ -38,9 +38,9 @@ namespace Client.Components.Regions
             RegionLayers = new Dictionary<int, RegionLayer>();
             
             //Map.Data.EntitiesContainer.EntitiesByTypeAndRegion[Region.Index]
-            Profiler.Start();
+            //Profiler.Start();
             PlantsByType = Region.PlantsByType();
-            Profiler.End();
+            //Profiler.End();
             
             foreach (var plantByTypeKey in PlantsByType.Keys)
             {

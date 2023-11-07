@@ -5,3 +5,5 @@
 *.old*
 /Shared/bin
 /Client/.idea/
+/Client/LudusTest/obj/
+/Client/LudusTest/bin/

@@ -39,6 +39,7 @@ namespace Bitspoke.Ludus.Shared.Environment.Map
 
         [JsonIgnore] public IDComponent MapID => base.IDComponent;
         [JsonIgnore] public IDComponent WorldID => MapInitConfig?.WorldID ?? IDComponent.DEFAULT_ENTITY_ID;
+        
         [JsonIgnore] public MapCellsContainerComponent  Cells    => Components.Get<MapCellsContainerComponent>();
         [JsonIgnore] public MapEntityContainerComponent Entities => Components.Get<MapEntityContainerComponent>();
         [JsonIgnore] public MapRegionsComponent         Regions  => Components.Get<MapRegionsComponent>();
@@ -163,8 +164,7 @@ namespace Bitspoke.Ludus.Shared.Environment.Map
         
         private int CalculateTotalRegions()
         {
-            // TODO: Fix me
-            return 0;
+            return RegionsContainer.CalculateMapRegionsDimension(Size).Area();
         }
         
         #endregion

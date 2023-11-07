@@ -1,6 +1,11 @@
-﻿using Bitspoke.Core.Random;
+﻿using Bitspoke.Core.Common.Collections.Dictionaries;
+using Bitspoke.Core.Common.Collections.Lists;
+using Bitspoke.Core.Random;
+using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Noise;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
+using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Structures.Natural;
+using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Bitspoke.Ludus.Shared.Environment.World.TypeData;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
@@ -30,18 +35,48 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
         protected override void StepGenerate()
         {
             Profiler.Start();
-
-            var seed = Rand.NextInt(int.MaxValue);
-            Log.Debug($"Seed: {seed}");
-            Noise = new GodotNoise(seed, MapGenStepDef.NoiseDef);
-            //Noise = new GodotNoise(seed, NoiseDef.DEFAULT);
             
-            if (CoreGlobal.DEBUG_ENABLED)
-                Noise.GenerateImageTexture(325, 325, $"{GodotGlobal.SAVE_ROOT_PATH}/elevation.png");
+            var seedElevation = Rand.NextInt(int.MaxValue);
+            Noise = new GodotNoise(seedElevation, MapGenStepDef.NoiseDef);
+            
+            // if (CoreGlobal.DEBUG_ENABLED)
+            //     Noise.GenerateImageTexture(325, 325, $"{GodotGlobal.SAVE_ROOT_PATH}/elevation.png");
             
             ElevationTypeDataKey = Map.MapInitConfig.ElevationTypeDataKey;
             ElevationModifier = Find.TypeData.ElevationTypeData[ElevationTypeDataKey].GetValue<float>();
 
+            // TODO: REFACTOR - remove Map.Cells as it is replaced with Map.Data.CellsContainer 
+            ProcessCellsOld();
+            ProcessCells();
+            
+            Profiler.End(message:"+++ Process Cells");
+        }
+
+        private void ProcessCells()
+        {
+            Profiler.Start();
+            
+            var bucketCells = Map.Data.CellsContainer.GetCellBucket(GodotGlobal.CPU_CORES);
+            var tasks = new List<Task>();
+            
+            foreach (var bucketCellBitspokeArray in bucketCells.Values)
+            {
+                tasks.Add(Task.Run(() =>
+                {
+                    foreach (var mapCell in bucketCellBitspokeArray)
+                        mapCell.Elevation = Noise.GetValue(mapCell.Location, GetElevationValueFunc);
+                }));
+            }
+            
+            Task.WaitAll(tasks.ToArray());
+            
+            Profiler.End(message:"+++ (benchmark 80-90 ms)");
+        }
+        
+        private void ProcessCellsOld()
+        {
+            Profiler.Start();
+            
             var tasks = new List<Task>();
             foreach (var bucket in Map.Cells.Buckets)
             {
@@ -49,16 +84,14 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
                 {
                     foreach (var mapCell in bucket.Values)
                     {
-                        var elevationNoiseValue = Noise.GetValue(mapCell.Location, GetElevationValueFunc);
-                        mapCell.Elevation = elevationNoiseValue;
-                        lock (mapCell.Values)
-                            mapCell.Values.Add("Elevation", mapCell.Elevation);
+                        mapCell.Elevation = Noise.GetValue(mapCell.Location, GetElevationValueFunc);
+                        //mapCell.Fertility = FertilityNoise.GetValue(mapCell.Location, GetFertilityValueFunc);
                     }
+                    
                 }));
             }
             Task.WaitAll(tasks.ToArray());
-
-            Profiler.End();
+            Profiler.End(message:"OLD +++");
         }
         
         private float GetElevationValueFunc(int x, int y, float value)
@@ -78,7 +111,7 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
             
             return value;
         }
-        
+
         
         #endregion
 

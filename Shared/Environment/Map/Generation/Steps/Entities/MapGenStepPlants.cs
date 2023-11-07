@@ -26,7 +26,6 @@ public class MapGenStepPlants : MapGenStep
 
     protected override void StepGenerate()
     {
-        Log.Info("******************************");
         Profiler.Start();
         var spawnSystem = Map.GetSpawnSystem<NaturalPlantSpawnSystem>();
         spawnSystem.CurrentTargetPlantCountForMap = spawnSystem.CalculateTargetPlantCountForMap();
@@ -38,7 +37,7 @@ public class MapGenStepPlants : MapGenStep
         
         Log.TODO("Add NaturalPlantSpawnSystem.ProcessClusters back in.");
 
-        var randomCells2 = Map.Data.CellsContainer.Cells.RandomisedArray;
+        
         var randomCells = Map.Cells.Randomised.ToArray();
         
         Profiler.Start(additionalKey:"GetRandomCells");
@@ -65,13 +64,14 @@ public class MapGenStepPlants : MapGenStep
            //Map.Data.Add(null, randomCells[i]);
         }
         
-        for (var i = 0; i < randomCells2.Length; i++)
-        {
-            if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance))
-            {
-                spawnSystem.CanSpawnAt2(randomCells2[i]);
-            }
-        }
+//        // var randomCells2 = Map.Data.CellsContainer.Cells.RandomisedArray;
+        // for (var i = 0; i < randomCells2.Length; i++)
+        // {
+        //     if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance))
+        //     {
+        //         spawnSystem.CanSpawnAt2(randomCells2[i]);
+        //     }
+        // }
         
         
         
@@ -104,13 +104,10 @@ public class MapGenStepPlants : MapGenStep
         Profiler.End(message:"#### mapCell in randomCells ####>", additionalKey:"ProcessCells");
 
         if (CoreGlobal.DEBUG_ENABLED)
-        {
-            Log.Warning($"Total Processing time for SpawnSystem.ProcessClusters: {spawnSystem.debugTotalProcessClustersTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugTotalProcessClustersTime/Map.Cells.Ordered.Count}ms/cell");
-            //Log.Warning($"Total Processing time for SpawnSystem.Validate: {spawnSystem.debugTotalValidateTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugTotalValidateTime/Map.Cells.Ordered.Count}ms/cell");
-            //Log.Warning($"Total Processing time for SpawnSystem.CandidatePlantDefsFor: {spawnSystem.debugGetCandidatePlantsTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugGetCandidatePlantsTime/Map.Cells.Ordered.Count}ms/cell");
-        }
+            Log.Debug($"Total Processing time for SpawnSystem.ProcessClusters: {spawnSystem.debugTotalProcessClustersTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugTotalProcessClustersTime/Map.Cells.Ordered.Count}ms/cell");
         
-        Profiler.End(message:"******************************");
+        
+        Profiler.End();
     }
 
     #endregion

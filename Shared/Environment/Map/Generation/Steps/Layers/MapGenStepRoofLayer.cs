@@ -35,7 +35,6 @@ public class MapGenStepRoofLayer : MapGenStep
             // TODO: Should this be using a collection of RoofDefs rather than just getting the normal one??
             mapCell.RoofDef = Find.DB.RoofDefs["normal"].Clone();
             mapCell.RoofDef.Index = mapCell.Index;
-            mapCell.Values.Add("RoofDef", mapCell.RoofDefKey);
         }
         Profiler.End();
 
@@ -105,8 +104,8 @@ public class MapGenStepRoofLayer : MapGenStep
         
         if (CoreGlobal.DEBUG_ENABLED)
         {
-            Log.Warning($"Total Processing time for MapFloodFiller.FloodFill: {debugTotalFloodFillTime}ms of {debugTotalFloodFills} flood fills @ {debugTotalFloodFillTime/debugTotalFloodFills}ms/fill");
-            Log.Warning($"Total Processing time for MapFloodFiller.FloodFill.Clear: {floodFiller.debugTotalClearTime}ms of {floodFiller.debugTotalClears} clears @ {floodFiller.debugTotalClearTime/floodFiller.debugTotalClears}ms/clear");
+            Log.Debug($"Total Processing time for MapFloodFiller.FloodFill: {debugTotalFloodFillTime}ms of {debugTotalFloodFills} flood fills @ {debugTotalFloodFillTime/debugTotalFloodFills}ms/fill");
+            Log.Debug($"Total Processing time for MapFloodFiller.FloodFill.Clear: {floodFiller.debugTotalClearTime}ms of {floodFiller.debugTotalClears} clears @ {floodFiller.debugTotalClearTime/floodFiller.debugTotalClears}ms/clear");
         }
     }
 

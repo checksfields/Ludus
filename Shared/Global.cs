@@ -24,7 +24,7 @@ namespace Bitspoke.Ludus.Shared
         
         public static Vec3Int MAX_MAP_DIMENSIONS { get; set; } = new Vec3Int(275, 275);
         //public static Vec3Int DEFAULT_MAP_REGION_DIMENSIONS { get; set; } = new Vec3Int(25, 25);
-        public static Vector2I DEFAULT_MAP_REGION_DIMENSIONS { get; set; } = new Vector2I(25, 25);
+        public static Vector2I DEFAULT_MAP_REGION_DIMENSIONS => new Vector2I(25, 25);
 
         public static float PLANT_GROW_DAY_TICKS => 60000.0f;
         

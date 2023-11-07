@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GodotEngine", "..\..\Bitspo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\Shared\Shared.csproj", "{6070D1B6-2D83-4C8F-96FF-D7D285845E48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudusTest", "LudusTest\LudusTest.csproj", "{BB6EC885-3046-452A-AD78-9CE2844B734A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -39,5 +41,11 @@ Global
 		{6070D1B6-2D83-4C8F-96FF-D7D285845E48}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
 		{6070D1B6-2D83-4C8F-96FF-D7D285845E48}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 		{6070D1B6-2D83-4C8F-96FF-D7D285845E48}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{BB6EC885-3046-452A-AD78-9CE2844B734A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6EC885-3046-452A-AD78-9CE2844B734A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6EC885-3046-452A-AD78-9CE2844B734A}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6EC885-3046-452A-AD78-9CE2844B734A}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6EC885-3046-452A-AD78-9CE2844B734A}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6EC885-3046-452A-AD78-9CE2844B734A}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

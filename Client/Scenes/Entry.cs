@@ -243,13 +243,38 @@ public partial class Entry : GodotNode2D
 	{
 		Profiler.Start();
 		
-		for (var regionIndex = 0; regionIndex < map.Data.RegionsContainer.Regions.Length; regionIndex++)
+		// for (var regionIndex = 0; regionIndex < map.Data.RegionsContainer.Regions.Length; regionIndex++)
+		// {
+		// 	var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
+		// 	
+		// 	RegionNodes[regionIndex] = regionNode;
+		// 	LayerContainer.AddChild(regionNode);
+		// }
+
+
+		for (int x = 0; x < 3; x++)
 		{
-			var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
+			for (int y = 0; y < 3; y++)
+			{
+				var regionIndex = x + y * map.Data.RegionsContainer.Width;
+				var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
 			
-			RegionNodes[regionIndex] = regionNode;
-			LayerContainer.AddChild(regionNode);
+				RegionNodes[regionIndex] = regionNode;
+				LayerContainer.AddChild(regionNode);
+			}
+			
 		}
+		
+		
+		// for (var regionIndex = 0; regionIndex < 1; regionIndex++)
+		// {
+		// 	var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
+		// 	
+		// 	RegionNodes[regionIndex] = regionNode;
+		// 	LayerContainer.AddChild(regionNode);
+		// }
+		
+		
 		
 		// foreach (var mapRegion in map.Regions.MapRegions.Values)
 		// {
@@ -315,28 +340,12 @@ public partial class Entry : GodotNode2D
 		// Profiler.End();
 
 		//
-		Profiler.Start();
-		TileBlendTexture = ImageUtils.CreateTileBlendTexture(debug:true);
-		// TileBlendTexture = new ImageTexture();
-		// var compressedTexture2D = (CompressedTexture2D)Find.DB.TextureDB[BLEND_TEXTURE];
-		// if (compressedTexture2D != null)
-		// {
-		// 	TileBlendTexture = new ImageTexture();
-		// 	TileBlendTexture.SetImage(compressedTexture2D.GetImage());
-		// }
-		// else 
-		//	TileBlendTexture = ImageUtils.CreateTileBlendTexture();
-			
-			//TileBlendTexture = ImageUtils.CreateTileBlendTexture(smoothEdge : 32f, smoothCorner : 28f, textureSize:CoreGlobal.STANDARD_CHUNK_SIZE);
-		//TileBlendTexture = ImageUtils.CreateTileBlendTexture(debug: true, debugSaveDir: GodotGlobal.DEBUG_ROOT_PATH);
-		// smoothEdge : 24f, smoothCorner : 16f, edgePercentage : 50, cornerPercentage : 25, textureSize : 64
-		
-		
+	    Profiler.Start();
+	    TileBlendTexture = ImageUtils.CreateTileBlendTexture();
+
 		Shader = Find.DB.ShaderDB[SHADER_KEY];
 		
-
 		Profiler.End();
-		//OnZoomChanged();
 	}
 
 	private ImageTexture TerrainTextureAtlas { get; set; }
@@ -372,7 +381,7 @@ public partial class Entry : GodotNode2D
 		shaderMaterial2.SetShaderParameter(TerrainShaderMaterial.SHADER_PARAM_BLEND_FLAG, true);
 		terrainRender.Scale = regionToRender.Size;
 		terrainRender.ZIndex = -1;
-		terrainRender.ZAsRelative = true;
+		terrainRender.ZAsRelative = false;
 		
 		Profiler.End();
 	}

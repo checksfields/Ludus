@@ -37,16 +37,56 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
                 Log.Debug($"Processing {rockDef.Key} RockDef");
 
                 var seed = Rand.NextInt();
-                Log.Debug($"Seed: {seed}");
                 var noise = new GodotNoise(seed, NoiseDef.DEFAULT);
                 
-                if (CoreGlobal.DEBUG_ENABLED)
-                    noise.GenerateImageTexture(325, 325, $"user://Saves/{rockDef.Key}_noise.png");
+                // if (CoreGlobal.DEBUG_ENABLED)
+                //     noise.GenerateImageTexture(325, 325, $"user://Saves/{rockDef.Key}_noise.png");
                 
                 strataNoises.Add(rockDef.Key, noise);
             }
+            
+            ProcessCells(strataNoises);
+            ProcessCellsOld(strataNoises);
 
-            // for each cell in the map ...
+            Profiler.End();
+        }
+        
+        private void ProcessCells(Dictionary<string, GodotNoise> strataNoises)
+        {
+            Profiler.Start();
+            
+            var tasks = new List<Task>();
+            foreach (var cells in Map.Data.CellsContainer.CellsByRegion.Array)
+            {
+                tasks.Add(Task.Run(() =>
+                {
+                    foreach (var mapCell in cells)
+                    {
+                        string? stratumDefKey = null;
+                        float stratumDefValue = float.MinValue;
+                        foreach (var defNoise in strataNoises)
+                        {
+                            var noiseValue = defNoise.Value.GetValue(mapCell.Location);
+                            if (noiseValue > stratumDefValue)
+                            {
+                                stratumDefKey = defNoise.Key;
+                                stratumDefValue = noiseValue;
+                            }
+                        }
+
+                        mapCell.Stratum = stratumDefKey;
+                    }
+                }));
+            }
+            Task.WaitAll(tasks.ToArray());
+            
+            Profiler.End(message:"NEW +++");
+        }
+        
+        private void ProcessCellsOld(Dictionary<string, GodotNoise> strataNoises)
+        {
+            Profiler.Start();
+            
             var tasks = new List<Task>();
             foreach (var bucket in Map.Cells.Buckets)
             {
@@ -67,13 +107,12 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
                         }
 
                         mapCell.Stratum = stratumDefKey;
-                        mapCell.Values.Add("Stratum", mapCell.Stratum);
                     }
                 }));
             }
             Task.WaitAll(tasks.ToArray());
-
-            Profiler.End();
+            
+            Profiler.End(message:"OLD +++");
         }
 
         #endregion

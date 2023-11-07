@@ -58,6 +58,17 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation
             }
 
             Task.WaitAll(tasks.ToArray());
+            
+            
+            
+            Profiler.Start();
+            var all2 = map.Data.CellsContainer.CellsByRegion.Array.SelectMany(a => a.Values);
+            Profiler.End();
+            
+            Profiler.Start();
+            var all = map.Data.CellsContainer.CellsByRegion.Array.AsParallel().SelectMany(a => a.Values);
+            Profiler.End();
+
         }
         
         #endregion

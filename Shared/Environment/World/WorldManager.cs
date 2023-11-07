@@ -12,7 +12,6 @@ namespace Bitspoke.Ludus.Shared.Environment.World
         #region Properties
 
         private static WorldManager instance { get; set; } = null;
-
         public static WorldManager Instance
         {
             get

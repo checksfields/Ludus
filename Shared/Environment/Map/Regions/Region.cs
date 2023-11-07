@@ -92,8 +92,8 @@ public class Region
     {
         var result = new Dictionary<string, List<LudusEntity>>();
 
-        //var entities = Map.Entities.GetByRegion(Index);
-        var entities = Map.Data.EntitiesContainer.EntitiesByRegion[Index];
+        var entities = Map.Entities.GetByRegion(Index);
+        //var entities = Map.Data.EntitiesContainer.EntitiesByRegion[Index];
         
         foreach (var entity in entities)
         {

@@ -14,8 +14,8 @@ public partial class MapDataCollectionComponent : GodotNode
     #region Containers
 
     public EntitiesContainer EntitiesContainer { get; set; }
-    public CellsContainer CellsContainer { get; set; }
-    public RegionsContainer RegionsContainer { get; set; }
+    public CellsContainer    CellsContainer    { get; set; }
+    public RegionsContainer  RegionsContainer  { get; set; }
 
     #endregion
 

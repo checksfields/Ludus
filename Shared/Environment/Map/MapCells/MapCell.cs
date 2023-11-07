@@ -35,8 +35,12 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.MapCells
         public string Stratum { get; set; }
 
         public bool IsValid => Validate();
-        
-        public Dictionary<string, object?> Values { get; set; }
+
+        // TODO: Validate removal is ok ... other than adding data it is not consumed anywhere
+        // public Dictionary<string, object?> Values => new()
+        // {
+        //     { "Elevation", Elevation },
+        // };
 
         [JsonIgnore] public TerrainDef? TerrainDef { get; set; }
         public string? TerrainDefKey => TerrainDef?.Key ?? null;
@@ -93,7 +97,7 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.MapCells
 
         private void Init()
         {
-            Values = new Dictionary<string, object?>();
+            // Values = new Dictionary<string, object?>();
         }
         
         #endregion

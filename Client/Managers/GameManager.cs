@@ -24,6 +24,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Affordances;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Floors;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.World.TypeData;
+using Client.Components.Admin;
 using Godot;
 using Shared.Components.Settings.Game;
 using TerrainDefsCollection = Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain.TerrainDefsCollection;
@@ -89,6 +90,7 @@ namespace Client.Managers
             Log.Info("Adding Resource Controller");
             //var rc =;
             AddChild( new ResourceController());
+            AddChild( new AdminConsole());
             //rc.Init();
         }
 
