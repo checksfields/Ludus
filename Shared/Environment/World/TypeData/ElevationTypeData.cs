@@ -1,5 +1,5 @@
 ﻿using Bitspoke.Core.Definitions.Collections;
-using Bitspoke.Core.Definitions.Parts.TypeData;
+using Bitspoke.Core.Definitions.Parts.TypeDatas;
 using Bitspoke.GodotEngine.Utils.Files;
 using Newtonsoft.Json;
 
@@ -47,6 +47,8 @@ namespace Bitspoke.Ludus.Shared.Environment.World.TypeData
             entityTypeData.Add(key = LARGE_HILLS_KEY,     TypeDataDef.BootstrapTypeData<float>(key, 1.0f));
             entityTypeData.Add(key = MOUNTAINS_KEY,       TypeDataDef.BootstrapTypeData<float>(key, 1.1f));
             entityTypeData.Add(key = LARGE_MOUNTAINS_KEY, TypeDataDef.BootstrapTypeData<float>(key, 1.2f));
+            
+            
 
             
             if (writeToFile)

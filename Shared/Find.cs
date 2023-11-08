@@ -82,8 +82,11 @@ namespace Bitspoke.Ludus.Shared
             
             public static List<TerrainDef> TerrainDefsList = TerrainDefs.Values.ToList();
             
+            public TypeData TypeData { get; set; }
         }
 
+        
+        
         public class TypeData
         {
             public static TypeDataDatabase TypeDataDB = TypeDataDatabase.Instance;

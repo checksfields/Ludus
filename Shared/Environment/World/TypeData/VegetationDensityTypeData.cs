@@ -1,5 +1,5 @@
 ﻿using Bitspoke.Core.Definitions.Collections;
-using Bitspoke.Core.Definitions.Parts.TypeData;
+using Bitspoke.Core.Definitions.Parts.TypeDatas;
 using Bitspoke.GodotEngine.Utils.Files;
 using Newtonsoft.Json;
 

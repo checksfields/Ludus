@@ -58,7 +58,8 @@ uniform bool blend = true;
 // returns - The tile position in the current mapData
 vec2 getTilePos(vec2 uv) {
 	// Find the tile we are on (we got a border of 1 so +1)
-	return vec2(floor(uv.x * mapTilesCountX)+1.0, floor(uv.y * mapTilesCountY)+1.0);
+	return vec2(floor(uv.x * mapTilesCountX), floor(uv.y * mapTilesCountY));
+	//return vec2(floor(uv.x * mapTilesCountX)+1.0, floor(uv.y * mapTilesCountY)+1.0);
 }
 
 //

@@ -1,12 +1,16 @@
 ﻿using Bitspoke.Core.Common.Collections.Dictionaries;
 using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Random;
+using Bitspoke.Core.Signal;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Noise;
+using Bitspoke.GodotEngine.Utils.Images;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Structures.Natural;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Bitspoke.Ludus.Shared.Environment.World.TypeData;
+using Godot;
+using FileAccess = Godot.FileAccess;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
 {
@@ -15,6 +19,7 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
         #region Properties
 
         private GodotNoise? Noise { get; set; }
+        private NoiseTexture2D NoiseTexture2D { get; set; }
         private string ElevationTypeDataKey { get; set; }
         private float ElevationModifier { get; set; }
 
@@ -38,9 +43,20 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
             
             var seedElevation = Rand.NextInt(int.MaxValue);
             Noise = new GodotNoise(seedElevation, MapGenStepDef.NoiseDef);
+
+            NoiseTexture2D = Noise.GenerateNoiseTexture2D(Map.Width, Map.Height);
+
+            if (CoreGlobal.DEBUG_ENABLED)
+                NoiseTexture2D.Changed += () =>
+                {
+                    Profiler.Start(additionalKey: "elevation_noise");
+                    var img = NoiseTexture2D.GetImage();
+                    img.ClearMipmaps();
+                    var fileName = $"{GodotGlobal.SAVE_ROOT_PATH}/elevation.png";
+                    var x = img.SavePng(fileName);
+                    Profiler.End(message:"+++ elevation_noise", additionalKey:"elevation_noise");
+                };
             
-            // if (CoreGlobal.DEBUG_ENABLED)
-            //     Noise.GenerateImageTexture(325, 325, $"{GodotGlobal.SAVE_ROOT_PATH}/elevation.png");
             
             ElevationTypeDataKey = Map.MapInitConfig.ElevationTypeDataKey;
             ElevationModifier = Find.TypeData.ElevationTypeData[ElevationTypeDataKey].GetValue<float>();
@@ -85,9 +101,9 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
                     foreach (var mapCell in bucket.Values)
                     {
                         mapCell.Elevation = Noise.GetValue(mapCell.Location, GetElevationValueFunc);
-                        //mapCell.Fertility = FertilityNoise.GetValue(mapCell.Location, GetFertilityValueFunc);
+                        //mapCell.Elevation = NoiseTexture2D.Noise.GetNoise2D(mapCell.Location.x, mapCell.Location.y);
+                        //mapCell.Elevation = GetElevationValueFunc(0,0, mapCell.Elevation);
                     }
-                    
                 }));
             }
             Task.WaitAll(tasks.ToArray());
@@ -96,6 +112,8 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
         
         private float GetElevationValueFunc(int x, int y, float value)
         {
+            //Log.Debug($"Raw Noise Value: {value}");
+            
             // scale and bias
             value *= Noise.Scale;
             value += Noise.Bias;
@@ -108,6 +126,8 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
             {
                 // TODO: Implement
             }
+            
+            //Log.Debug($"Calculated Noise Value: {value}");
             
             return value;
         }

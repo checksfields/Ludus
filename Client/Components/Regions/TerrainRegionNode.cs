@@ -47,7 +47,7 @@ public partial class TerrainRegionNode : RegionNode
         
         ItemCount = 0;
 
-        MapData = Map.GenerateTerrainTexture(Dimension);
+        MapData = Map.GenerateTerrainDefsTexture(Dimension);
         //ProcessTerrain();
     }
     

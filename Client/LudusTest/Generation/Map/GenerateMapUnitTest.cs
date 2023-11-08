@@ -4,12 +4,12 @@ using Bitspoke.Ludus.Shared.Environment.World;
 using Godot;
 using NUnit.Framework;
 
-namespace LudusTest;
+namespace Client.LudusTest.Generation.Map;
 
 public class GenerateMapUnitTest
 {
     public MapInitConfig MapInitConfig { get; set; }
-    public Map Map { get; set; }
+    public Bitspoke.Ludus.Shared.Environment.Map.Map Map { get; set; }
     
     [SetUp]
     public void Setup()

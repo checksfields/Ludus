@@ -121,7 +121,7 @@ namespace Bitspoke.Ludus.Shared.Environment.Map
             return (EntitiesContainer<T>) CommonEntities[type];
         }
         
-        public ImageTexture GenerateTerrainTexture(Rect2 area)
+        public ImageTexture GenerateTerrainDefsTexture(Rect2 area)
         {
             //Profiler.Start();
             // Setup dimensions
@@ -158,7 +158,9 @@ namespace Bitspoke.Ludus.Shared.Environment.Map
             // img.SavePng("user://mapData.png");
 
             ImageTexture texture = ImageTexture.CreateFromImage(img);
-            //Profiler.End();
+            
+            //Profiler.End(message:"+*+*+*+*+*+*+*+*+");
+            
             return texture;
         }
         

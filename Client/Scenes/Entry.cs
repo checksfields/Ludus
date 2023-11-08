@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Bitspoke.Core.Common.Logging;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Components;
 using Bitspoke.Core.Profile;
 using Bitspoke.Core.Signal;
 using Bitspoke.Core.Signal.UI;
 using Bitspoke.Core.Systems.Time;
-using Bitspoke.GodotEngine.Common.Vector;
+using Bitspoke.Core.Types.Game.States;
+using Bitspoke.GodotEngine.Components.Camera;
+using Bitspoke.GodotEngine.Components.Camera._2D;
+using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.GodotEngine.Components.Performance;
 using Bitspoke.GodotEngine.Components.Settings;
 using Bitspoke.GodotEngine.Controllers.Inputs;
 using Bitspoke.GodotEngine.Controllers.Resources;
@@ -16,22 +19,17 @@ using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.GodotEngine.Utils.Images;
 using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Shared.Common.Controllers.Admin;
+using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.World;
+using Bitspoke.Ludus.Shared.Tests.Maps;
+using Client.Components;
 using Client.Components.Node.Shaders;
 using Client.Components.Regions;
 using Client.Components.Regions.Debug;
 using Godot;
 using Newtonsoft.Json;
-using Bitspoke.GodotEngine.Components.Camera._2D;
-using Bitspoke.GodotEngine.Components.Nodes;
-using Bitspoke.GodotEngine.Components.Performance;
-using Bitspoke.Ludus.Shared;
-using Bitspoke.Ludus.Shared.Tests.Maps;
-using Client.Components;
-using Client.Managers;
 using Console = Bitspoke.GodotEngine.Components.Console.Console;
-using CoreFind = Bitspoke.Core.Find;
 
 
 public partial class Entry : GodotNode2D
@@ -47,7 +45,7 @@ public partial class Entry : GodotNode2D
 	public Dictionary<int, TerrainRegionNode> TerrainRegionNodes { get; set; }
 
 	public SettingsComponent SettingsComponent { get; set; }
-
+	
 	public override void Init()
 	{
 		Log.Info();
@@ -72,8 +70,7 @@ public partial class Entry : GodotNode2D
 		SignalManager.Connect(new SignalDetails(AdminCommandControllerSignals.SET_PLANTS_VISIBLE, typeof(AdminCommandControllerSignals), this, nameof(OnShowPlants)));
 		SignalManager.Connect(new SignalDetails(AdminCommandControllerSignals.SET_TERRAIN_LAYER_VISIBLE, typeof(AdminCommandControllerSignals), this, nameof(OnShowTerrainLayer)));
 		
-		//SignalManager.Connect(new SignalDetails(BitspokeCamera2D.ZOOM_CHANGE, typeof(BitspokeCamera2D), this, nameof(OnZoomChanged)));
-		//LudusCamera2D.ConnectSignal(BitspokeCamera2D.ZOOM_CHANGE, this, nameof(OnZoomChanged));
+		SignalManager.Connect(new SignalDetails(CameraZoomComponent.ZOOM_CHANGE, typeof(CameraZoomComponent), this, nameof(OnZoomChanged)));
 	}
 
 	public ulong ElapsedTime { get; set; } = 0;
@@ -102,12 +99,17 @@ public partial class Entry : GodotNode2D
 		Log.Info("Initialising Collections");
 		RegionNodes = new Dictionary<int, RegionNode>();
 		TerrainRegionNodes = new Dictionary<int, TerrainRegionNode>();
+		
 	}
 
 	public override void _Ready()
 	{
 		base._Ready();
 
+		var gameStateType = Find.TypeData.TypeDataDB["GameStateTypeData"];
+		var x = gameStateType[GameStateTypeData.IN_GAME_KEY];
+		//var td = gameStateType.Get<TypeData>("NONE");
+		
 		Profiler.Start();
 		// TODO: RemoveAt Test
 		
@@ -138,40 +140,6 @@ public partial class Entry : GodotNode2D
 		}
 		
 		SignalManager.Emit(TimeSystem.UPDATE, delta);
-		
-		// var regionChildrenCount = 0;
-		// var visibleRegions = 0;
-		// foreach (var child in LayerContainer.GetChildren())
-		// {
-		//     if (child is RegionNode)
-		//     {
-		//         if (((RegionNode)child).Visible)
-		//         {
-		//             visibleRegions++;
-		//             regionChildrenCount += ((RegionNode)child).GetChildCount();
-		//         }
-		//     }
-		// }
-		//
-		//
-		// var visibleSprites = RegionNodes.Where(w => w.Value is { Visible: true }).Sum(s => s.Value.SpritesCount);
-		// var totalSprites = RegionNodes.Sum(s => s.Value?.SpritesCount ?? 0);
-		//
-		// var visibleMeshes = RegionNodes.Where(w => w.Value is { Visible: true }).Sum(s => s.Value.MeshesCount);
-		// var totalMeshes = RegionNodes.Sum(s => s.Value?.MeshesCount ?? 0);
-		//
-		// var totalEntities = RegionNodes.Sum(s => s.Value?.ItemCount ?? 0);
-		//
-		// var fps = Engine.GetFramesPerSecond();
-		// TotalFPS += fps;
-		// var avgFPS = TotalFPS / ++TotalProcessCalls;
-		// OS.SetWindowTitle($"FPS: {fps}," 
-		//                   + $" Avg. FPS: {avgFPS},"
-		//                   //+ $" RegionNodes: {visibleRegions}/{RegionNodes.Count},"
-		//                   + $" Visible RegionNodes Layers: {regionChildrenCount}"
-		//                   + $" Sprites: {visibleSprites}/{totalSprites}"
-		//                   + $" Meshes: {visibleMeshes}/{totalMeshes}"
-		//                   + $" Total Plants: {totalEntities}");
 	}
 
 	protected void OnResourcesLoaded() { }
@@ -224,6 +192,7 @@ public partial class Entry : GodotNode2D
 		}
 
 		Map = map;
+		
 		Profiler.End();
 	}
 
@@ -294,58 +263,8 @@ public partial class Entry : GodotNode2D
 	
 	private void TestRenderTerrain(Map map)
 	{
-		// Profiler.Start();
-		// var shaderMaterial = new TerrainShaderMaterial(shader, terrainTextureAtlas, tileBlendTexture, Map.Regions.RegionSize.ToVec2Int());
-		// foreach (var mapRegion in map.Regions.MapRegions.Values)
-		// {
-		//     var regionNode = new TerrainRegionNode(mapRegion, shaderMaterial);
-		//
-		//     if (TerrainRegionNodes.ContainsKey(mapRegion.Index))
-		//         TerrainRegionNodes[mapRegion.Index] = regionNode;
-		//     else
-		//         TerrainRegionNodes.Add(mapRegion.Index, regionNode);
-		//     
-		//     LayerContainer.AddChild(regionNode);
-		// }
-		// Profiler.End();
-		
-		// Profiler.Start();
-		// var maxX = 3;
-		// var maxY = 3;
-		//
-		// var shaderMaterial = new TerrainShaderMaterial(shader, terrainTextureAtlas, tileBlendTexture, new Vec2Int(map.Width / maxX, map.Height / maxY));
-		//
-		// for (int y = 0; y < maxY; y++)
-		// {
-		//     for (int x = 0; x < maxX; x++)
-		//     {
-		//         var pos = new Vector2(x, y);
-		//         var index = pos.ToIndex(map.Width);
-		//
-		//         var cellSize = 1;
-		//         
-		//         var start = new Vector2(x * cellSize * (map.Width / maxX), y * cellSize * (map.Height / maxY));
-		//         var size = new Vector2(cellSize * map.Width / maxX, cellSize * map.Height / maxY);
-		//         
-		//         var regionNode = new TerrainRegionNode(map, new Rect2(start, size), shaderMaterial);
-		//         
-		//         if (TerrainRegionNodes.ContainsKey(index))
-		//             TerrainRegionNodes[index] = regionNode;
-		//         else
-		//             TerrainRegionNodes.Add(index, regionNode);
-		//
-		//         LayerContainer.AddChild(regionNode);
-		//     }
-		// }
-		// Profiler.End();
-
-		//
-	    Profiler.Start();
-	    TileBlendTexture = ImageUtils.CreateTileBlendTexture();
-
+		TileBlendTexture = ImageUtils.CreateTileBlendTexture();
 		Shader = Find.DB.ShaderDB[SHADER_KEY];
-		
-		Profiler.End();
 	}
 
 	private ImageTexture TerrainTextureAtlas { get; set; }
@@ -354,7 +273,7 @@ public partial class Entry : GodotNode2D
 
 	private void RenderTerrain(Rect2 regionToRender)
 	{
-		Profiler.Start();
+		//Profiler.Start();
 
 		TerrainTextureAtlas = (ImageTexture)Find.DB.TextureDB[TERRAIN_ATLAS];
 
@@ -367,8 +286,14 @@ public partial class Entry : GodotNode2D
 			if (child.Name == name)
 				child.Free();
 		}
+
+		// var zoom = GetViewport().GetCamera2D().Zoom;
+		// var viewportRect = GetViewportRect();
+		// var viewportPosition = viewportRect.Position * -1.1f;
+		// var viewportSize = ((viewportRect.Size / GodotGlobal.STANDARD_CELL_SIZE)*1.5f*zoom).Ceil();
+		// viewportRect = new Rect2(viewportPosition, viewportSize);
 		
-		var mapData = Map.GenerateTerrainTexture(regionToRender);
+		var mapData = Map.GenerateTerrainDefsTexture(CalculateRenderRect());
 		
 		var terrainRender = new Sprite2D();
 		terrainRender.Name = name;
@@ -383,28 +308,25 @@ public partial class Entry : GodotNode2D
 		terrainRender.ZIndex = -1;
 		terrainRender.ZAsRelative = false;
 		
-		Profiler.End();
+		//Profiler.End();
+		//RenderRegionTerrain();
 	}
-
 	
-
 	private void OnZoomChanged()
 	{
-		Log.Debug();
-		
-		//UIScaleComponent.SetUIScale(UIScaleComponent.Instance.UIScale + 0.5f);
+		//var zoom = GetViewport().GetCamera2D().Zoom;
+		//RenderTerrain(CalculateRenderRect());
+	}
 
-		// // Profiler.Start();
-		// var ctrans = GetCanvasTransform();
-		// var min_pos = (-ctrans.origin / ctrans.Scale / 64f).ToVec2Int();
-		// var view_size = (GetViewportRect().Size / ctrans.Scale / 64f * 1.5f).ToVec2Int();
-		// if (view_size.Width > Map.Size.Width)
-		//     view_size = Map.Size;
-		// // Profiler.End();
-		// //
-		// //
-		// RenderTerrain(new Rect2(min_pos.ToVector2(), view_size.ToVector2()));
+	private Rect2 CalculateRenderRect()
+	{
+		var ctrans = GetCanvasTransform();
+		var min_pos = (-ctrans.Origin / ctrans.Scale / 64f);
+		var view_size = (GetViewportRect().Size / ctrans.Scale / 64f * 1.5f);
+		if (view_size.X > Map.Width)
+			view_size = Map.Size;
 
+		return new Rect2(min_pos, view_size);
 	}
 
 	private void OnShowPlants(bool visible, string? plantDefKey = null)
@@ -412,23 +334,23 @@ public partial class Entry : GodotNode2D
 		// TODO ... plant specific
 		Log.TODO("implement");
 		
-		Profiler.Start();
+		Profiler.Start(additionalKey:"OnShowPlants");
 		if (visible)
 			TestRenderPlants(Map);
 		else
 		{
-			for (var i = 0; i < RegionNodes.Count; i++)
+			foreach (var (key, value) in RegionNodes)
 			{
-				var regionNode = RegionNodes[i];
+				var regionNode = value;
 				
 				if (regionNode is PlantRegionNode)
 					regionNode.QueueFree();
 
-				RegionNodes[i] = null;
+				RegionNodes[key] = null;
 			}
 		}
 
-		Profiler.End(message:$"SetTerrainLayerVisible: {visible}");
+		Profiler.End(additionalKey:"OnShowPlants",message:$"SetTerrainLayerVisible: {visible}");
 	}
 	
 	private void OnShowTerrainLayer(bool visible, string? terrainDefKey = null)

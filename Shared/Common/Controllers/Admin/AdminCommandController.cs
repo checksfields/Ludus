@@ -26,7 +26,10 @@ namespace Bitspoke.Ludus.Shared.Common.Controllers.Admin
             string[] commandArgs = StringExtensions.Split(command.ToLower(), " ", false);
 
             if (commandArgs.Length <= 0)
+            {
                 Log.Error("Please enter at least 1 command argument");
+                return;
+            }
             
             switch (commandArgs[0])
             {
@@ -328,6 +331,7 @@ namespace Bitspoke.Ludus.Shared.Common.Controllers.Admin
             switch (commandArgs[2])
             {
                 case "all":
+                    SignalManager.Emit(AdminCommandControllerSignals.SET_TERRAIN_LAYER_VISIBLE, new object[] { visible, null } );
                     break;
                 case "soilrich":
                     

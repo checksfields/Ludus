@@ -8,6 +8,7 @@ namespace Bitspoke.Ludus.Shared.Common.States.Games;
 public enum GameState
 {
     None,
+    ConsoleOpen,
     Initialising,
     Entry,      
     Main,       
