@@ -10,6 +10,7 @@ public partial class MapDataCollectionComponent : GodotNode
     #region Properties
 
     private Map? Map { get; set; } = null;
+    public override string Name => GetType().Name;
 
     #region Containers
 
@@ -33,6 +34,10 @@ public partial class MapDataCollectionComponent : GodotNode
 
     #region Methods
 
+    protected override void Init() {}
+    protected override void AddComponents() {}
+    protected override void ConnectSignals() {}
+    
     public void InitialiseContainers()
     {
         Profiler.Start();

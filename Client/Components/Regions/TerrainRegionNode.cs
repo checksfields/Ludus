@@ -12,13 +12,15 @@ namespace Client.Components.Regions;
 
 public partial class TerrainRegionNode : RegionNode
 {
+    #region Properties
+
     public TerrainShaderMaterial TerrainShaderMaterial { get; }
     public Sprite2D TerrainSprite { get; private set; }
     
     public ImageTexture MapData { get; private set; }
     
-    #region Properties
-
+    public override string Name => GetType().Name;
+    
     #endregion
 
     #region Constructors and Initialisation

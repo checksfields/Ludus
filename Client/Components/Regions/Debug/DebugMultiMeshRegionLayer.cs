@@ -11,7 +11,8 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
 {
     #region Properties
 
-    public override string LayerName => nameof(DebugMultiMeshRegionLayer);
+    public override string LayerName { get; protected set; }
+    
     public Texture2D LayerTexture { get; set; }
     public MultiMeshInstance2D MultiMeshInstance2D { get; set; }
     public MeshInstance2D MeshInstance2D { get; set; } = new() { Mesh = new PlaneMesh { Size = CoreGlobal.STANDARD_CELL_SIZE.ToVector2() } };
@@ -20,6 +21,8 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
 
     public Vector2 CellOffset => CoreGlobal.STANDARD_CELL_SIZE.ToVector2() / 2;
     public List<MapCell> LayerMapCells { get; set; }
+    
+    public override string Name => GetType().Name;
     
     #endregion
 
@@ -34,7 +37,7 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
     
     protected override void Init()
     {
-        Name = $"{Parent.Name}_{LayerName}_{LayerID}";
+        LayerName = $"{Parent.Name}_{Name}_{LayerID}";
         
         MultiMeshInstance2D = new MultiMeshInstance2D();
         AddChild(MultiMeshInstance2D);
@@ -51,6 +54,9 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
 
     #region Methods
 
+    protected override void AddComponents() {}
+    protected override void ConnectSignals() {}
+    
     public void Update(List<MapCell> layerMapCells, bool generateMeshes = true)
     {
         LayerMapCells = layerMapCells;

@@ -24,14 +24,25 @@ public partial class WorldManager : Manager
     }
         
     public World CurrentWorld { get; set; } = null;
+    
+    public override string Name => GetType().Name;
+    
+    
 
     #endregion
 
     #region Constructors and Initialisation
-        
-        
+    // none    
     #endregion
 
+    #region Overrides
+
+    protected override void Init() {}
+    protected override void AddComponents() {}
+    protected override void ConnectSignals() {}
+
+    #endregion
+    
     #region Methods
 
     public static void SaveWorld(string fileName, World toSave = null)

@@ -29,6 +29,8 @@ public partial class NetworkComponent : GodotNode2D
     public AuthenticationComponent? AuthenticationComp { get; set; }
     public GameServerComponent? GameServerComp { get; set; }
         
+    public override string Name => GetType().Name;
+    
     #endregion
 
     #region Constructors and Initialisation

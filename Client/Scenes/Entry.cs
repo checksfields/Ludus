@@ -34,6 +34,8 @@ using Console = Bitspoke.GodotEngine.Components.Console.Console;
 
 public partial class Entry : GodotNode2D
 {
+	#region Properties
+
 	public LudusCamera2D LudusCamera2D { get; set; }
 	private int TotalInstances { get; set; }
 
@@ -46,6 +48,10 @@ public partial class Entry : GodotNode2D
 
 	public SettingsComponent SettingsComponent { get; set; }
 	
+	public override string Name => GetType().Name;	
+	
+	#endregion
+	
 	protected override void Init()
 	{
 		Log.Info();
@@ -53,10 +59,7 @@ public partial class Entry : GodotNode2D
 
 	protected override void AddComponents()
 	{
-		Log.Info();
-		// AddChild(new NetworkComponent());
-		// AddChild(InputController = new InputController(true));
-		AddChild(new PerformanceComponent());
+		AddChild(new PerformanceComponent(opacity:0.4f));
 		AddChild(SettingsComponent = new SettingsComponent());
 	}
 

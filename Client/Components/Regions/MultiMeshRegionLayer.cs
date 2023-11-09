@@ -18,7 +18,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
 {
     #region Properties
 
-    public override string LayerName => nameof(MultiMeshRegionLayer);
+    public override string LayerName { get; protected set; }
 
     public Texture2D LayerTexture { get; set; }
     public MultiMeshInstance2D MultiMeshInstance2D { get; set; }
@@ -32,7 +32,9 @@ public partial class MultiMeshRegionLayer : RegionLayer
     public List<LudusEntity> LayerEntities { get; set; }
 
     public GraphicDef GraphicDef { get; set; }
-        
+    
+    public override string Name => GetType().Name;
+    
     #endregion
 
     #region Constructors and Initialisation
@@ -52,8 +54,8 @@ public partial class MultiMeshRegionLayer : RegionLayer
 
     protected override void Init()
     {
-        Name = $"{Parent.Name}_{LayerName}_{LayerID}";
-
+        LayerName = $"{Parent.Name}_{Name}_{LayerID}";
+        
         MultiMeshInstance2D = new MultiMeshInstance2D();
         AddChild(MultiMeshInstance2D);
 
@@ -74,6 +76,9 @@ public partial class MultiMeshRegionLayer : RegionLayer
 
     #region Methods
 
+    protected override void AddComponents() {}
+    protected override void ConnectSignals() {}
+    
     public void Update(List<LudusEntity> layerEntities, bool generateMeshes = true)
     {
         LayerEntities = layerEntities;

@@ -7,12 +7,22 @@ public partial class AdminConsole : Console
 {
     #region Properties
 
+    public override string Name => nameof(AdminConsole);
+    
+
     #endregion
 
     #region Constructors and Initialisation
 
     #endregion
 
+    #region Overrides
+
+    protected override void AddComponents() {}
+    protected override void ConnectSignals() {}
+
+    #endregion
+    
     #region Methods
 
     #endregion
@@ -22,4 +32,5 @@ public partial class AdminConsole : Console
     {
         CommandController.OutputConsole = this;
     }
+
 }

@@ -47,6 +47,7 @@ public partial class GameManager : GodotNode2D
             return instance;
         }
     }
+    public override string Name => GetType().Name;
 
     public LudusGameSettingsComponent LudusGameSettingsComponent => LudusGameSettingsComponent.Instance; 
 

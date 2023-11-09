@@ -18,6 +18,8 @@ public partial class PlantRegionNode : RegionNode
     public Dictionary<string, List<LudusEntity>> PlantsByType { get; set; }
     public Dictionary<string, Texture2D> Textures { get; set; }
     public Dictionary<string, PlantDef> PlantDefs { get; set; }
+    
+    public override string Name => GetType().Name;
 
     #endregion
 

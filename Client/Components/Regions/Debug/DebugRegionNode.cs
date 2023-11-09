@@ -8,6 +8,8 @@ public partial class DebugRegionNode : RegionNode
 {
     #region Properties
 
+    public override string Name => GetType().Name;
+    
     #endregion
 
     #region Constructors and Initialisation

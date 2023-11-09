@@ -8,7 +8,6 @@ public partial class MapManager : BaseManager
     #region Properties
         
     private static MapManager instance { get; set; } = null;
-
     public static MapManager Instance
     {
         get
@@ -19,6 +18,8 @@ public partial class MapManager : BaseManager
             return instance;
         }
     }
+    
+    public override string Name => GetType().Name;
         
     #endregion
 
@@ -26,6 +27,14 @@ public partial class MapManager : BaseManager
         
     #endregion
 
+    #region Overrides
+
+    protected override void Init() {}
+    protected override void AddComponents() {}
+    protected override void ConnectSignals() {}
+
+    #endregion
+    
     #region Methods
 
     public static Map GenerateMap(MapInitConfig initConfig)

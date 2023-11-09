@@ -17,6 +17,7 @@ public partial class CellEntityCollectionComponent : GodotNode
     #region Properties
 
     public MapCell MapCell { get; set; }
+    public override string Name => GetType().Name;
     
     #endregion
 
@@ -26,6 +27,10 @@ public partial class CellEntityCollectionComponent : GodotNode
 
     #region Methods
 
+    protected override void Init() {}
+    protected override void AddComponents() {}
+    protected override void ConnectSignals() {}
+    
     public void Clear() { throw new NotImplementedException(); }
 
     public bool Contains(LudusEntity item) { throw new NotImplementedException(); }
