@@ -1,24 +1,23 @@
 ﻿using Newtonsoft.Json;
 
-namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Structures.Natural
+namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Structures.Natural;
+
+[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+public class MapGenStepMineralFormationsDef : MapGenStepDef
 {
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class MapGenStepMineralFormationsDef : MapGenStepDef
-    {
-        #region Properties
+    #region Properties
 
-        public float? MinElevation { get; set; }
+    public float? MinElevation { get; set; }
 
-        #endregion
+    #endregion
 
-        #region Constructors and Initialisation
+    #region Constructors and Initialisation
 
-        #endregion
+    #endregion
 
-        #region Methods
+    #region Methods
 
-        #endregion
+    #endregion
 
         
-    }
 }

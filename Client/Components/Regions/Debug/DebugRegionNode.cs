@@ -16,7 +16,7 @@ public partial class DebugRegionNode : RegionNode
     {
     }
     
-    public override void Init()
+    protected override void Init()
     {
         GlobalPosition = Region.Dimension.Position * 64;
         

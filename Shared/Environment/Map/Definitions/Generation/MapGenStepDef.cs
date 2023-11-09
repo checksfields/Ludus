@@ -2,26 +2,25 @@
 using Bitspoke.Core.Definitions.Parts.Common.Noise;
 using Newtonsoft.Json;
 
-namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation
+namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
+
+[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+public class MapGenStepDef : GenStepDef
 {
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class MapGenStepDef : GenStepDef
-    {
-        #region Properties
+    #region Properties
 
-        public override string Key { get; set; }
-        public NoiseDef NoiseDef { get; set; }
+    public override string Key { get; set; }
+    public NoiseDef NoiseDef { get; set; }
         
-        #endregion
+    #endregion
 
-        #region Constructors and Initialisation
+    #region Constructors and Initialisation
 
-        #endregion
+    #endregion
 
-        #region Methods
+    #region Methods
 
-        #endregion
+    #endregion
 
         
-    }
 }

@@ -1,6 +1,6 @@
 {
   "Key": "GameSpeedTypeData",
-  "ClassName": "Bitspoke.Core.Definitions.TypeData.Time.GameSpeedTypeData",
+  "ClassName": "Bitspoke.Core.Definitions.TypeDatas.Time.GameSpeedTypeData",
   "AssemblyName": "Core",
   "Defs": {
     "NONE": {

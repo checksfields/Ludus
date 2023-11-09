@@ -32,7 +32,7 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
         LayerMapCells = mapCells;
     }
     
-    public override void Init()
+    protected override void Init()
     {
         Name = $"{Parent.Name}_{LayerName}_{LayerID}";
         

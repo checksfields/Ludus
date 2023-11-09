@@ -1,27 +1,26 @@
 ﻿using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
 
-namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers
+namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers;
+
+public abstract class MapGenStepLayer : MapGenStep
 {
-    public abstract class MapGenStepLayer : MapGenStep
+    #region Properties
+
+    #endregion
+
+    #region Constructors and Initialisation
+        
+    protected MapGenStepLayer(Map map, MapGenStepDef mapGenStepDef) : base(map, mapGenStepDef)
     {
-        #region Properties
-
-        #endregion
-
-        #region Constructors and Initialisation
-        
-        protected MapGenStepLayer(Map map, MapGenStepDef mapGenStepDef) : base(map, mapGenStepDef)
-        {
-        }
-        
-        #endregion
-
-        #region Methods
-        
-
-        #endregion
-
-
-        
     }
+        
+    #endregion
+
+    #region Methods
+        
+
+    #endregion
+
+
+        
 }

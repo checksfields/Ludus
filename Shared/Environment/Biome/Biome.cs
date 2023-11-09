@@ -1,19 +1,18 @@
-﻿namespace Bitspoke.Ludus.Shared.Environment.Biome
+﻿namespace Bitspoke.Ludus.Shared.Environment.Biome;
+
+public class Biome
 {
-    public class Biome
-    {
-        #region Properties
+    #region Properties
 
-        #endregion
+    #endregion
 
-        #region Constructors and Initialisation
+    #region Constructors and Initialisation
 
-        #endregion
+    #endregion
 
-        #region Methods
+    #region Methods
 
-        #endregion
+    #endregion
 
         
-    }
 }

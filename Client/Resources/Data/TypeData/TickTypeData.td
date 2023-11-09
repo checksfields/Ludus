@@ -1,6 +1,6 @@
 {
   "Key": "TickTypeData",
-  "ClassName": "Bitspoke.Core.Definitions.TypeData.Time.TickTypeData",
+  "ClassName": "Bitspoke.Core.Definitions.TypeDatas.Time.TickTypeData",
   "AssemblyName": "Core",
   "Defs": {
     "NO_TICK": {

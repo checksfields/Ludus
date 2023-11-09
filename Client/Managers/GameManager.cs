@@ -2,7 +2,7 @@ using System.Linq;
 using Bitspoke.Core.Common.Maths.Geometry;
 using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.Vector;
-using Bitspoke.Core.Definitions.TypeData.Time;
+using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Signal;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.Core.Utils.Primatives.Float;
@@ -68,7 +68,7 @@ public partial class GameManager : GodotNode2D
         base._EnterTree();
     }
 
-    public override void Init()
+    protected override void Init()
     {
         Log.Info("Init");
         Global.Init();
@@ -96,7 +96,7 @@ public partial class GameManager : GodotNode2D
         
         AddChild(new LudusGameSettingsComponent());
             
-        _ = new GameStateManager(GameState.Initialising);
+        _ = new GameStateManager(LudusGameStatesTypeData.INITIALISING_KEY);
         _ = new GameSpeedSystem();
         _ = new TimeSystem(true);
             
@@ -144,7 +144,7 @@ public partial class GameManager : GodotNode2D
         PlantDefsCollection.Bootstrap(true);
 
         ElevationTypeData.Bootstrap(true);
-        LudusGameStateTypeData.Bootstrap(true);
+        LudusGameStatesTypeData.Bootstrap(true);
             
         var gameSpeedTypeDataFilePath = $"{GodotGlobal.RES_ROOT_PATH}{GodotGlobal.TYPE_DATA_ROOT_PATH}/{nameof(GameSpeedTypeData)}{GodotGlobal.SUPPORTED_TYPE_DATA_TYPE}";
         GameSpeedTypeData.Bootstrap(GodotFileUtils.WriteToFile, gameSpeedTypeDataFilePath, true);

@@ -1,36 +1,35 @@
 ﻿using Bitspoke.Ludus.Shared.Environment.Biome.Definitions;
 
-namespace Bitspoke.Ludus.Shared.Environment.Biome
+namespace Bitspoke.Ludus.Shared.Environment.Biome;
+
+public class BiomeManager
 {
-    public class BiomeManager
-    {
-        #region Properties
+    #region Properties
 
-        private static BiomeManager instance { get; set; } = null;
-        public static BiomeManager Instance {
-            get
-            {
-                if (instance == null)
-                    instance = new BiomeManager();
+    private static BiomeManager instance { get; set; } = null;
+    public static BiomeManager Instance {
+        get
+        {
+            if (instance == null)
+                instance = new BiomeManager();
 
-                return instance;
-            }
+            return instance;
         }
-
-        //public Dictionary<int, Biome> MapBiomes { get; set; }
-
-        public BiomeDefsCollection BiomeDefsCollection { get; set; }
-
-        #endregion
-
-        #region Constructors and Initialisation
-
-        #endregion
-
-        #region Methods
-
-        #endregion
-
-
     }
+
+    //public Dictionary<int, Biome> MapBiomes { get; set; }
+
+    public BiomeDefsCollection BiomeDefsCollection { get; set; }
+
+    #endregion
+
+    #region Constructors and Initialisation
+
+    #endregion
+
+    #region Methods
+
+    #endregion
+
+
 }

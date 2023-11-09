@@ -1,25 +1,24 @@
 ﻿using Bitspoke.Core.Common.Vector;
 using Newtonsoft.Json;
 
-namespace Bitspoke.Ludus.Shared.Environment.World
+namespace Bitspoke.Ludus.Shared.Environment.World;
+
+public class WorldInitConfig
 {
-    public class WorldInitConfig
-    {
-        #region Properties
+    #region Properties
 
-        [JsonIgnore] public Vec2Int Dimensions { get; set; }
-        public int SeedPart { get; set; } = -1;
+    [JsonIgnore] public Vec2Int Dimensions { get; set; }
+    public int SeedPart { get; set; } = -1;
 
-        #endregion
+    #endregion
 
-        #region Constructors and Initialisation
+    #region Constructors and Initialisation
 
-        #endregion
+    #endregion
 
-        #region Methods
+    #region Methods
 
-        #endregion
+    #endregion
 
 
-    }
 }

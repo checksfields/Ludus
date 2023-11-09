@@ -40,7 +40,7 @@ public partial class TerrainRegionNode : RegionNode
        TerrainShaderMaterial = new TerrainShaderMaterial(terrainShaderMaterial);
     }
     
-    public override void Init()
+    protected override void Init()
     {
         GlobalPosition = Dimension.Position * CoreGlobal.STANDARD_CELL_SIZE;
         RegionLayers = new Dictionary<int, RegionLayer>();

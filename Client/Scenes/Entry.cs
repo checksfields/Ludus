@@ -46,7 +46,7 @@ public partial class Entry : GodotNode2D
 
 	public SettingsComponent SettingsComponent { get; set; }
 	
-	public override void Init()
+	protected override void Init()
 	{
 		Log.Info();
 	}
@@ -105,11 +105,10 @@ public partial class Entry : GodotNode2D
 	public override void _Ready()
 	{
 		base._Ready();
-
-		var gameStateType = Find.TypeData.TypeDataDB["GameStateTypeData"];
-		var x = gameStateType[GameStateTypeData.IN_GAME_KEY];
-		//var td = gameStateType.Get<TypeData>("NONE");
 		
+		
+		
+		//Find.DB.TypeData.All["GameStatesTypeData"];
 		Profiler.Start();
 		// TODO: RemoveAt Test
 		
@@ -167,8 +166,8 @@ public partial class Entry : GodotNode2D
 			BiomeKey = "BiomeA", 
 			WorldID = Find.CurrentWorld.WorldID, 
 			Size = new Vector2I(275, 275),
-			ElevationTypeDataKey = Find.TypeData.ElevationTypeData["HILLS"].Key,
-			VegetationDensityTypeDataKey = Find.TypeData.VegetationDensityTypeData["MED"].Key,
+			ElevationTypeDataKey = Find.DB.TypeData.ElevationTypeData["HILLS"].Key,
+			VegetationDensityTypeDataKey = Find.DB.TypeData.VegetationDensityTypeData["MED"].Key,
 			AvailableRockDefKeys  = new() { "sandstone", "slate", "marble" }
 		};
 		var map = MapManager.GenerateMap(mapInitConfig);

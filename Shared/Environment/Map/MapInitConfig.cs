@@ -3,33 +3,32 @@ using Bitspoke.Core.Components.Identity;
 using Godot;
 using Newtonsoft.Json;
 
-namespace Bitspoke.Ludus.Shared.Environment.Map
+namespace Bitspoke.Ludus.Shared.Environment.Map;
+
+public class MapInitConfig
 {
-    public class MapInitConfig
-    {
-        #region Properties
+    #region Properties
 
-        public int SeedPart { get; set; } = -1;
-        [JsonIgnore] public IDComponent WorldID { get; set; }
+    public int SeedPart { get; set; } = -1;
+    [JsonIgnore] public IDComponent WorldID { get; set; }
 
-        [JsonIgnore] public string BiomeKey { get; set; }
-        public Vector2I Size { get; set; } = Vector2I.Zero;
+    [JsonIgnore] public string BiomeKey { get; set; }
+    public Vector2I Size { get; set; } = Vector2I.Zero;
 
-        public string ElevationTypeDataKey { get; set; }
-        public string VegetationDensityTypeDataKey { get; set; }
+    public string ElevationTypeDataKey { get; set; }
+    public string VegetationDensityTypeDataKey { get; set; }
 
-        public List<string>? AvailableRockDefKeys { get; set; }
+    public List<string>? AvailableRockDefKeys { get; set; }
 
-        #endregion
+    #endregion
 
-        #region Constructors and Initialisation
+    #region Constructors and Initialisation
 
-        #endregion
+    #endregion
 
-        #region Methods
+    #region Methods
 
-        #endregion
+    #endregion
 
 
-    }
 }
