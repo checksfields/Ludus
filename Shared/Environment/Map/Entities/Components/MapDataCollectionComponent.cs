@@ -34,17 +34,17 @@ public partial class MapDataCollectionComponent : GodotNode
 
     #region Methods
 
-    protected override void Init() {}
-    protected override void AddComponents() {}
-    protected override void ConnectSignals() {}
+    public override void Init() {}
+    public override void AddComponents() {}
+    public override void ConnectSignals() {}
     
     public void InitialiseContainers()
     {
         Profiler.Start();
         
-        EntitiesContainer = new EntitiesContainer();
         RegionsContainer  = new RegionsContainer(Map);
         CellsContainer    = new CellsContainer(Map);
+        EntitiesContainer = new EntitiesContainer();
 
         Profiler.End(message:"+++++++++++++++++++++");
     }

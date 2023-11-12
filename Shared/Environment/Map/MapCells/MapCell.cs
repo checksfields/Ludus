@@ -1,5 +1,4 @@
-﻿using Bitspoke.Core.Common.Vector;
-using Bitspoke.Core.Entities.Containers;
+﻿using Bitspoke.Core.Entities.Containers;
 using Bitspoke.Core.Models.Cells;
 using Bitspoke.Core.Utils.Primatives.Int;
 using Bitspoke.GodotEngine.Common.Vector;
@@ -12,7 +11,6 @@ using Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
-using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;
 using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.MapCells;

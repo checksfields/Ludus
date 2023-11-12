@@ -1,14 +1,11 @@
 using System.Collections.Generic;
-using Bitspoke.Core;
 using Bitspoke.Core.Profile;
-using Bitspoke.GodotEngine;
-using Bitspoke.Ludus.Shared;
+using Bitspoke.Ludus.Client.Components.Nodes.Shaders;
 using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
-using Client.Components.Node.Shaders;
 using Godot;
 
-namespace Client.Components.Regions;
+namespace Bitspoke.Ludus.Client.Components.Regions;
 
 public partial class TerrainRegionNode : RegionNode
 {
@@ -42,7 +39,7 @@ public partial class TerrainRegionNode : RegionNode
        TerrainShaderMaterial = new TerrainShaderMaterial(terrainShaderMaterial);
     }
     
-    protected override void Init()
+    public override void Init()
     {
         GlobalPosition = Dimension.Position * CoreGlobal.STANDARD_CELL_SIZE;
         RegionLayers = new Dictionary<int, RegionLayer>();

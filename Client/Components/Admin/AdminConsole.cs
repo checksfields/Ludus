@@ -1,7 +1,7 @@
 using Bitspoke.Ludus.Shared.Common.Controllers.Admin;
 using Console = Bitspoke.GodotEngine.Components.Console.Console;
 
-namespace Client.Components.Admin;
+namespace Bitspoke.Ludus.Client.Components.Admin;
 
 public partial class AdminConsole : Console
 {
@@ -18,8 +18,8 @@ public partial class AdminConsole : Console
 
     #region Overrides
 
-    protected override void AddComponents() {}
-    protected override void ConnectSignals() {}
+    public override void AddComponents() {}
+    public override void ConnectSignals() {}
 
     #endregion
     

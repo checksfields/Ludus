@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Bitspoke.Core.Common.Collections.Dictionaries;
-using Bitspoke.Core.Common.Collections.Lists;
-using Bitspoke.Core.Components;
-using Bitspoke.GodotEngine.Components.Nodes;
+﻿using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.Ludus.Shared.Common.Entities;
-using Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
-using Bitspoke.Ludus.Shared.Systems.Spawn;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Entities.Components;
 
@@ -27,9 +19,9 @@ public partial class CellEntityCollectionComponent : GodotNode
 
     #region Methods
 
-    protected override void Init() {}
-    protected override void AddComponents() {}
-    protected override void ConnectSignals() {}
+    public override void Init() {}
+    public override void AddComponents() {}
+    public override void ConnectSignals() {}
     
     public void Clear() { throw new NotImplementedException(); }
 

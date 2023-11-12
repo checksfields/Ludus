@@ -6,7 +6,7 @@ global using CoreFind = Bitspoke.Core.Find;
 global using GodotFind = Bitspoke.GodotEngine.Find;
 global using Find = Bitspoke.Ludus.Shared.Find;
 
-namespace Client;
+namespace Bitspoke.Ludus.Client;
 
 public static class Global
 {
@@ -30,6 +30,6 @@ public static class Global
         GodotGlobal.ZOOM_2D_MAX = 2.0f;
         GodotGlobal.ZOOM_2D_MIN = 0.25f;
         
-        GodotGlobal.RUN_BOOTSTRAP_ENABLED  = true;
+        GodotGlobal.RUN_BOOTSTRAP_ENABLED  = false;
     }
 }

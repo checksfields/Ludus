@@ -1,5 +1,4 @@
-﻿using Bitspoke.Core.Common.Vector;
-using Bitspoke.Core.Components.Identity;
+﻿using Bitspoke.Core.Components.Identity;
 using Godot;
 using Newtonsoft.Json;
 

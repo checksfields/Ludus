@@ -8,11 +8,11 @@ using Bitspoke.Core.Random;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Utils.Vector;
+using Bitspoke.Ludus.Client.Components.Nodes;
 using Bitspoke.Ludus.Shared.Common.Entities;
-using Client.Components.Node;
 using Godot;
 
-namespace Client.Components.Regions;
+namespace Bitspoke.Ludus.Client.Components.Regions;
 
 public partial class MultiMeshRegionLayer : RegionLayer
 {
@@ -52,7 +52,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
         LayerTexture = Find.DB.TextureDB[GraphicDef.TextureDef.TextureResourcePath];;
     }
 
-    protected override void Init()
+    public override void Init()
     {
         LayerName = $"{Parent.Name}_{Name}_{LayerID}";
         
@@ -76,8 +76,8 @@ public partial class MultiMeshRegionLayer : RegionLayer
 
     #region Methods
 
-    protected override void AddComponents() {}
-    protected override void ConnectSignals() {}
+    public override void AddComponents() {}
+    public override void ConnectSignals() {}
     
     public void Update(List<LudusEntity> layerEntities, bool generateMeshes = true)
     {

@@ -2,7 +2,7 @@ using Bitspoke.Core.Common.Vector;
 using Bitspoke.GodotEngine.Utils.Images;
 using Godot;
 
-namespace Client.Components.Node.Shaders;
+namespace Bitspoke.Ludus.Client.Components.Nodes.Shaders;
 
 public partial class TerrainShaderMaterial : ShaderMaterial
 {

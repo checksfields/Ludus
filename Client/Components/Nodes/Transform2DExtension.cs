@@ -2,7 +2,7 @@ using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Random;
 using Godot;
 
-namespace Client.Components.Node;
+namespace Bitspoke.Ludus.Client.Components.Nodes;
 
 public static class Transform2DExtension
 {

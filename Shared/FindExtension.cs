@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Bitspoke.Ludus.Shared.Environment.Map;
+﻿using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.World;
 
 namespace Bitspoke.Ludus.Shared;

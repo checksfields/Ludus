@@ -29,9 +29,9 @@ public partial class MapManager : BaseManager
 
     #region Overrides
 
-    protected override void Init() {}
-    protected override void AddComponents() {}
-    protected override void ConnectSignals() {}
+    public override void Init() {}
+    public override void AddComponents() {}
+    public override void ConnectSignals() {}
 
     #endregion
     

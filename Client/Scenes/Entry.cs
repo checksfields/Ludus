@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Components;
+using Bitspoke.Core.Components.Time;
+using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Profile;
 using Bitspoke.Core.Signal;
 using Bitspoke.Core.Signal.UI;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.Core.Types.Game.States;
+using Bitspoke.Core.Utils.Primatives.Float;
+using Bitspoke.Core.Utils.Types;
+using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Camera;
 using Bitspoke.GodotEngine.Components.Camera._2D;
 using Bitspoke.GodotEngine.Components.Nodes;
@@ -18,21 +24,27 @@ using Bitspoke.GodotEngine.Controllers.Resources;
 using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.GodotEngine.Utils.Images;
 using Bitspoke.GodotEngine.Utils.Vector;
+using Bitspoke.Ludus.Client.Components;
+using Bitspoke.Ludus.Client.Components.Nodes.Shaders;
+using Bitspoke.Ludus.Client.Components.Regions;
+using Bitspoke.Ludus.Client.Components.Regions.Debug;
+using Bitspoke.Ludus.Client.Components.UI.Information;
 using Bitspoke.Ludus.Shared.Common.Controllers.Admin;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Environment.Map;
+using Bitspoke.Ludus.Shared.Environment.Map.Regions;
+using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;
 using Bitspoke.Ludus.Shared.Environment.World;
 using Bitspoke.Ludus.Shared.Tests.Maps;
-using Client.Components;
-using Client.Components.Node.Shaders;
-using Client.Components.Regions;
-using Client.Components.Regions.Debug;
 using Godot;
 using Newtonsoft.Json;
+using Shared.Components.Settings.Game;
 using Console = Bitspoke.GodotEngine.Components.Console.Console;
 
 
-public partial class Entry : GodotNode2D
+namespace Bitspoke.Ludus.Client.Scenes;
+
+public partial class Entry : GodotNode2D, ITickConsumer
 {
 	#region Properties
 
@@ -42,37 +54,44 @@ public partial class Entry : GodotNode2D
 	private InputController InputController = null;
 
 	public Console Console { get; set; }
-	public Node2D LayerContainer { get; set; }
+	public Node2D PlantRegionsContainer { get; set; }
 	public Dictionary<int, RegionNode> RegionNodes { get; set; }
 	public Dictionary<int, TerrainRegionNode> TerrainRegionNodes { get; set; }
 
-	public SettingsComponent SettingsComponent { get; set; }
+	public PerformanceComponent PerformanceComponent { get; set; }
+	public GameStateInformationComponent GameStateInformationComponent { get; set; }
+	public TickComponent TickComponent { get; }
+	
+	private Map Map { get; set; }
+	
+	public float TotalFPS { get; set; } = 0;
+	public int TotalProcessCalls { get; set; }
 	
 	public override string Name => GetType().Name;	
 	
 	#endregion
 	
-	protected override void Init()
+	public override void Init()
 	{
 		Log.Info();
 	}
 
-	protected override void AddComponents()
+	public override void AddComponents()
 	{
-		AddChild(new PerformanceComponent(opacity:0.4f));
-		AddChild(SettingsComponent = new SettingsComponent());
+		//this.AddComponent(SettingsComponent = new LudusGameSettingsComponent());
+		this.AddComponent(PerformanceComponent = new PerformanceComponent());
+		this.AddComponent(GameStateInformationComponent = new GameStateInformationComponent());
+		
+		TimeSystem.RegisterForTick(TickTypeData.LONG_TICK_KEY, this);
 	}
 
-	protected override void ConnectSignals()
+	public override void ConnectSignals()
 	{
 		SignalManager.Connect(new SignalDetails(UISignals.NOTIFICATION_UPDATE_REQUEST, typeof(UISignals), this, nameof(OnNotificationUpdate)));
 		SignalManager.Connect(new SignalDetails(UISignals.NOTIFICATION_CLOSE_REQUEST, typeof(UISignals), this, nameof(OnNotificationClose)));
-		
 		SignalManager.Connect(new SignalDetails(ResourceController.RESOURCES_LOADED, typeof(ResourceController), this, nameof(OnResourcesLoaded)));
-
 		SignalManager.Connect(new SignalDetails(AdminCommandControllerSignals.SET_PLANTS_VISIBLE, typeof(AdminCommandControllerSignals), this, nameof(OnShowPlants)));
 		SignalManager.Connect(new SignalDetails(AdminCommandControllerSignals.SET_TERRAIN_LAYER_VISIBLE, typeof(AdminCommandControllerSignals), this, nameof(OnShowTerrainLayer)));
-		
 		SignalManager.Connect(new SignalDetails(CameraZoomComponent.ZOOM_CHANGE, typeof(CameraZoomComponent), this, nameof(OnZoomChanged)));
 	}
 
@@ -83,7 +102,20 @@ public partial class Entry : GodotNode2D
 		ElapsedTime = 0u;
 		base._EnterTree();
 		
-		Log.Info("Adding Camera");
+		AddCamera2D();
+		
+		PlantRegionsContainer = new Node2D();
+		PlantRegionsContainer.Name = "PlantRegionsContainer";
+		AddChild(PlantRegionsContainer);
+
+		Log.Info("Initialising Collections");
+		RegionNodes = new Dictionary<int, RegionNode>();
+		TerrainRegionNodes = new Dictionary<int, TerrainRegionNode>();
+		
+	}
+
+	private void AddCamera2D()
+	{
 		AddChild(LudusCamera2D = new LudusCamera2D(
 			new ComponentCollection()
 			{
@@ -93,25 +125,65 @@ public partial class Entry : GodotNode2D
 		
 		LudusCamera2D.MakeCurrent();
 		LudusCamera2D.AnchorMode = Camera2D.AnchorModeEnum.FixedTopLeft;
-		
-		Log.Info("Adding Layer Container");
-		LayerContainer = new Node2D();
-		LayerContainer.Name = "layer_container";
-		AddChild(LayerContainer);
-
-		Log.Info("Initialising Collections");
-		RegionNodes = new Dictionary<int, RegionNode>();
-		TerrainRegionNodes = new Dictionary<int, TerrainRegionNode>();
-		
 	}
 
+	#region Draw
+
+	public override void _Draw()
+    	{
+    		base._Draw();
+    		if (CoreGlobal.DEBUG_DRAW_ENABLED)
+    		{
+    			foreach (var child in GetChildren())
+    			{
+    				if (child is IGodotComponentCollection)
+    					DrawNode2Ds((IGodotComponentCollection) child);
+    			}
+    		}
+    	}
+    
+    	private void DrawNode2Ds(IGodotComponentCollection nodeCollection)
+    	{
+    		foreach (var node in nodeCollection.Components?.Values)
+    		{
+    			if (node is IGodotComponentCollection)
+    			{
+    				DrawNode2Ds((IGodotComponentCollection)node);
+    			}
+    			
+    			DrawNode2D(node);
+    		}
+    	}
+    	
+    	private void DrawNode2D(Node node)
+    	{
+    		if (node is Control)
+    		{
+    			var pos = ((Control)node).Position;
+    			var size = ((Control)node).Size;
+    			var rect2 = new Rect2(pos, size);
+    			DrawRect(rect2, Colors.Magenta, false, width:1f);
+    		}
+    		
+    		if (node is Node2D)
+    		{
+    			var pos = ((Node2D)node).Position;
+    			var rect2 = new Rect2(pos, new Vector2(50f, 50f));
+    			DrawRect(rect2, Colors.Magenta, false, width:1f);		
+    		}
+    	}
+
+
+	#endregion
+	
 	public override void _Ready()
 	{
 		base._Ready();
+	
+		CoreFind.Managers.GameStateManager.SetState(LudusGameStatesTypeData.MAIN_KEY);
 		
+		//return;
 		
-		
-		//Find.DB.TypeData.All["GameStatesTypeData"];
 		Profiler.Start();
 		// TODO: RemoveAt Test
 		
@@ -123,15 +195,6 @@ public partial class Entry : GodotNode2D
 
 		Profiler.End();
 	}
-
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (Input.IsKeyPressed(Key.Escape))
-			SettingsComponent.ShowPopup();
-	}
-
-	public float TotalFPS { get; set; } = 0;
-	public int TotalProcessCalls { get; set; }
 	
 	public override void _Process(double delta)
 	{
@@ -141,14 +204,16 @@ public partial class Entry : GodotNode2D
 			Log.Debug($"Total Elapsed Time since _EnterTree = {ElapsedTime} ms");
 		}
 		
+		if (CoreGlobal.DEBUG_DRAW_ENABLED)
+			QueueRedraw();
+		
 		SignalManager.Emit(TimeSystem.UPDATE, delta);
 	}
 
 	protected void OnResourcesLoaded() { }
-	protected void OnNotificationUpdate(string message) { Log.Info(message); }
+	protected void OnNotificationUpdate(string message) { Log.Info($"!!!!!!!!!!! {message}"); }
 	protected void OnNotificationClose(string message) { Log.Info(message); }
-
-	private Map Map { get; set; }
+	
 	private void TestBuildWorld(bool debug = false)
 	{
 		Profiler.Start();
@@ -173,27 +238,25 @@ public partial class Entry : GodotNode2D
 			VegetationDensityTypeDataKey = Find.DB.TypeData.VegetationDensityTypeData["MED"].Key,
 			AvailableRockDefKeys  = new() { "sandstone", "slate", "marble" }
 		};
-		var map = MapManager.GenerateMap(mapInitConfig);
-		Find.CurrentWorld.Maps.Current = map;
+		Map = MapManager.GenerateMap(mapInitConfig);
+		Find.CurrentWorld.Maps.Current = Map;
 		
 		// Profiler.Start(additionalKey:"SaveWorld");
 		// WorldManager.SaveWorld($"map{map.MapID}_savegame");
 		// Profiler.End(message:"Save Game", additionalKey:"SaveWorld"); 
 
-		if (debug)
-		{
-			var tasks = new Task[]
-			{
-				Task.Run(() => TestSaveLayer($"map{map.MapID}_elevation", map.Cells.Elevations)),
-				Task.Run(() => TestSaveLayer($"map{map.MapID}_fertility", map.Cells.Fertilities)),
-				Task.Run(() => TestSaveLayer($"map{map.MapID}_terrain", map.Cells.TerrainDefKeys)),
-				Task.Run(() => TestSaveLayer($"map{map.MapID}_structure", map.Cells.StructureDefKeys)),
-				Task.Run(() => TestSaveLayer($"map{map.MapID}_roof", map.Cells.RoofDefKeys)),
-			};
-			Task.WaitAll(tasks);
-		}
-
-		Map = map;
+		// if (debug)
+		// {
+		// 	var tasks = new Task[]
+		// 	{
+		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_elevation", map.Cells.Elevations)),
+		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_fertility", map.Cells.Fertilities)),
+		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_terrain", map.Cells.TerrainDefKeys)),
+		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_structure", map.Cells.StructureDefKeys)),
+		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_roof", map.Cells.RoofDefKeys)),
+		// 	};
+		// 	Task.WaitAll(tasks);
+		// }
 		
 		Profiler.End();
 	}
@@ -214,49 +277,52 @@ public partial class Entry : GodotNode2D
 	{
 		Profiler.Start();
 		
-		// for (var regionIndex = 0; regionIndex < map.Data.RegionsContainer.Regions.Length; regionIndex++)
-		// {
-		// 	var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
-		// 	
-		// 	RegionNodes[regionIndex] = regionNode;
-		// 	LayerContainer.AddChild(regionNode);
-		// }
-
-
-		for (int x = 0; x < 3; x++)
+		
+		for (var regionIndex = 0; regionIndex < map.Data.RegionsContainer.Regions.Length; regionIndex++)
 		{
-			for (int y = 0; y < 3; y++)
-			{
-				var regionIndex = x + y * map.Data.RegionsContainer.Width;
-				var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
+			var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
 			
-				RegionNodes[regionIndex] = regionNode;
-				LayerContainer.AddChild(regionNode);
-			}
-			
+			RegionNodes[regionIndex] = regionNode;
+			PlantRegionsContainer.AddChild(regionNode);
 		}
-		
-		
-		// for (var regionIndex = 0; regionIndex < 1; regionIndex++)
-		// {
-		// 	var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
-		// 	
-		// 	RegionNodes[regionIndex] = regionNode;
-		// 	LayerContainer.AddChild(regionNode);
-		// }
-		
-		
-		
-		// foreach (var mapRegion in map.Regions.MapRegions.Values)
-		// {
-		// 	var regionNode = new PlantRegionNode(mapRegion);
+
+		// var renderRect = CalculateRenderRect();
 		//
-		// 	RegionNodes[mapRegion.Index] = regionNode;
+		// var startRegionX = (renderRect.Position.X / SharedGlobal.DEFAULT_MAP_REGION_DIMENSIONS.X).Floor();
+		// var startRegionY = (renderRect.Position.Y / SharedGlobal.DEFAULT_MAP_REGION_DIMENSIONS.Y).Floor();
+		// var startRegionPos = new Vector2I(startRegionX, startRegionY);
+		// var endRegionX = (renderRect.End.X / SharedGlobal.DEFAULT_MAP_REGION_DIMENSIONS.X).Ceiling();
+		// var endRegionY = (renderRect.End.Y / SharedGlobal.DEFAULT_MAP_REGION_DIMENSIONS.Y).Ceiling();
+		// var endRegionPos = new Vector2I(endRegionX, endRegionY);
+		//
+		//
+		// for (int x = startRegionPos.X; x <= endRegionPos.X; x++)
+		// {
+		// 	for (int y = startRegionPos.Y; y <= endRegionPos.Y; y++)
+		// 	{
+		// 		var regionIndex = x + y * map.Data.RegionsContainer.Width;
+		// 		var regionNode = new PlantRegionNode(map.Data.RegionsContainer.Regions[regionIndex]);
 		// 	
-		// 	LayerContainer.AddChild(regionNode);
+		// 		RegionNodes[regionIndex] = regionNode;
+		// 		LayerContainer.AddChild(regionNode);
+		// 	}
 		// }
 		
-		Profiler.End();
+		// for (int x = 0; x < 11; x++)
+		// {
+		// 	for (int y = 0; y < 11; y++)
+		// 	{
+		// 		var regionIndex = x + y * map.Data.RegionsContainer.Width;
+		// 		var r = new List<int> { 0, 1, 2, 11, 12, 13, 22, 23, 25 };
+		// 		if (r.Contains(regionIndex))
+		// 			continue;
+		// 		
+		// 		var regionNode = RegionNodes[regionIndex];
+		// 		regionNode.Sprites?.Hide();
+		// 	}
+		// }
+		
+		Profiler.End(message:"++++++++++++++++++++++++");
 	}
 	
 	public const String TERRAIN_ATLAS = "Terrain/Atlas";
@@ -275,7 +341,7 @@ public partial class Entry : GodotNode2D
 
 	private void RenderTerrain(Rect2 regionToRender)
 	{
-		//Profiler.Start();
+		Profiler.Start();
 
 		TerrainTextureAtlas = (ImageTexture)Find.DB.TextureDB[TERRAIN_ATLAS];
 
@@ -294,8 +360,8 @@ public partial class Entry : GodotNode2D
 		// var viewportPosition = viewportRect.Position * -1.1f;
 		// var viewportSize = ((viewportRect.Size / GodotGlobal.STANDARD_CELL_SIZE)*1.5f*zoom).Ceil();
 		// viewportRect = new Rect2(viewportPosition, viewportSize);
-		
-		var mapData = Map.GenerateTerrainDefsTexture(CalculateRenderRect());
+
+		var mapData = Map.GenerateTerrainDefsTexture(regionToRender);//CalculateRenderRect());
 		
 		var terrainRender = new Sprite2D();
 		terrainRender.Name = name;
@@ -310,7 +376,7 @@ public partial class Entry : GodotNode2D
 		terrainRender.ZIndex = -1;
 		terrainRender.ZAsRelative = false;
 		
-		//Profiler.End();
+		Profiler.End();
 		//RenderRegionTerrain();
 	}
 	
@@ -328,7 +394,7 @@ public partial class Entry : GodotNode2D
 		if (view_size.X > Map.Width)
 			view_size = Map.Size;
 
-		return new Rect2(min_pos, view_size);
+		return new Rect2(min_pos, view_size.Ceil());
 	}
 
 	private void OnShowPlants(bool visible, string? plantDefKey = null)
@@ -364,7 +430,7 @@ public partial class Entry : GodotNode2D
 		{
 			foreach (var regionNode in DebugRegionNodes.Values)
 			{
-				LayerContainer.RemoveChild(regionNode);
+				PlantRegionsContainer.RemoveChild(regionNode);
 				regionNode.QueueFree();
 			}
 			DebugRegionNodes.Clear();
@@ -383,7 +449,7 @@ public partial class Entry : GodotNode2D
 			regionNode.ProcessTerrain(terrainTypeKey);
 			
 			DebugRegionNodes.Add(mapRegion.Index, regionNode);
-			LayerContainer.AddChild(regionNode);
+			PlantRegionsContainer.AddChild(regionNode);
 		}
 		Profiler.End();
 
@@ -393,5 +459,24 @@ public partial class Entry : GodotNode2D
 		// timer.Start(1);
 		// timer.Connect("timeout",new Callable(this,"OnTimerTimeout"));
 
+	}
+
+	public void OnTick()
+	{
+		PlantRegionsContainer.Hide();
+		Log.Debug("TICK!");
+		// for (int x = 0; x < 11; x++)
+		// {
+		// 	for (int y = 0; y < 11; y++)
+		// 	{
+		// 		var regionIndex = x + y * Map.Data.RegionsContainer.Width;
+		// 		var r = new List<int> { 0, 1, 2, 11, 12, 13, 22, 23, 25 };
+		// 		if (r.Contains(regionIndex))
+		// 			continue;
+		// 		
+		// 		var regionNode = RegionNodes[regionIndex];
+		// 		regionNode.Sprites?.Hide();
+		// 	}
+		// }
 	}
 }

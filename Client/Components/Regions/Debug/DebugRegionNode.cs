@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;
 
-namespace Client.Components.Regions.Debug;
+namespace Bitspoke.Ludus.Client.Components.Regions.Debug;
 
 public partial class DebugRegionNode : RegionNode
 {
@@ -18,7 +18,7 @@ public partial class DebugRegionNode : RegionNode
     {
     }
     
-    protected override void Init()
+    public override void Init()
     {
         GlobalPosition = Region.Dimension.Position * 64;
         

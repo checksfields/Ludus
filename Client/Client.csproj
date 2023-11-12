@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>Bitspoke.Ludus.Client</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Bitspoke\Core\Core.csproj" />
@@ -12,5 +13,8 @@
     <Reference Include="GodotSharp">
       <HintPath>..\..\..\..\Program Files\Godot_Current\GodotSharp\Api\Release\GodotSharp.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\Nodes\CanvasItems\Labels\" />
   </ItemGroup>
 </Project>

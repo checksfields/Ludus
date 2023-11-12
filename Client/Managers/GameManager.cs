@@ -6,12 +6,12 @@ using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Signal;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.Core.Utils.Primatives.Float;
+using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.GodotEngine.Components.UI.Scale;
 using Bitspoke.GodotEngine.Controllers.Resources;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders.Implementations;
 using Bitspoke.GodotEngine.Utils.Files;
-using Bitspoke.Ludus.Shared.Common.States.Games;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural.Rocks.Definitions;
@@ -21,7 +21,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Affordances;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Floors;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.World.TypeData;
-using Client;
+
 using Godot;
 using Shared.Components.Settings.Game;
 using TerrainDefsCollection = Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain.TerrainDefsCollection;
@@ -69,7 +69,7 @@ public partial class GameManager : GodotNode2D
         base._EnterTree();
     }
 
-    protected override void Init()
+    public override void Init()
     {
         Log.Info("Init");
         Global.Init();
@@ -91,11 +91,11 @@ public partial class GameManager : GodotNode2D
         //rc.Init();
     }
 
-    protected override void AddComponents()
+    public override void AddComponents()
     {
         Log.Info("AddComponents");
         
-        AddChild(new LudusGameSettingsComponent());
+        this.AddComponent(new LudusGameSettingsComponent());
             
         _ = new GameStateManager(LudusGameStatesTypeData.INITIALISING_KEY);
         _ = new GameSpeedSystem();
@@ -108,7 +108,7 @@ public partial class GameManager : GodotNode2D
         AddChild(new UIScaleComponent());
     }
 
-    protected override void ConnectSignals()
+    public override void ConnectSignals()
     {
         Log.Info();
         SignalManager.Connect(new SignalDetails(QUIT_APPLICATION, GetType(), this, nameof(OnQuitRequest)));

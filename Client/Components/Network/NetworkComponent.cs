@@ -1,4 +1,3 @@
-using Bitspoke.Core.Common.Logging;
 using Bitspoke.Core.Models.Server;
 using Bitspoke.Core.Models.User;
 using Bitspoke.Core.Signal;
@@ -8,7 +7,7 @@ using Bitspoke.GodotEngine.Components.Server.Game;
 using Bitspoke.GodotEngine.Components.Server.Gateway;
 using Godot;
 
-namespace Client.Components.Network;
+namespace Bitspoke.Ludus.Client.Components.Network;
 
 public partial class NetworkComponent : GodotNode2D
 {
@@ -42,19 +41,19 @@ public partial class NetworkComponent : GodotNode2D
     #endregion
 
 
-    protected override void Init()
+    public override void Init()
     {
         instance = this;
     }
 
-    protected override void AddComponents()
+    public override void AddComponents()
     {
         AddChild(GatewayComp = new GatewayComponent(new ServerConnection(1910, "127.0.0.1")));
         AddChild(AuthenticationComp = new AuthenticationComponent());
         GetTree().Root.CallDeferred("add_child", GameServerComp = new GameServerComponent(new ServerConnection(1909, "127.0.0.1")));
     }
 
-    protected override void ConnectSignals()
+    public override void ConnectSignals()
     {
         //SignalManager.Connect(new SignalDetails(READY, typeof(GodotNode2D), this, nameof(OnReady)));
         SignalManager.Connect(new SignalDetails(AuthenticationComponent.AUTHENTICATION_SUCCESS, typeof(AuthenticationComponent), this, nameof(OnAuthenticationSuccess)));

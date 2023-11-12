@@ -38,7 +38,8 @@ public class MapGenStepPlants : MapGenStep
         Log.TODO("Add NaturalPlantSpawnSystem.ProcessClusters back in.");
 
         
-        var randomCells = Map.Cells.Randomised.ToArray();
+        var randomCells = Map.Data.CellsContainer.Cells.RandomisedArray;
+        //var randomCells = Map.Cells.Randomised.ToArray();
         
         Profiler.Start(additionalKey:"GetRandomCells");
         var randoms = new List<int>();
@@ -53,7 +54,8 @@ public class MapGenStepPlants : MapGenStep
         foreach (var i in randoms)
         {
             //Profiler.Start(additionalKey:"CanSpawnAt");
-            var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
+            //var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
+            var canSpawnAt = spawnSystem.CanSpawnAt2(randomCells[i]);
             //Profiler.End(message:"#### spawnSystem.CanSpawnAt ####>", additionalKey:"CanSpawnAt");
 
             if (canSpawnAt)

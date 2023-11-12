@@ -1,9 +1,9 @@
-﻿using Bitspoke.Core.Components.Life;
+﻿using Bitspoke.Core.Common.States.Games;
+using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.Core.Definitions.Parts.Entity.Living;
 using Bitspoke.Core.Random;
 using Bitspoke.Ludus.Shared.Common.Entities;
-using Bitspoke.Ludus.Shared.Common.States.Games;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural.Plants;
@@ -39,7 +39,7 @@ public class Plant : LudusSpawnableEntity
     {
         Def = def;
         
-        if (Find.GameStateManager.IsCurrentState(LudusGameStatesTypeData.MAP_GENERATION_KEY))
+        if (GameStateManager.IsCurrentState(LudusGameStatesTypeData.MAP_GENERATION_KEY))
         {
             if (Def.HasDefComponent<LifeCycleDef>())
             {

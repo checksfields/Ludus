@@ -1,6 +1,6 @@
 using Bitspoke.GodotEngine.Components.Nodes;
 
-namespace Client.Components.Regions;
+namespace Bitspoke.Ludus.Client.Components.Regions;
 
 public abstract partial class RegionLayer : GodotNode2D
 {

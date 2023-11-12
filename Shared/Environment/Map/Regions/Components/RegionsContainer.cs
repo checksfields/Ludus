@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Bitspoke.Core.Common.Collections.Arrays;
-using Bitspoke.Core.Common.Vector;
-using Bitspoke.Core.Components.Identity;
+﻿using Bitspoke.Core.Common.Collections.Arrays;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Vector;
 using Godot;

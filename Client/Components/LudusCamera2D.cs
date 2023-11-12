@@ -1,8 +1,7 @@
-using Bitspoke.Core.Common.Logging;
 using Bitspoke.Core.Components;
 using Bitspoke.GodotEngine.Components.Camera._2D;
 
-namespace Client.Components;
+namespace Bitspoke.Ludus.Client.Components;
 
 public partial class LudusCamera2D : BitspokeCamera2D
 {

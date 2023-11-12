@@ -4,7 +4,7 @@ using Bitspoke.Ludus.Shared.Environment.World;
 using Godot;
 using NUnit.Framework;
 
-namespace Client.LudusTest.Generation.Map;
+namespace Bitspoke.Ludus.Client.LudusTest.Generation.Map;
 
 public class GenerateMapUnitTest
 {

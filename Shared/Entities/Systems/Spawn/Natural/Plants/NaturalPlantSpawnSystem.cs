@@ -1,8 +1,6 @@
 ﻿using Bitspoke.Core.Common.Collections.Pools;
 using Bitspoke.Core.Common.Maths.Geometry;
-using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Definitions;
-using Bitspoke.Core.Definitions.Parts.Common;
 using Bitspoke.Core.Utils.Collections;
 using Bitspoke.Core.Utils.Math;
 using Bitspoke.Core.Utils.Primatives.Float;

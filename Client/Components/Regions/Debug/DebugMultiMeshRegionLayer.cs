@@ -5,7 +5,7 @@ using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Godot;
 
-namespace Client.Components.Regions.Debug;
+namespace Bitspoke.Ludus.Client.Components.Regions.Debug;
 
 public partial class DebugMultiMeshRegionLayer : RegionLayer
 {
@@ -35,7 +35,7 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
         LayerMapCells = mapCells;
     }
     
-    protected override void Init()
+    public override void Init()
     {
         LayerName = $"{Parent.Name}_{Name}_{LayerID}";
         
@@ -54,8 +54,8 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
 
     #region Methods
 
-    protected override void AddComponents() {}
-    protected override void ConnectSignals() {}
+    public override void AddComponents() {}
+    public override void ConnectSignals() {}
     
     public void Update(List<MapCell> layerMapCells, bool generateMeshes = true)
     {

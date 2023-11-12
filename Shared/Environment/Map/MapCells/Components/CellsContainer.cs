@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Bitspoke.Core.Common.Collections.Arrays;
+﻿using Bitspoke.Core.Common.Collections.Arrays;
 using Bitspoke.Core.Common.Collections.Dictionaries;
 using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Utils.Primatives.Float;

@@ -2,7 +2,6 @@
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Structures.Natural;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
-using Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Structures.Natural;
 

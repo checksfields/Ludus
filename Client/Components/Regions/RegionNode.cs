@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Bitspoke.Core.Common.Logging;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components.Nodes;
@@ -9,7 +8,7 @@ using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;
 
-namespace Client.Components.Regions;
+namespace Bitspoke.Ludus.Client.Components.Regions;
 
 public abstract partial class RegionNode : GodotNode2D
 {
@@ -27,6 +26,7 @@ public abstract partial class RegionNode : GodotNode2D
     public Dictionary<int, RegionLayer> RegionLayers { get; set; }
 
     public int SpritesCount { get; set; }
+    public Node2D Sprites { get; set; }
 
     public int MeshesCount => RegionLayers.Values
         .Where(w => w.GetType() == typeof(MultiMeshRegionLayer))
@@ -68,7 +68,7 @@ public abstract partial class RegionNode : GodotNode2D
         ConnectSignals();
     }
 
-    protected override void AddComponents()
+    public override void AddComponents()
     {
         VisibleOnScreenNotifier3D = new VisibleOnScreenNotifier2D();
         AddChild(VisibleOnScreenNotifier3D);
@@ -79,7 +79,7 @@ public abstract partial class RegionNode : GodotNode2D
         VisibleOnScreenNotifier3D.Rect = new Rect2(position, size);
     }
 
-    protected override void ConnectSignals()
+    public override void ConnectSignals()
     {
         //VisibleOnScreenNotifier3D.Connect("screen_entered",new Callable(this,"show"));
         VisibleOnScreenNotifier3D.Connect("screen_entered",new Callable(this,nameof(OnShowBase)));
@@ -99,21 +99,21 @@ public abstract partial class RegionNode : GodotNode2D
 
     protected void AddSprites(Texture2D layerTexture, Region region, List<LudusEntity> regionEntities)
     {
-        Node2D? spriteLayer = null;
+        Sprites = null;
         foreach (Node2D child in GetChildren())
         {
             if (child.Name == "sprite_layer")
-                spriteLayer = (Node2D)child;
+                Sprites = (Node2D)child;
         }
 
-        if (spriteLayer == null)
-            AddChild(spriteLayer = new Node2D() { Name = "sprite_layer" });
+        if (Sprites == null)
+            AddChild(Sprites = new Node2D() { Name = "sprite_layer" });
 
         foreach (var ludusEntity in regionEntities)
         {
             var locComp = ludusEntity.GetComponent<LocationComponent>();
             var location = (locComp.Location.ToVector2() * 64) + new Vector2(32, 0);
-            var localLocation = location - spriteLayer.GlobalPosition;
+            var localLocation = location - Sprites.GlobalPosition;
 
             var sprite = new Sprite2D();
             sprite.Texture = layerTexture;
@@ -121,7 +121,7 @@ public abstract partial class RegionNode : GodotNode2D
             sprite.ZIndex = (int)sprite.Position.Y;
             //sprite.ZAsRelative = true;
 
-            spriteLayer.AddChild(sprite);
+            Sprites.AddChild(sprite);
         }
     }
 

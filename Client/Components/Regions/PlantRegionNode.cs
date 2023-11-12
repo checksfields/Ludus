@@ -5,9 +5,9 @@ using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;
-using OpenQA.Selenium.DevTools.V115.Profiler;
+using OpenQA.Selenium.DevTools.V85.Profiler;
 
-namespace Client.Components.Regions;
+namespace Bitspoke.Ludus.Client.Components.Regions;
 
 public partial class PlantRegionNode : RegionNode
 {
@@ -15,7 +15,7 @@ public partial class PlantRegionNode : RegionNode
 
     public List<LudusEntity>? Entities { get; set; }
 
-    public Dictionary<string, List<LudusEntity>> PlantsByType { get; set; }
+    //public Dictionary<string, List<LudusEntity>> PlantsByType { get; set; }
     public Dictionary<string, Texture2D> Textures { get; set; }
     public Dictionary<string, PlantDef> PlantDefs { get; set; }
     
@@ -30,7 +30,7 @@ public partial class PlantRegionNode : RegionNode
         Init();
     }
 
-    protected override void Init()
+    public override void Init()
     {
         Textures = new();
         PlantDefs = new();
@@ -40,10 +40,10 @@ public partial class PlantRegionNode : RegionNode
             
         //Map.Data.EntitiesContainer.EntitiesByTypeAndRegion[Region.Index]
         //Profiler.Start();
-        PlantsByType = Region.PlantsByType();
+        //PlantsByType = Region.PlantsByType();
         //Profiler.End();
             
-        foreach (var plantByTypeKey in PlantsByType.Keys)
+        foreach (var plantByTypeKey in Region.PlantsByType().Keys)
         {
             var def = Find.DB.PlantDefs[plantByTypeKey];
             PlantDefs.Add(plantByTypeKey, def);
@@ -59,10 +59,10 @@ public partial class PlantRegionNode : RegionNode
 
     private void ProcessPlants()
     {
-            
-
+        var plantsByType = Map.Data.EntitiesContainer.EntitiesByRegion[RegionID];
+        
         int layerID = 0;
-        foreach (var plantByType in PlantsByType)
+        foreach (var plantByType in Region.PlantsByType())
         {
             var def = PlantDefs[plantByType.Key];
             var textureType = def.GraphicDef.TextureDef.TextureTypeDetails.TextureType;

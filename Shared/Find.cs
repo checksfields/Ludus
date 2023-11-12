@@ -2,7 +2,6 @@
 using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.TypeDatas;
 using Bitspoke.Core.Databases.Definitions;
-using Bitspoke.Core.Databases.TypeData;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.GodotEngine.Databases.Resources.Shaders;
@@ -88,8 +87,6 @@ public partial class Find : Bitspoke.GodotEngine.Find
         
         
     }
-        
-        
 
     public class Systems
     {

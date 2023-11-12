@@ -3,7 +3,6 @@ using Bitspoke.GodotEngine.Managers;
 using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.Ludus.Shared.Environment.World.Generation;
 using Newtonsoft.Json;
-using OpenQA.Selenium.DevTools.V115.Profiler;
 
 namespace Bitspoke.Ludus.Shared.Environment.World;
 
@@ -37,9 +36,9 @@ public partial class WorldManager : Manager
 
     #region Overrides
 
-    protected override void Init() {}
-    protected override void AddComponents() {}
-    protected override void ConnectSignals() {}
+    public override void Init() {}
+    public override void AddComponents() {}
+    public override void ConnectSignals() {}
 
     #endregion
     

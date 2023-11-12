@@ -1,7 +1,6 @@
 ﻿using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.Ludus.Shared.Common.Entities;
-using Bitspoke.Ludus.Shared.Common.States.Games;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Godot;
 using Newtonsoft.Json;
