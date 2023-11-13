@@ -4,7 +4,6 @@ using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;
-using OpenQA.Selenium.DevTools.V85.Profiler;
 
 namespace Bitspoke.Ludus.Client.Components.Regions;
 

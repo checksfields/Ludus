@@ -3,6 +3,8 @@ global using GodotGlobal = Bitspoke.GodotEngine.Global;
 global using CoreFind = Bitspoke.Core.Find;
 global using GodotFind = Bitspoke.GodotEngine.Find;
 global using Find = Bitspoke.Ludus.Shared.Find;
+global using static Bitspoke.Core.Profiling.Profiler;
+global using Log = Bitspoke.Core.Common.Logging.Log;
 global using Bitspoke.Core.Common.Logging;
 using System.Reflection;
 using Bitspoke.Core.Common.Vector;

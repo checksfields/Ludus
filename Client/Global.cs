@@ -1,11 +1,11 @@
-﻿global using static Bitspoke.Core.Profiling.Profiler;
-global using CoreGlobal  = Bitspoke.Core.Global;
-global using Log = Bitspoke.Core.Common.Logging.Log;
+﻿global using CoreGlobal  = Bitspoke.Core.Global;
 global using GodotGlobal = Bitspoke.GodotEngine.Global;
 global using SharedGlobal = Bitspoke.Ludus.Shared.Global;
 global using CoreFind = Bitspoke.Core.Find;
 global using GodotFind = Bitspoke.GodotEngine.Find;
 global using Find = Bitspoke.Ludus.Shared.Find;
+global using static Bitspoke.Core.Profiling.Profiler;
+global using Log = Bitspoke.Core.Common.Logging.Log;
 
 namespace Bitspoke.Ludus.Client;
 

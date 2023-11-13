@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using Bitspoke.Core.Profiling;
 using Bitspoke.GodotEngine.Components.Nodes;
-using Bitspoke.GodotEngine.Components.Nodes.Sprites;
 using Bitspoke.GodotEngine.Utils.Images;
-using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Client.Components.Nodes.Shaders;
 using Bitspoke.Ludus.Shared.Environment.Map;
 using Godot;
-using OpenQA.Selenium.DevTools.V114.Profiler;
 
 namespace Bitspoke.Ludus.Client.Components.Nodes.Maps.Terrains;
 

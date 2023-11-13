@@ -1,46 +1,32 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Components;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
-using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Signal;
 using Bitspoke.Core.Signal.UI;
 using Bitspoke.Core.Systems.Time;
-using Bitspoke.Core.Types.Game.States;
-using Bitspoke.Core.Utils.Primatives.Float;
-using Bitspoke.Core.Utils.Types;
-using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Camera;
 using Bitspoke.GodotEngine.Components.Camera._2D;
 using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.GodotEngine.Components.Performance;
-using Bitspoke.GodotEngine.Components.Settings;
 using Bitspoke.GodotEngine.Controllers.Inputs;
 using Bitspoke.GodotEngine.Controllers.Resources;
 using Bitspoke.GodotEngine.Utils.Files;
-using Bitspoke.GodotEngine.Utils.Images;
-using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Client.Components;
 using Bitspoke.Ludus.Client.Components.Nodes.Maps.Terrains;
-using Bitspoke.Ludus.Client.Components.Nodes.Shaders;
 using Bitspoke.Ludus.Client.Components.Regions;
 using Bitspoke.Ludus.Client.Components.Regions.Debug;
 using Bitspoke.Ludus.Client.Components.UI.Information;
 using Bitspoke.Ludus.Shared.Common.Controllers.Admin;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Environment.Map;
-using Bitspoke.Ludus.Shared.Environment.Map.Regions;
-using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;
 using Bitspoke.Ludus.Shared.Environment.World;
 using Bitspoke.Ludus.Shared.Tests.Maps;
 using Godot;
 using Newtonsoft.Json;
-using Shared.Components.Settings.Game;
 using Console = Bitspoke.GodotEngine.Components.Console.Console;
 
 
@@ -187,18 +173,16 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		CoreFind.Managers.GameStateManager.SetState(LudusGameStatesTypeData.MAIN_KEY);
 		
 		//return;
-		
-		Profiler.Start();
-		// TODO: RemoveAt Test
+
+		Profile(() => {
 		
 		TestBuildWorld();
-		//DebugPrintMap();
 		TestRenderPlants(Map);
 		
 		AddChild(TerrainLayer = new TerrainLayer(Map));
 		TerrainLayer.Render();
 		
-		Profiler.End();
+		});
 	}
 	
 	public override void _Process(double delta)
@@ -221,7 +205,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	
 	private void TestBuildWorld(bool debug = false)
 	{
-		Profiler.Start();
+		Profile(() => { 
 		
 		// TEST: World3D Creation and Initialisation
 		// TEST: World3D Generation
@@ -246,31 +230,12 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		Map = MapManager.GenerateMap(mapInitConfig);
 		Find.CurrentWorld.Maps.Current = Map;
 		
-		// Profiler.Start(additionalKey:"SaveWorld");
-		// WorldManager.SaveWorld($"map{map.MapID}_savegame");
-		// Profiler.End(message:"Save Game", additionalKey:"SaveWorld"); 
-
-		// if (debug)
-		// {
-		// 	var tasks = new Task[]
-		// 	{
-		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_elevation", map.Cells.Elevations)),
-		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_fertility", map.Cells.Fertilities)),
-		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_terrain", map.Cells.TerrainDefKeys)),
-		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_structure", map.Cells.StructureDefKeys)),
-		// 		Task.Run(() => TestSaveLayer($"map{map.MapID}_roof", map.Cells.RoofDefKeys)),
-		// 	};
-		// 	Task.WaitAll(tasks);
-		// }
-		
-		Profiler.End();
+		});
 	}
 
 	private void DebugPrintMap()
 	{
-		Profiler.Start();
-		Find.CurrentMap.DebugPrintAscii();
-		Profiler.End();
+		Profile(Find.CurrentMap.DebugPrintAscii);
 	}
 	
 	private void TestSaveLayer(string fileName, object toSave)
@@ -280,7 +245,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 
 	private void TestRenderPlants(Map map)
 	{
-		Profiler.Start();
+		Profile(() => { 
 		
 		
 		for (var regionIndex = 0; regionIndex < map.Data.RegionsContainer.Regions.Length; regionIndex++)
@@ -327,7 +292,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		// 	}
 		// }
 		
-		Profiler.End(message:"++++++++++++++++++++++++");
+		});
 	}
 	
 	public const String TERRAIN_ATLAS = "Terrain/Atlas";
@@ -360,7 +325,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		// TODO ... plant specific
 		Log.TODO("implement");
 		
-		Profiler.Start(additionalKey:"OnShowPlants");
+		Start(additionalKey:"OnShowPlants");
 		if (visible)
 			TestRenderPlants(Map);
 		else
@@ -376,12 +341,12 @@ public partial class Entry : GodotNode2D, ITickConsumer
 			}
 		}
 
-		Profiler.End(additionalKey:"OnShowPlants",message:$"SetTerrainLayerVisible: {visible}");
+		End(additionalKey:"OnShowPlants",message:$"SetTerrainLayerVisible: {visible}");
 	}
 	
 	private void OnShowTerrainLayer(bool visible, string? terrainDefKey = null)
 	{
-		Profiler.Start();
+		Start();
 		if (visible)
 			TestRenderTerrainTypeOverlay(Map, terrainDefKey);
 		else
@@ -394,13 +359,13 @@ public partial class Entry : GodotNode2D, ITickConsumer
 			DebugRegionNodes.Clear();
 		}
 
-		Profiler.End(message:$"SetTerrainLayerVisible: {visible}");
+		End(message:$"SetTerrainLayerVisible: {visible}");
 	}
 	
 	public Dictionary<int, RegionNode> DebugRegionNodes { get; set; } = new ();
 	private void TestRenderTerrainTypeOverlay(Map map, string terrainTypeKey = null)
 	{
-		Profiler.Start();
+		Start();
 		foreach (var mapRegion in map.Regions.MapRegions.Values)
 		{
 			var regionNode = new DebugRegionNode(mapRegion);
@@ -409,7 +374,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 			DebugRegionNodes.Add(mapRegion.Index, regionNode);
 			PlantRegionsContainer.AddChild(regionNode);
 		}
-		Profiler.End();
+		End();
 
 
 		// var timer = new Timer();
