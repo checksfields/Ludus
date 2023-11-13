@@ -1,5 +1,6 @@
 ﻿using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Definitions.Common.Affordances;
+using Bitspoke.Core.Profiling;
 using Bitspoke.GodotEngine.Utils.Colors;
 using Bitspoke.GodotEngine.Utils.Files;
 using Godot;

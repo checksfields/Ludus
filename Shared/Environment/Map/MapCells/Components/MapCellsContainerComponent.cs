@@ -1,6 +1,7 @@
 ﻿using Bitspoke.Core.Common.Collections.Matrices;
 using Bitspoke.Core.Components.Collections.Containers;
 using Bitspoke.Core.Components.Identity;
+using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Random;
 using Bitspoke.Core.Utils.Primatives.Int;
 using Bitspoke.GodotEngine.Common.Vector;

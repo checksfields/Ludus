@@ -22,7 +22,7 @@ public partial class TerrainShaderMaterial : ShaderMaterial
     public const string SHADER_PARAM_HALF_TILE_SIZE_PIXELS = "halfTileSizeInPixels";
     public const string SHADER_PARAM_BLEND_FLAG = "blend";
 
-    public Vec2Int Dimension { get; set; } = Vec2Int.ZERO;
+    public Vector2I Dimension { get; set; } = Vector2I.Zero;
     public ImageTexture TerrainAtlas { get; set; }
     public ImageTexture BlendTexture { get; set; }
 
@@ -35,14 +35,14 @@ public partial class TerrainShaderMaterial : ShaderMaterial
             
     }
         
-    public TerrainShaderMaterial(Vec2Int dimension) : this(Find.DB.ShaderDB[SHADER_KEY],
+    public TerrainShaderMaterial(Vector2I dimension) : this(Find.DB.ShaderDB[SHADER_KEY],
         (ImageTexture)Find.DB.TextureDB[TERRAIN_ATLAS],
         ImageUtils.CreateTileBlendTexture(),
         dimension)
     {
     }
 
-    public TerrainShaderMaterial(Shader shader, ImageTexture terrainAtlas, ImageTexture blendTexture, Vec2Int dimension) : base()
+    public TerrainShaderMaterial(Shader shader, ImageTexture terrainAtlas, ImageTexture blendTexture, Vector2I dimension) : base()
     {
         TerrainAtlas = terrainAtlas;
         BlendTexture = blendTexture;
@@ -50,8 +50,8 @@ public partial class TerrainShaderMaterial : ShaderMaterial
         Shader = shader;
         SetShaderParameter(SHADER_PARAM_TEXTURE_ATLAS, TerrainAtlas);
         SetShaderParameter(SHADER_PARAM_BLEND_TEXTURE, BlendTexture);
-        SetShaderParameter(SHADER_PARAM_MAP_TILES_WIDTH, Dimension.Width);
-        SetShaderParameter(SHADER_PARAM_MAP_TILES_HEIGHT, Dimension.Height);
+        SetShaderParameter(SHADER_PARAM_MAP_TILES_WIDTH, Dimension.X);
+        SetShaderParameter(SHADER_PARAM_MAP_TILES_HEIGHT, Dimension.Y);
         SetShaderParameter(SHADER_PARAM_TILE_SIZE_PIXELS, CoreGlobal.STANDARD_CELL_SIZE);
         SetShaderParameter(SHADER_PARAM_HALF_TILE_SIZE_PIXELS, CoreGlobal.STANDARD_CELL_SIZE / 2f);
     }

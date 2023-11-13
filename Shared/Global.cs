@@ -4,10 +4,10 @@ global using CoreFind = Bitspoke.Core.Find;
 global using GodotFind = Bitspoke.GodotEngine.Find;
 global using Find = Bitspoke.Ludus.Shared.Find;
 global using Bitspoke.Core.Common.Logging;
-global using Bitspoke.Core.Profile;
 using System.Reflection;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
+using Bitspoke.Core.Profiling;
 using Godot;
 using Newtonsoft.Json;
 

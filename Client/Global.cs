@@ -1,4 +1,5 @@
-﻿global using CoreGlobal  = Bitspoke.Core.Global;
+﻿global using static Bitspoke.Core.Profiling.Profiler;
+global using CoreGlobal  = Bitspoke.Core.Global;
 global using Log = Bitspoke.Core.Common.Logging.Log;
 global using GodotGlobal = Bitspoke.GodotEngine.Global;
 global using SharedGlobal = Bitspoke.Ludus.Shared.Global;

@@ -1,4 +1,5 @@
 ﻿using Bitspoke.Core.Definitions.Collections;
+using Bitspoke.Core.Profiling;
 using Bitspoke.GodotEngine.Utils.Files;
 using Newtonsoft.Json;
 

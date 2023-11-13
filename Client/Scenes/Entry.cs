@@ -6,13 +6,14 @@ using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Components;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
-using Bitspoke.Core.Profile;
+using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Signal;
 using Bitspoke.Core.Signal.UI;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.Core.Types.Game.States;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.Core.Utils.Types;
+using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Camera;
 using Bitspoke.GodotEngine.Components.Camera._2D;
@@ -25,6 +26,7 @@ using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.GodotEngine.Utils.Images;
 using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Client.Components;
+using Bitspoke.Ludus.Client.Components.Nodes.Maps.Terrains;
 using Bitspoke.Ludus.Client.Components.Nodes.Shaders;
 using Bitspoke.Ludus.Client.Components.Regions;
 using Bitspoke.Ludus.Client.Components.Regions.Debug;
@@ -57,6 +59,8 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	public Node2D PlantRegionsContainer { get; set; }
 	public Dictionary<int, RegionNode> RegionNodes { get; set; }
 	public Dictionary<int, TerrainRegionNode> TerrainRegionNodes { get; set; }
+	public TerrainLayer TerrainLayer { get; set; }
+
 
 	public PerformanceComponent PerformanceComponent { get; set; }
 	public GameStateInformationComponent GameStateInformationComponent { get; set; }
@@ -190,9 +194,10 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		TestBuildWorld();
 		//DebugPrintMap();
 		TestRenderPlants(Map);
-		TestRenderTerrain(Map);
-		RenderTerrain(new Rect2(new Vector2(0, 0), Map.Size));
-
+		
+		AddChild(TerrainLayer = new TerrainLayer(Map));
+		TerrainLayer.Render();
+		
 		Profiler.End();
 	}
 	
@@ -329,56 +334,9 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	public const String BLEND_TEXTURE = "Support/tileblend";
 	public const String SHADER_KEY = "Layers/terrain";
 	
-	private void TestRenderTerrain(Map map)
-	{
-		TileBlendTexture = ImageUtils.CreateTileBlendTexture();
-		Shader = Find.DB.ShaderDB[SHADER_KEY];
-	}
-
 	private ImageTexture TerrainTextureAtlas { get; set; }
 	ImageTexture? TileBlendTexture { get; set; }
 	private Shader Shader { get; set; }
-
-	private void RenderTerrain(Rect2 regionToRender)
-	{
-		Profiler.Start();
-
-		TerrainTextureAtlas = (ImageTexture)Find.DB.TextureDB[TERRAIN_ATLAS];
-
-		//var renderSize = Map.Size;
-		//var renderSize = new Vec2Int(125, 125);
-		//var renderSize = GetViewport().Size.ToVec2Int() / 64f;
-		var name = "terrainRender";
-		foreach (Node child in GetChildren())
-		{
-			if (child.Name == name)
-				child.Free();
-		}
-
-		// var zoom = GetViewport().GetCamera2D().Zoom;
-		// var viewportRect = GetViewportRect();
-		// var viewportPosition = viewportRect.Position * -1.1f;
-		// var viewportSize = ((viewportRect.Size / GodotGlobal.STANDARD_CELL_SIZE)*1.5f*zoom).Ceil();
-		// viewportRect = new Rect2(viewportPosition, viewportSize);
-
-		var mapData = Map.GenerateTerrainDefsTexture(regionToRender);//CalculateRenderRect());
-		
-		var terrainRender = new Sprite2D();
-		terrainRender.Name = name;
-		AddChild(terrainRender);
-		terrainRender.Texture = Find.DB.TextureDB["default"];
-		terrainRender.Centered = false;
-		var shaderMaterial2 = new TerrainShaderMaterial(Shader, TerrainTextureAtlas, TileBlendTexture, regionToRender.Size.ToVec2Int());
-		terrainRender.Material = shaderMaterial2;
-		shaderMaterial2.SetShaderParameter(TerrainShaderMaterial.SHADER_PARAM_MAP_DATA, mapData);
-		shaderMaterial2.SetShaderParameter(TerrainShaderMaterial.SHADER_PARAM_BLEND_FLAG, true);
-		terrainRender.Scale = regionToRender.Size;
-		terrainRender.ZIndex = -1;
-		terrainRender.ZAsRelative = false;
-		
-		Profiler.End();
-		//RenderRegionTerrain();
-	}
 	
 	private void OnZoomChanged()
 	{
@@ -463,20 +421,10 @@ public partial class Entry : GodotNode2D, ITickConsumer
 
 	public void OnTick()
 	{
+		return;
+		
 		PlantRegionsContainer.Hide();
 		Log.Debug("TICK!");
-		// for (int x = 0; x < 11; x++)
-		// {
-		// 	for (int y = 0; y < 11; y++)
-		// 	{
-		// 		var regionIndex = x + y * Map.Data.RegionsContainer.Width;
-		// 		var r = new List<int> { 0, 1, 2, 11, 12, 13, 22, 23, 25 };
-		// 		if (r.Contains(regionIndex))
-		// 			continue;
-		// 		
-		// 		var regionNode = RegionNodes[regionIndex];
-		// 		regionNode.Sprites?.Hide();
-		// 	}
-		// }
+	
 	}
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Bitspoke.Core.Common.Graphics.Textures;
-using Bitspoke.Core.Profile;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;

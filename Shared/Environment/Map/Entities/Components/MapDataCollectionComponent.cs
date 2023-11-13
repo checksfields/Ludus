@@ -1,4 +1,5 @@
-﻿using Bitspoke.GodotEngine.Components.Nodes;
+﻿using Bitspoke.Core.Profiling;
+using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.Ludus.Shared.Entities.Containers;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;

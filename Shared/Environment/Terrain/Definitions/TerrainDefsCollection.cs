@@ -3,6 +3,7 @@ using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Links;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
+using Bitspoke.Core.Profiling;
 using Bitspoke.GodotEngine.Utils.Files;
 using Newtonsoft.Json;
 

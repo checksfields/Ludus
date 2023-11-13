@@ -1,4 +1,5 @@
-﻿using Bitspoke.Core.Types.Game.States;
+﻿using Bitspoke.Core.Profiling;
+using Bitspoke.Core.Types.Game.States;
 using Bitspoke.GodotEngine.Utils.Files;
 using Newtonsoft.Json;
 

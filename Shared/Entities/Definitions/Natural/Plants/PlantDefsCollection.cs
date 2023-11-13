@@ -4,6 +4,7 @@ using Bitspoke.Core.Definitions.Parts.Entity.Living;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
+using Bitspoke.Core.Profiling;
 using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.Ludus.Shared.Common.Components.Movement;
 using Bitspoke.Ludus.Shared.Common.Definitions.Movement;
