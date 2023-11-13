@@ -54,16 +54,13 @@ public class MapGenStepPlants : MapGenStep
         
         foreach (var i in randoms)
         {
-            //Profiler.Start(additionalKey:"CanSpawnAt");
-            //var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
-            var canSpawnAt = spawnSystem.CanSpawnAt2(randomCells[i]);
-            //Profiler.End(message:"#### spawnSystem.CanSpawnAt ####>", additionalKey:"CanSpawnAt");
+           //Profile(() => { 
+                var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
 
-            if (canSpawnAt)
-            {
-                //plantSpawnLocations++;
-            }
-            
+                if (canSpawnAt) {
+                    //plantSpawnLocations++;
+                }
+            //});            
            //Map.Data.Add(null, randomCells[i]);
         }
         
@@ -104,7 +101,8 @@ public class MapGenStepPlants : MapGenStep
         //     }
         // }
         
-        Profiler.End(message:"#### mapCell in randomCells ####>", additionalKey:"ProcessCells");
+        var totalProcessingTime = Profiler.End(message:"#### ProcessCells Complete ####>", additionalKey:"ProcessCells");
+        Log.Debug($"Average time per cell {totalProcessingTime/Map.Cells.Ordered.Count}ms");
 
         if (CoreGlobal.DEBUG_ENABLED)
             Log.Debug($"Total Processing time for SpawnSystem.ProcessClusters: {spawnSystem.debugTotalProcessClustersTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugTotalProcessClustersTime/Map.Cells.Ordered.Count}ms/cell");

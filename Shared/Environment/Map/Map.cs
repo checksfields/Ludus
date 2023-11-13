@@ -41,7 +41,6 @@ public class Map : LudusEntity
     [JsonIgnore] public IDComponent WorldID => MapInitConfig?.WorldID ?? IDComponent.DEFAULT_ENTITY_ID;
         
     [JsonIgnore] public MapCellsContainerComponent  Cells    => Components.Get<MapCellsContainerComponent>();
-    [JsonIgnore] public MapEntityContainerComponent Entities => Components.Get<MapEntityContainerComponent>();
     [JsonIgnore] public MapRegionsComponent         Regions  => Components.Get<MapRegionsComponent>();
         
     public MapDataCollectionComponent Data { get; protected set; }
@@ -52,9 +51,9 @@ public class Map : LudusEntity
     [JsonIgnore] public Dictionary<EntityType, IEntityContainer> CommonEntities { get; set; }
 
     [JsonIgnore] public List<LudusEntity> AllCommonEntities => CommonEntities.Values.SelectMany(s => s.EntityList).Cast<LudusEntity>().ToList();
-        
+    
+    [Obsolete("Deprecated", true)]
     [JsonIgnore] public EntitiesContainer<Plant>? Plants => CommonEntities[EntityType.Plant] as EntitiesContainer<Plant>;
-    //[JsonIgnore] public Dictionary<int, List<PlantDef>> PlantDefs => Cells.PlantDefs;
 
     [JsonIgnore] public BucketCollection<int, LudusEntity> EntityCollection { get; set; }
 

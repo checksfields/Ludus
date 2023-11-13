@@ -45,7 +45,7 @@ public partial class MapDataCollectionComponent : GodotNode
         
         RegionsContainer  = new RegionsContainer(Map);
         CellsContainer    = new CellsContainer(Map);
-        EntitiesContainer = new EntitiesContainer();
+        EntitiesContainer = new EntitiesContainer(Map);
 
         Profiler.End(message:"+++++++++++++++++++++");
     }

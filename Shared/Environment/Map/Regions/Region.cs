@@ -1,6 +1,7 @@
 ﻿using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Common.Entities.Collections;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Godot;
 using Newtonsoft.Json;
@@ -33,20 +34,28 @@ public class Region
     //     set => CachedEntities = value;
     // }
 
-    private CachedList<LudusEntity>? entities { get; set; } = null; 
-    public CachedList<LudusEntity>? Entities
-    {
-        get
-        {
-            if (entities == null) 
-                entities = new();
-            
-            if (entities.IsDirty)
-                entities.Values = Map.Entities.GetByRegion(Index);
+    // private CachedList<LudusEntity>? entities { get; set; } = null; 
+    // public CachedList<LudusEntity>? Entities
+    // {
+    //     get
+    //     {
+    //         if (entities == null) 
+    //             entities = new();
+    //
+    //         if (entities.IsDirty)
+    //         {
+    //             entities.Values = Map.Data.EntitiesContainer.EntitiesByRegion[Index];
+    //             //entities.Values = Map.Entities.GetByRegion(Index);
+    //         }
+    //             
+    //             
+    //         
+    //
+    //         return entities;
+    //     }
+    // }
 
-            return entities;
-        }
-    }
+    public LudusEntityList? Entities => Map.Data.EntitiesContainer.EntitiesByRegion[Index]; 
 
     #endregion
 
@@ -70,8 +79,7 @@ public class Region
     
     public void ClearEntitiesCache()
     {
-        Entities?.Clear();
-        entities = null;
+        
     }
     
     public List<LudusEntity> EntitiesBy(EntityType type)
@@ -91,31 +99,10 @@ public class Region
     {
         var result = new Dictionary<string, List<LudusEntity>>();
 
-        var entities = Map.Entities.GetByRegion(Index);
-        //var entities = Map.Data.EntitiesContainer.EntitiesByRegion[Index];
+        //var entities = Map.Entities.GetByRegion(Index);
+        var entities = Map.Data.EntitiesContainer.EntitiesByRegion[Index];
         
         foreach (var entity in entities)
-        {
-            if (entity.Def.Type == EntityType.Plant)
-            {
-                var key = entity.Def.Key;
-                if (!result.ContainsKey(key))
-                    result.Add(key, new List<LudusEntity>());
-            
-                result[key].Add(entity);
-            }
-        }
-    
-        return result;
-    }
-    
-    public Dictionary<string, List<LudusEntity>> PlantsByType_Old()
-    {
-        var result = new Dictionary<string, List<LudusEntity>>();
-        
-        
-        //foreach (var entity in Entities)
-        foreach (var entity in Map.Entities.GetByRegion(Index))
         {
             if (entity.Def.Type == EntityType.Plant)
             {

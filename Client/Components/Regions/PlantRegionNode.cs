@@ -53,11 +53,14 @@ public partial class PlantRegionNode : RegionNode
     {
         base._Ready();
         ProcessPlants();
+        
+        if (VisibleOnScreenNotifier3D.IsOnScreen())
+            OnHide();
     }
 
     private void ProcessPlants()
     {
-        var plantsByType = Map.Data.EntitiesContainer.EntitiesByRegion[RegionID];
+        //var plantsByType = Map.Data.EntitiesContainer.EntitiesByRegion[RegionID];
         
         int layerID = 0;
         foreach (var plantByType in Region.PlantsByType())
@@ -99,28 +102,17 @@ public partial class PlantRegionNode : RegionNode
 
     protected override void OnShow()
     {
-        //Profiler.Start();
-
-        //ProcessPlants();
-        Visible = true;
-
-        //Profiler.End();
-
-        foreach (var regionLayer in RegionLayers)
-        {
-            regionLayer.Value.Refresh();
-        }
+        ProcessPlants();
     }
 
     protected override void OnHide()
     {
-        // foreach (var regionLayer in RegionLayers.Values)
-        // {
-        //     regionLayer.QueueFree();
-        // }
-        //
-        // RegionLayers.Clear();
-        Visible = false;
+        foreach (var regionLayer in RegionLayers.Values)
+            if (IsInstanceValid(regionLayer))
+                regionLayer.QueueFree();
+
+        if (IsInstanceValid(Sprites))
+            Sprites.QueueFree();
     }
 
 

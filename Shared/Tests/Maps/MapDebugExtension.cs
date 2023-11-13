@@ -55,7 +55,7 @@ public static class MapDebugExtension
                 
 
                 // PLANT
-                var plantDefs = cell.Entities?.PlantDefs();
+                var plantDefs = cell.EntitiesNew?.PlantDefs();
                 if (plantDefs != null && plantDefs.Count > 0)
                     plantRow.Append(plantDefs[plantDefs.Count-1]?.Ascii != null ? plantDefs[plantDefs.Count-1].Ascii : "?").Append(' ');
                 else

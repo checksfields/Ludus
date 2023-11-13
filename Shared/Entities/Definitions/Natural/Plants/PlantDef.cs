@@ -68,7 +68,7 @@ public class PlantDef : EntityDef
     public PlacementReport CanPlaceAt(MapCell mapCell)
     {
         var placementReport = new PlacementReport();
-        var mapCellEntities = mapCell.Entities;
+        var mapCellEntities = mapCell.EntitiesNew;
         
         // MAP FERTILITY
         var fertility = mapCell.Fertility;
@@ -96,7 +96,7 @@ public class PlantDef : EntityDef
         //     placementReport.Messages.Add("TerrainFertilityToHigh");
         // }
         
-        if (mapCell.EntityContainer?.IsFull ?? false)
+        if (mapCell.EntitiesNew?.IsFull ?? false)
         {
             placementReport.Status = ReportStatus.RejectedWithMessages;
             placementReport.Messages.Add("CellIsFull");

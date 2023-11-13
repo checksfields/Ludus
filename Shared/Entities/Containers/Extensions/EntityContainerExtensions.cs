@@ -4,6 +4,7 @@ using Bitspoke.Ludus.Shared.Entities.Definitions;
 
 namespace Bitspoke.Ludus.Shared.Entities.Containers.Extensions;
 
+[Obsolete("Deprecated", true)]
 public static class EntityContainerExtensions
 {
     public static Dictionary<T, List<LudusEntity>> ByDef<T>(this GenericEntitiesContainer container) where T : EntityDef

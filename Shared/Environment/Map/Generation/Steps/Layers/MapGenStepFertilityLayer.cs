@@ -49,7 +49,7 @@ public class MapGenStepFertilityLayer : MapGenStepLayer
         {
             tasks.Add(Task.Run(() =>
             {
-                foreach (var mapCell in cells)
+                foreach (var mapCell in cells.Values)
                 {
                     mapCell.Fertility = Noise.GetValue(mapCell.Location, GetFertilityValueFunc);
                 }

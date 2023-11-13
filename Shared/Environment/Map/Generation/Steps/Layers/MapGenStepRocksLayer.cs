@@ -61,7 +61,7 @@ public class MapGenStepRocksLayer : MapGenStepLayer
         {
             tasks.Add(Task.Run(() =>
             {
-                foreach (var mapCell in cells)
+                foreach (var mapCell in cells.Values)
                 {
                     string? stratumDefKey = null;
                     float stratumDefValue = float.MinValue;

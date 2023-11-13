@@ -250,7 +250,7 @@ public class AdminCommandController : ICommandController
                     
                     
                 var message = new StringBuilder();
-                var plants = map.Entities.Get(EntityType.Plant);
+                var plants = map.Data.EntitiesContainer.EntitiesByType[EntityType.Plant];
                 message.AppendLine($"Total: {plants.Count}");
                 message.AppendLine($"Grass: {plants.Count(c => c.Def.Key == "grass").ToString() ?? "NaN"}");
                     

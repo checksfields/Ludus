@@ -59,84 +59,90 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
 
     #region Methods
     
+    // public override bool CanSpawnAt(MapCell mapCell)
+    // {
+    //     bool isValid = Validate(mapCell);
+    //     if (!isValid)
+    //         return false;
+    //     
+    //     if (IsSaturatedAt(mapCell))
+    //         return false;
+    //     
+    //     // get the list of possible plants that can spawn here
+    //     var plantDefs = CandidatePlantDefsFor(mapCell);
+    //     
+    //     // if we have none ... just return false ... can't spawn here
+    //     if (plantDefs == null || plantDefs.Count < 1)
+    //         return false;
+    //
+    //     // TODO: Performance Bottle Neck - Removed for now
+    //     Profiler.Start();
+    //     // handle any clusters
+    //     // TODO: Add back in
+    //     ProcessClusters(mapCell);
+    //     debugTotalProcessClustersTime += Profiler.End(log:false);
+    //
+    //     // calculate the weights for only the plants that can exist here
+    //     var defWeights = PlantSelectionWeights(mapCell, plantDefs);
+    //     
+    //     var result = new KeyValuePair<Def, float>();
+    //     var found = defWeights.TryRandomElementByWeight((x => x.Value), out result);
+    //
+    //     if (!found)
+    //         return false;
+    //
+    //     var plant = new Plant((PlantDef) result.Key);
+    //
+    //     plant.LocationComponent.Index = mapCell.Index;
+    //     plant.LocationComponent.Location = mapCell.Location;
+    //     
+    //     //Map.Plants.Add(plant);
+    //     Map.Entities.Add(plant, mapCell);
+    //     //mapCell.GenericEntityContainer.Add(Map.Plants[plant.IDComponent.ID]);
+    //     //mapCell.EntityIDs.Add(plant.IDComponent.ID, EntityType.Plant);
+    //
+    //     plant = null;
+    //     //Map.Plants.Remove(plant);
+    //
+    //     // TODO: Fix
+    //     return true;
+    // }
+    
     public override bool CanSpawnAt(MapCell mapCell)
     {
+        //debugTotalProcessClustersTime += Profile(log: false, toTrace:() => {});
+        
         bool isValid = Validate(mapCell);
         if (!isValid)
             return false;
         
+        // **** 20231114 IsSaturatedAt benchmark = 0.0087 ms
         if (IsSaturatedAt(mapCell))
             return false;
         
         // get the list of possible plants that can spawn here
+        // **** 20231114 CandidatePlantDefsFor benchmark 0.0002 ms
         var plantDefs = CandidatePlantDefsFor(mapCell);
         
         // if we have none ... just return false ... can't spawn here
         if (plantDefs == null || plantDefs.Count < 1)
             return false;
-
+        
+        
         // TODO: Performance Bottle Neck - Removed for now
-        Profiler.Start();
         // handle any clusters
         // TODO: Add back in
+        // **** 20231114 ProcessClusters benchmark = 0.0036 ms
         ProcessClusters(mapCell);
-        debugTotalProcessClustersTime += Profiler.End(log:false);
+        //debugTotalProcessClustersTime += Profiler.End(log:false);
 
         // calculate the weights for only the plants that can exist here
+        // **** 20231114 PlantSelectionWeights benchmark = 3.1866 ms
         var defWeights = PlantSelectionWeights(mapCell, plantDefs);
         
         var result = new KeyValuePair<Def, float>();
         var found = defWeights.TryRandomElementByWeight((x => x.Value), out result);
-
-        if (!found)
-            return false;
-
-        var plant = new Plant((PlantDef) result.Key);
-
-        plant.LocationComponent.Index = mapCell.Index;
-        plant.LocationComponent.Location = mapCell.Location;
         
-        //Map.Plants.Add(plant);
-        Map.Entities.Add(plant, mapCell);
-        //mapCell.GenericEntityContainer.Add(Map.Plants[plant.IDComponent.ID]);
-        //mapCell.EntityIDs.Add(plant.IDComponent.ID, EntityType.Plant);
-
-        plant = null;
-        //Map.Plants.Remove(plant);
-
-        // TODO: Fix
-        return true;
-    }
-    
-    public bool CanSpawnAt2(MapCell mapCell)
-    {
-        bool isValid = Validate(mapCell);
-        if (!isValid)
-            return false;
-        
-        if (IsSaturatedAt(mapCell))
-            return false;
-        
-        // get the list of possible plants that can spawn here
-        var plantDefs = CandidatePlantDefsFor(mapCell);
-        
-        // if we have none ... just return false ... can't spawn here
-        if (plantDefs == null || plantDefs.Count < 1)
-            return false;
-
-        // TODO: Performance Bottle Neck - Removed for now
-        Profiler.Start();
-        // handle any clusters
-        // TODO: Add back in
-        ProcessClusters(mapCell);
-        debugTotalProcessClustersTime += Profiler.End(log:false);
-
-        // calculate the weights for only the plants that can exist here
-        var defWeights = PlantSelectionWeights(mapCell, plantDefs);
-        
-        var result = new KeyValuePair<Def, float>();
-        var found = defWeights.TryRandomElementByWeight((x => x.Value), out result);
-
         if (!found)
             return false;
 
@@ -147,12 +153,13 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         
         //Map.Plants.Add(plant);
         Map.Data.EntitiesContainer.Add(plant, mapCell);
+//        Map.Entities.Add(plant, mapCell);
         //mapCell.GenericEntityContainer.Add(Map.Plants[plant.IDComponent.ID]);
         //mapCell.EntityIDs.Add(plant.IDComponent.ID, EntityType.Plant);
-
+        
         plant = null;
         //Map.Plants.Remove(plant);
-
+        
         // TODO: Fix
         return true;
     }
@@ -163,7 +170,9 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         var defWeights = new Dictionary<Def, float>();
         foreach (var plantDef in plantDefs)
         {
+            // ****  20231114 CalculatePlantSelectionWeight benchmark = 2.5062
             weight = CalculatePlantSelectionWeight(mapCell, plantDef);
+        
             defWeights.Add(plantDef, weight);
         }
 
@@ -173,26 +182,35 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
     public float CalculatePlantSelectionWeight(MapCell mapCell, PlantDef plantDef)
     {
         var weight = 0f;
+        var r = 0.5f;
 
         var plantWeight = Map.BiomeDef.BiomePlantsDef.PlantWeights[plantDef.Key]?.Frequency ?? 0f;
         if (plantWeight <= 0f)
             return weight;
         
         var plantWeightPercent = plantWeight / Map.BiomeDef.BiomePlantsDef.TotalWeight;
-        
-        var plantsByDef = Map.Plants.PlantsByDef();
-        //var plantDefs = Map.Cells.PlantDefs();
-        var currentPlantsOfDef = plantsByDef.ContainsKey(plantDef) ? plantsByDef[plantDef].Count : 0;
-        //var currentPlantsOfDef = plantsByDef?[plantDef]?.Count ?? 0;
-        var currentTotalPlants = Map.Plants.Count;
 
-        var r = 0.5f;
+        var plants = Map.Data.EntitiesContainer.EntitiesByType[EntityType.Plant];
+//        var plantsByDef = Map.Plants.PlantsByDef();
+        var plantsByDef = plants?.PlantsByDef();
+
+        debugTotalProcessClustersTime += Profile(log: false, toTrace:() => {
+        
+        //var plantDefs = Map.Cells.PlantDefs();
+        var currentPlantsOfDef = plantsByDef?.ContainsKey(plantDef) ?? false ? plantsByDef[plantDef].Count : 0;
+        //var currentPlantsOfDef = plantsByDef?[plantDef]?.Count ?? 0;
+//        var currentTotalPlants = Map.Plants.Count;
+        var currentTotalPlants = plants?.Count ?? 0;
+
+        
         // if 50% of the plants are spawned ...
         if (currentTotalPlants > CurrentTargetPlantCountForMap / 2f)
         {
             r = currentPlantsOfDef / currentTotalPlants / plantWeightPercent;
             plantWeight *= r;
         }
+        
+        });
 
         plantWeight = CalculatePlantSectionWeightForClusterDistribution(plantWeight, plantDef, r);
         plantWeight = CalculatePlantSelectionWeightForNormalDistribution(plantWeight);
@@ -266,7 +284,8 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
             || Map.BiomeDef.BiomePlantsDef.WildPlantsIgnoreFertility)
         {
             // how many plants are already on the map ... 
-            var totalMapPlants = Map.Plants.Count;
+//            var totalMapPlants = Map.Plants.Count;
+            var totalMapPlants = Map.Data.EntitiesContainer.EntitiesByType[EntityType.Plant].Count;
             // we are saturated if we have equal to or more plants on the map than we are targeting
             var mapIsSaturated = totalMapPlants >= CurrentTargetPlantCountForMap;
             
@@ -281,17 +300,14 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         
         float numDesiredPlantsLocally = 0.0f;
         int numPlants = 0;
-        
-        
+
+
         // if this region saturated
-        var mapRegion = Map.Regions.GetRegion(mapCell.Location.ToVec3Int());
-        //var mapRegion = Map.Regions.MapRegions[mapCell.RegionIndex];
+//        var mapRegion = Map.Regions.GetRegion(mapCell.Location.ToVec3Int());
+        var mapRegion = Map.Data.RegionsContainer[mapCell.RegionIndex];
         numDesiredPlantsLocally = GetDesiredPlantsCountIn(mapRegion, mapCell, CurrentPlantDensity);
-        //numPlants += mapRegion.EntitiesBy(EntityType.Plant).Count;
         
-        
-        
-        var plants = Map.GetEntities<Plant>(EntityType.Plant);
+//        numPlants += mapRegion.EntitiesBy(EntityType.Plant).Count;
         numPlants += mapRegion.EntitiesBy(EntityType.Plant).Count;
 
         return (double)numPlants >= (double)numDesiredPlantsLocally;
@@ -332,8 +348,9 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
                 
                 // for any entities in this target cell that are wild plants and are clustered ...
                 //foreach (var entity in targetCell.EntityContainer.WildClusteredPlants()!)
-                var cellEntities = Map.Entities.GetByCellIndex(cellIndex); 
-                ClusteredPlantDefs = cellEntities?.PlantDefs(true, true) ?? new();
+                var cell = Map.Data.CellsContainer.CellsByRegion[mapCell.RegionIndex]?[cellIndex];
+                var cellEntities = cell?.EntitiesNew; 
+                ClusteredPlantDefs = cellEntities?.PlantDefs(cellEntities, true, true) ?? new();
                 if (ClusteredPlantDefs == null)
                     continue;
                 

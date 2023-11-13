@@ -14,9 +14,9 @@ public class CellsContainer
     // none
     public Map Map { get; set; }
 
-    public BitspokeArray<BitspokeList<MapCell>> CellsByRegion { get; set; }
+    public BitspokeArray<BitspokeDictionary<int, MapCell>> CellsByRegion { get; set; }
     
-    [JsonIgnore] public  BitspokeArray<MapCell> Cells => new (CellsByRegion.SelectMany(m => m));
+    [JsonIgnore] public  BitspokeArray<MapCell> Cells { get; set; } //=> new (CellsByRegion.SelectMany(m => m));
     [JsonIgnore] private Dictionary<int, BitspokeDictionary<int, BitspokeArray<MapCell>>> CellBucketsCache { get; set; } = new ();
     
     public MapCell? this[int index] => Cells?[index] ?? null;
@@ -35,7 +35,8 @@ public class CellsContainer
 
     protected void Init()
     {
-        CellsByRegion = new BitspokeArray<BitspokeList<MapCell>>(Map.TotalRegions);
+        CellsByRegion = new BitspokeArray<BitspokeDictionary<int, MapCell>>(Map.TotalRegions);
+        Cells = new BitspokeArray<MapCell>(Map.TotalCells);
         InitialiseCells();
     }
 
@@ -50,14 +51,18 @@ public class CellsContainer
             
             var startCellIndex = regionIndex * cellsPerRegion;
             var maxCellIndexForRegion = Math.Min(startCellIndex + cellsPerRegion, Map.Area);
-            CellsByRegion[regionIndex] ??= new BitspokeList<MapCell>();
+            CellsByRegion[regionIndex] ??= new BitspokeDictionary<int, MapCell>();
 
             for (int cellIndex = startCellIndex; cellIndex < maxCellIndexForRegion; cellIndex++)
             {
                 var cell = new MapCell(cellIndex, mapID);
                 cell.RegionIndex = regionIndex;
+
+                Cells[cellIndex] = cell;
+                if (CellsByRegion[regionIndex] == null)
+                    CellsByRegion[regionIndex] = new BitspokeDictionary<int, MapCell>();
                 
-                CellsByRegion[regionIndex].Add(cell);    
+                CellsByRegion[regionIndex].Add(cellIndex, cell);    
             }
         }
         

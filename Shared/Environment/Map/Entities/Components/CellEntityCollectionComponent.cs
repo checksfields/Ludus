@@ -4,6 +4,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Entities.Components;
 
+[Obsolete("Deprecated", true)]
 public partial class CellEntityCollectionComponent : GodotNode
 {
     #region Properties
@@ -33,7 +34,7 @@ public partial class CellEntityCollectionComponent : GodotNode
             return;
         
         MapCell = mapCell;
-        MapCell.Entities?.Add(entity);
+        MapCell.EntitiesNew?.Add(entity);
     }
 
     public bool ValidateAdd(LudusEntity entity, MapCell mapCell)

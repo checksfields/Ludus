@@ -42,7 +42,7 @@ public class MapGenStepRockFormations : MapGenStep
         {
             tasks.Add(Task.Run(() =>
             {
-                foreach (var mapCell in cells)
+                foreach (var mapCell in cells.Values)
                 {
                     var cellElevation = mapCell.Elevation;
                     if (cellElevation <= minElevation)

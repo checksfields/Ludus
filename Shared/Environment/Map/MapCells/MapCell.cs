@@ -1,8 +1,10 @@
-﻿using Bitspoke.Core.Entities.Containers;
+﻿using Bitspoke.Core.Common.Collections.Lists;
+using Bitspoke.Core.Entities.Containers;
 using Bitspoke.Core.Models.Cells;
 using Bitspoke.Core.Utils.Primatives.Int;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Common.Entities.Collections;
 using Bitspoke.Ludus.Shared.Entities.Containers;
 using Bitspoke.Ludus.Shared.Entities.Containers.Extensions;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
@@ -51,14 +53,14 @@ public class MapCell : Cell
     public string? RoofDefKey => RoofDef?.Key ?? null;
 
     //public EntityIDContainer<EntityType> EntityIDs { get; set; }
-    public EntitiesContainer<LudusEntity>? EntityContainer => Map.Entities.GetByCellIndex(Index);
-    public List<LudusEntity>? Entities => EntityContainer?.EntitiesList ?? null;
+//    public EntitiesContainer<LudusEntity>? EntityContainer => Map.Entities.GetByCellIndex(Index);
+//    public List<LudusEntity>? Entities => EntityContainer?.EntitiesList ?? null;
     // public EntityContainer<LudusEntity>? EntityContainer => Map.Entities.GetByCellIndex(Index);
-    public EntitiesContainer? EntitiesNew { get; set; } = new();
+    public LudusEntityList? EntitiesNew { get; set; } = new();
 
         
     //public Dictionary<int, EntityType> EntityIDs { get; set; }
-    public bool HasPlants => Entities?.HasPlant() ?? false;
+    public bool HasPlants => EntitiesNew?.HasPlant() ?? false;
 
     //[JsonIgnore] public GenericEntityContainer GenericEntityContainer { get; set; }
     // public List<int>? EntityIDs => GenericEntityContainer?.EntityIDs ?? null;
@@ -66,7 +68,7 @@ public class MapCell : Cell
     public List<PlantDef> GetPlantsDefs(bool isWild = true, bool isClusterable = false)
     {
         var plantDefsToReturn = new List<PlantDef>();
-        var plantDefs = Entities.PlantDefs();
+        var plantDefs = EntitiesNew.PlantDefs();
         foreach (var plantDef in plantDefs)
         {
                 

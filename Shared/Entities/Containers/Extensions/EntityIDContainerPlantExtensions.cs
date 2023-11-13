@@ -8,6 +8,7 @@ using Bitspoke.Ludus.Shared.Environment.Map;
 
 namespace Bitspoke.Ludus.Shared.Entities.Containers.Extensions;
 
+[Obsolete("Deprecated", true)]
 public static class EntityIDContainerPlantExtensions
 {
     public static bool HasPlant(this EntityIDContainer<EntityType> container)
