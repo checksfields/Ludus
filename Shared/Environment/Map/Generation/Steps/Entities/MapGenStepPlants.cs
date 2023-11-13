@@ -36,9 +36,6 @@ public class MapGenStepPlants : MapGenStep
         var primer = Pool<List<float>>.Instance.New();
         Pool<List<float>>.Instance.Return(primer);
         
-        Log.TODO("Add NaturalPlantSpawnSystem.ProcessClusters back in.");
-
-        
         var randomCells = Map.Data.CellsContainer.Cells.RandomisedArray;
         //var randomCells = Map.Cells.Randomised.ToArray();
         
@@ -48,20 +45,20 @@ public class MapGenStepPlants : MapGenStep
         {
             if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance)) randoms.Add(i);
         }
-        Profiler.End(message:"#### Map.Cells.Randomised ####>", additionalKey:"GetRandomCells");
-
-        Profiler.Start(additionalKey:"ProcessCells");
         
+        Profiler.End(message:"#### Map.Cells.Randomised ####>", additionalKey:"GetRandomCells");
+        Profiler.Start(additionalKey:"ProcessCells");
+
+        var totalCanSpawnAt = 0d;
         foreach (var i in randoms)
         {
-           //Profile(() => { 
+            totalCanSpawnAt += Profile(log: false, toTrace:() => {
                 var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
 
                 if (canSpawnAt) {
                     //plantSpawnLocations++;
                 }
-            //});            
-           //Map.Data.Add(null, randomCells[i]);
+            });
         }
         
 //        // var randomCells2 = Map.Data.CellsContainer.Cells.RandomisedArray;
@@ -105,7 +102,11 @@ public class MapGenStepPlants : MapGenStep
         Log.Debug($"Average time per cell {totalProcessingTime/Map.Cells.Ordered.Count}ms");
 
         if (CoreGlobal.DEBUG_ENABLED)
-            Log.Debug($"Total Processing time for SpawnSystem.ProcessClusters: {spawnSystem.debugTotalProcessClustersTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugTotalProcessClustersTime/Map.Cells.Ordered.Count}ms/cell");
+        {
+            //Log.Debug($"Total Processing time for SpawnSystem.ProcessClusters: {spawnSystem.debugTotalProcessClustersTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugTotalProcessClustersTime/Map.Cells.Ordered.Count}ms/cell");
+            Log.Debug($"Total Processing time for SpawnSystem.CanSpawnAt: {totalCanSpawnAt}ms of {Map.Cells.Ordered.Count} cells @ {totalCanSpawnAt/Map.Cells.Ordered.Count}ms/cell");
+        }
+            
         
         
         Profiler.End();

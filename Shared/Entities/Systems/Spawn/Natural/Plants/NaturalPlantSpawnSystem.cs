@@ -1,4 +1,5 @@
-﻿using Bitspoke.Core.Common.Collections.Pools;
+﻿using Bitspoke.Core.Common.Collections.Dictionaries;
+using Bitspoke.Core.Common.Collections.Pools;
 using Bitspoke.Core.Common.Maths.Geometry;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Profiling;
@@ -6,6 +7,7 @@ using Bitspoke.Core.Utils.Collections;
 using Bitspoke.Core.Utils.Math;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Common.Entities.Collections;
 using Bitspoke.Ludus.Shared.Common.Reports;
 using Bitspoke.Ludus.Shared.Entities.Containers.Extensions;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
@@ -59,55 +61,6 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
 
     #region Methods
     
-    // public override bool CanSpawnAt(MapCell mapCell)
-    // {
-    //     bool isValid = Validate(mapCell);
-    //     if (!isValid)
-    //         return false;
-    //     
-    //     if (IsSaturatedAt(mapCell))
-    //         return false;
-    //     
-    //     // get the list of possible plants that can spawn here
-    //     var plantDefs = CandidatePlantDefsFor(mapCell);
-    //     
-    //     // if we have none ... just return false ... can't spawn here
-    //     if (plantDefs == null || plantDefs.Count < 1)
-    //         return false;
-    //
-    //     // TODO: Performance Bottle Neck - Removed for now
-    //     Profiler.Start();
-    //     // handle any clusters
-    //     // TODO: Add back in
-    //     ProcessClusters(mapCell);
-    //     debugTotalProcessClustersTime += Profiler.End(log:false);
-    //
-    //     // calculate the weights for only the plants that can exist here
-    //     var defWeights = PlantSelectionWeights(mapCell, plantDefs);
-    //     
-    //     var result = new KeyValuePair<Def, float>();
-    //     var found = defWeights.TryRandomElementByWeight((x => x.Value), out result);
-    //
-    //     if (!found)
-    //         return false;
-    //
-    //     var plant = new Plant((PlantDef) result.Key);
-    //
-    //     plant.LocationComponent.Index = mapCell.Index;
-    //     plant.LocationComponent.Location = mapCell.Location;
-    //     
-    //     //Map.Plants.Add(plant);
-    //     Map.Entities.Add(plant, mapCell);
-    //     //mapCell.GenericEntityContainer.Add(Map.Plants[plant.IDComponent.ID]);
-    //     //mapCell.EntityIDs.Add(plant.IDComponent.ID, EntityType.Plant);
-    //
-    //     plant = null;
-    //     //Map.Plants.Remove(plant);
-    //
-    //     // TODO: Fix
-    //     return true;
-    // }
-    
     public override bool CanSpawnAt(MapCell mapCell)
     {
         //debugTotalProcessClustersTime += Profile(log: false, toTrace:() => {});
@@ -128,10 +81,6 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         if (plantDefs == null || plantDefs.Count < 1)
             return false;
         
-        
-        // TODO: Performance Bottle Neck - Removed for now
-        // handle any clusters
-        // TODO: Add back in
         // **** 20231114 ProcessClusters benchmark = 0.0036 ms
         ProcessClusters(mapCell);
         //debugTotalProcessClustersTime += Profiler.End(log:false);
@@ -166,11 +115,13 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
 
     private Dictionary<Def, float> PlantSelectionWeights(MapCell mapCell, List<PlantDef>? plantDefs)
     {
+        
         var weight = 0f;
         var defWeights = new Dictionary<Def, float>();
         foreach (var plantDef in plantDefs)
         {
-            // ****  20231114 CalculatePlantSelectionWeight benchmark = 2.5062
+            // **** 20231114 CalculatePlantSelectionWeight benchmark = 2.5062 ms
+            // **** 20231115 CalculatePlantSelectionWeight (refactored) benchmark = 0.0001 ms
             weight = CalculatePlantSelectionWeight(mapCell, plantDef);
         
             defWeights.Add(plantDef, weight);
@@ -184,17 +135,20 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         var weight = 0f;
         var r = 0.5f;
 
+        // **** 20231115 benchmark = 0 ms
         var plantWeight = Map.BiomeDef.BiomePlantsDef.PlantWeights[plantDef.Key]?.Frequency ?? 0f;
         if (plantWeight <= 0f)
             return weight;
         
         var plantWeightPercent = plantWeight / Map.BiomeDef.BiomePlantsDef.TotalWeight;
-
+        
+        // **** 20231115 benchmark = 0 ms
         var plants = Map.Data.EntitiesContainer.EntitiesByType[EntityType.Plant];
-//        var plantsByDef = Map.Plants.PlantsByDef();
-        var plantsByDef = plants?.PlantsByDef();
-
-        debugTotalProcessClustersTime += Profile(log: false, toTrace:() => {
+           
+        // **** 20231115 plants?.PlantsByDef() benchmark = 2.62095 ms
+        // **** 20231115 Map.Data.EntitiesContainer.EntitiesByTypeAndDef[EntityType.Plant] benchmark = 0 ms
+        //plantsByDef = plants?.PlantsByDef();
+        var plantsByDef = Map.Data.EntitiesContainer.EntitiesByTypeAndDef[EntityType.Plant];
         
         //var plantDefs = Map.Cells.PlantDefs();
         var currentPlantsOfDef = plantsByDef?.ContainsKey(plantDef) ?? false ? plantsByDef[plantDef].Count : 0;
@@ -210,11 +164,10 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
             plantWeight *= r;
         }
         
-        });
-
         plantWeight = CalculatePlantSectionWeightForClusterDistribution(plantWeight, plantDef, r);
         plantWeight = CalculatePlantSelectionWeightForNormalDistribution(plantWeight);
         weight = plantWeight;
+        
 
         return weight;
     }

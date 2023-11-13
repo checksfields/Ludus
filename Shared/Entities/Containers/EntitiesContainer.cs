@@ -1,6 +1,7 @@
 ﻿using Bitspoke.Core.Common.Collections.Arrays;
 using Bitspoke.Core.Common.Collections.Dictionaries;
 using Bitspoke.Core.Common.Collections.Lists;
+using Bitspoke.Core.Definitions;
 using BitspokeEntitiesContainer = Bitspoke.Core.Entities.Containers.EntitiesContainer<Bitspoke.Ludus.Shared.Common.Entities.LudusEntity>;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Common.Entities.Collections;
@@ -19,6 +20,7 @@ public class EntitiesContainer : BitspokeEntitiesContainer
     private BitspokeDictionary<int, int> EntityRegionMap { get; set; } = new();
     
     public BitspokeDictionary<EntityType, LudusEntityList> EntitiesByType { get; set; } = new();
+    public BitspokeDictionary<EntityType, BitspokeDictionary<Def, LudusEntityList>> EntitiesByTypeAndDef { get; set; } = new();
     
     public BitspokeArray<LudusEntityList> EntitiesByRegion { get; set; }
     //public BitspokeDictionary<int, EntitiesContainer> EntitiesByRegion { get; set; } = new();
@@ -49,11 +51,16 @@ public class EntitiesContainer : BitspokeEntitiesContainer
     
     public void Add(LudusEntity entity, MapCell? cell)
     {
+        // Benchmark Testing = 0 ms 
+        //Profile(() => { 
         // add the entity to the full list of entities
         base.Add(entity);
         
         AddEntityByType(entity, cell);
         AddEntityToCell(entity, cell);
+
+        AddEntityByTypeAndDef(entity);
+        //});
     }
 
     private void AddEntityByType(LudusEntity entity, MapCell? cell = null)
@@ -76,6 +83,22 @@ public class EntitiesContainer : BitspokeEntitiesContainer
             
             EntitiesByTypeAndRegion[entityType][regionIndex]?.Add(entity);
         }
+    }
+    
+    private void AddEntityByTypeAndDef(LudusEntity entity)
+    {
+        var entityDef = entity.Def;
+        var entityType = entityDef.Type;
+
+        // if we don't have a type key then add the dictionary to the collection
+        if (!EntitiesByTypeAndDef.ContainsKey(entityType))
+            EntitiesByTypeAndDef.Add(entityType, new());
+        
+        // if we don't have a def key for the entity type then add the list to the collection for the entity type
+        if (!EntitiesByTypeAndDef[entityType].ContainsKey(entityDef))
+            EntitiesByTypeAndDef[entityType].Add(entityDef, new());
+        
+        EntitiesByTypeAndDef[entityType][entityDef].Add(entity);
     }
     
     private void AddEntityToCell(LudusEntity entity, MapCell? cell = null)
