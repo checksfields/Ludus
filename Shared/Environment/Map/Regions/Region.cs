@@ -13,7 +13,7 @@ public class Region
     #region Properties
 
     [JsonIgnore] public Map Map { get; set; }
-    [JsonIgnore] public Rect2 Dimension { get; set; }
+    [JsonIgnore] public Rect2I Dimension { get; set; }
     [JsonIgnore] public int Index { get; set; }
 
     public List<MapCell>? cachedCells;
@@ -21,7 +21,7 @@ public class Region
         get {
             if (cachedCells == null)
                 // @PERFORMANCE: about 12ms call
-                cachedCells = Map.Cells.Ordered.Values.Where(s => Dimension.HasPoint(s.Location.ToVector2())).ToList();
+                cachedCells = Map.Cells.Ordered.Values.Where(s => Dimension.HasPoint(s.Location.ToVector2I())).ToList();
 
             return cachedCells;
         }
@@ -61,7 +61,7 @@ public class Region
 
     #region Constructors and Initialisation
 
-    public Region(int index, Map map, Rect2 dimension)
+    public Region(int index, Map map, Rect2I dimension)
     {
         Index = index;
         Map = map;

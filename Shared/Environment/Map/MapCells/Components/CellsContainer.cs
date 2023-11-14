@@ -4,6 +4,7 @@ using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Vector;
+using Bitspoke.GodotEngine.Utils.Vector;
 using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
@@ -43,28 +44,63 @@ public class CellsContainer
     private void InitialiseCells()
     {
         Profiler.Start();
+        
         var mapID = Map.ID;
-        var cellsPerRegion = Global.DEFAULT_MAP_REGION_DIMENSIONS.Area();
-
-        for (int regionIndex = 0; regionIndex < CellsByRegion.Length; regionIndex++)
+        
+        for (int cellIndex = 0; cellIndex < Map.TotalCells; cellIndex++)
         {
-            
-            var startCellIndex = regionIndex * cellsPerRegion;
-            var maxCellIndexForRegion = Math.Min(startCellIndex + cellsPerRegion, Map.Area);
-            CellsByRegion[regionIndex] ??= new BitspokeDictionary<int, MapCell>();
-
-            for (int cellIndex = startCellIndex; cellIndex < maxCellIndexForRegion; cellIndex++)
-            {
-                var cell = new MapCell(cellIndex, mapID);
-                cell.RegionIndex = regionIndex;
-
-                Cells[cellIndex] = cell;
-                if (CellsByRegion[regionIndex] == null)
-                    CellsByRegion[regionIndex] = new BitspokeDictionary<int, MapCell>();
+            var cell = new MapCell(cellIndex, mapID);
+            CellsByRegion[cell.RegionIndex] ??= new BitspokeDictionary<int, MapCell>();
                 
-                CellsByRegion[regionIndex].Add(cellIndex, cell);    
-            }
+            Cells[cellIndex] = cell;
+            if (CellsByRegion[cell.RegionIndex] == null)
+                CellsByRegion[cell.RegionIndex] = new BitspokeDictionary<int, MapCell>();
+                
+            CellsByRegion[cell.RegionIndex].Add(cellIndex, cell);    
         }
+        
+        // for (int regionIndex = 0; regionIndex < CellsByRegion.Length; regionIndex++)
+        // {
+        //     var region = Map.Data.RegionsContainer[regionIndex];
+        //     var regionDimension = region.Dimension;
+        //
+        //     
+        //
+        //     
+        //     
+        //     
+        //     // for (var x = regionDimension.Position.X; x < regionDimension.End.X; x++)
+        //     // {
+        //     //     for (var y = regionDimension.Position.Y; y < regionDimension.End.Y; y++)
+        //     //     {
+        //     //         var cellIndex = y * cellsPerRegion + x;
+        //     //         var cell = new MapCell(cellIndex, mapID);
+        //     //         
+        //     //         Cells[cellIndex] = cell;
+        //     //         if (CellsByRegion[regionIndex] == null)
+        //     //             CellsByRegion[regionIndex] = new BitspokeDictionary<int, MapCell>();
+        //     //     
+        //     //         CellsByRegion[regionIndex].Add(cellIndex, cell);
+        //     //     }
+        //     // }
+        //     
+        //     // var startCellIndex = regionIndex * cellsPerRegion;
+        //     // var maxCellIndexForRegion = Math.Min(startCellIndex + cellsPerRegion, Map.Area);
+        //     // CellsByRegion[regionIndex] ??= new BitspokeDictionary<int, MapCell>();
+        //     //
+        //     // for (int cellIndex = startCellIndex; cellIndex < maxCellIndexForRegion; cellIndex++)
+        //     // {
+        //     //     var cell = new MapCell(cellIndex, mapID);
+        //     //     // RegionIndex is set in the ctor
+        //     //     //cell.RegionIndex = regionIndex;
+        //     //
+        //     //     Cells[cellIndex] = cell;
+        //     //     if (CellsByRegion[regionIndex] == null)
+        //     //         CellsByRegion[regionIndex] = new BitspokeDictionary<int, MapCell>();
+        //     //     
+        //     //     CellsByRegion[regionIndex].Add(cellIndex, cell);    
+        //     // }
+        // }
         
         // preload some common data queries
         GetCellBucket(GodotGlobal.CPU_CORES);

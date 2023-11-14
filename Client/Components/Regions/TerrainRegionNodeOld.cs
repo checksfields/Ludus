@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Bitspoke.Core.Profiling;
 using Bitspoke.Ludus.Client.Components.Nodes.Shaders;
@@ -7,7 +8,8 @@ using Godot;
 
 namespace Bitspoke.Ludus.Client.Components.Regions;
 
-public partial class TerrainRegionNode : RegionNode
+[Obsolete("Depricated", true)]
+public partial class TerrainRegionNodeOld : RegionNode_Old
 {
     #region Properties
 
@@ -22,19 +24,19 @@ public partial class TerrainRegionNode : RegionNode
 
     #region Constructors and Initialisation
 
-    public TerrainRegionNode()
+    public TerrainRegionNodeOld()
     {
         
     }
     
-    public TerrainRegionNode(Map map, Rect2 rect2, TerrainShaderMaterial terrainShaderMaterial) : base()
+    public TerrainRegionNodeOld(Map map, Rect2 rect2, TerrainShaderMaterial terrainShaderMaterial) : base()
     {
         Map = map;
         Dimension = rect2;
         TerrainShaderMaterial = new TerrainShaderMaterial(terrainShaderMaterial);
     }
     
-    public TerrainRegionNode(Region region, TerrainShaderMaterial terrainShaderMaterial) : base(region)
+    public TerrainRegionNodeOld(Region region, TerrainShaderMaterial terrainShaderMaterial) : base(region)
     {
        TerrainShaderMaterial = new TerrainShaderMaterial(terrainShaderMaterial);
     }

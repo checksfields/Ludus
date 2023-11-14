@@ -51,7 +51,7 @@ public class RegionsContainer
                 var xStart = x * RegionSize.X;
                 var yStart = y * RegionSize.Y;
                 
-                var rect = new Rect2(xStart, yStart, RegionSize.X, RegionSize.Y);
+                var rect = new Rect2I(xStart, yStart, RegionSize.X, RegionSize.Y);
                 var index = x + y * Width;
 
                 var region = new Region(index, Map, rect);

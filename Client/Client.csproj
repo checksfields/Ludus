@@ -18,4 +18,9 @@
     <Folder Include="Components\Nodes\CanvasItems\Labels\" />
     <Folder Include="Components\Nodes\Maps\Regions\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Components\Regions\PlantRegionNodeOld.cs" />
+    <Compile Remove="Components\Regions\RegionNode_Old.cs" />
+    <Compile Remove="Components\Regions\TerrainRegionNodeOld.cs" />
+  </ItemGroup>
 </Project>

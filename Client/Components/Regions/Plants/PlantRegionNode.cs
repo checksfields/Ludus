@@ -5,7 +5,7 @@ using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;
 
-namespace Bitspoke.Ludus.Client.Components.Regions;
+namespace Bitspoke.Ludus.Client.Components.Regions.Plants;
 
 public partial class PlantRegionNode : RegionNode
 {
@@ -25,21 +25,15 @@ public partial class PlantRegionNode : RegionNode
 
     public PlantRegionNode(Region region) : base(region)
     {
-        Init();
+        //Init();
     }
 
     public override void Init()
     {
         Textures = new();
         PlantDefs = new();
-            
-        GlobalPosition = Region.Dimension.Position * 64;
+        
         RegionLayers = new Dictionary<int, RegionLayer>();
-            
-        //Map.Data.EntitiesContainer.EntitiesByTypeAndRegion[Region.Index]
-        //Profiler.Start();
-        //PlantsByType = Region.PlantsByType();
-        //Profiler.End();
             
         foreach (var plantByTypeKey in Region.PlantsByType().Keys)
         {
@@ -53,11 +47,13 @@ public partial class PlantRegionNode : RegionNode
     {
         base._Ready();
         ProcessPlants();
-        
-        if (VisibleOnScreenNotifier3D.IsOnScreen())
-            OnHide();
     }
 
+    public void ReprocessPlants()
+    {
+        ProcessPlants();
+    }
+    
     private void ProcessPlants()
     {
         //var plantsByType = Map.Data.EntitiesContainer.EntitiesByRegion[RegionID];
@@ -73,19 +69,19 @@ public partial class PlantRegionNode : RegionNode
             switch (textureType)
             {
                 case TextureType.MultiMesh:
-                    layerID++;
-                        
-                    MultiMeshRegionLayer layer;
-                        
-                    // TODO: Fix
-                    if (RegionLayers.ContainsKey(layerID))
-                        layer = (MultiMeshRegionLayer) RegionLayers[layerID];
-                    else
-                    {
-                        layer = new MultiMeshRegionLayer(layerID, def.GraphicDef, plantByType.Value);
-                        RegionLayers.Add(layerID, layer);
-                        AddChild(layer);
-                    }
+//                    layerID++;
+//                        
+//                    MultiMeshRegionLayer layer;
+//                        
+//                    // TODO: Fix
+//                    if (RegionLayers.ContainsKey(layerID))
+//                        layer = (MultiMeshRegionLayer) RegionLayers[layerID];
+//                    else
+//                    {
+//                        layer = new MultiMeshRegionLayer(layerID, def.GraphicDef, plantByType.Value);
+//                        RegionLayers.Add(layerID, layer);
+//                        AddChild(layer);
+//                    }
                         
                     break;
                 case TextureType.Single:
@@ -99,23 +95,7 @@ public partial class PlantRegionNode : RegionNode
             }
         }
     }
-
-    protected override void OnShow()
-    {
-        ProcessPlants();
-    }
-
-    protected override void OnHide()
-    {
-        foreach (var regionLayer in RegionLayers.Values)
-            if (IsInstanceValid(regionLayer))
-                regionLayer.QueueFree();
-
-        if (IsInstanceValid(Sprites))
-            Sprites.QueueFree();
-    }
-
-
+    
     #endregion
 
 

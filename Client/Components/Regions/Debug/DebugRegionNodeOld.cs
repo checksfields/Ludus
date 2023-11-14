@@ -4,7 +4,7 @@ using Godot;
 
 namespace Bitspoke.Ludus.Client.Components.Regions.Debug;
 
-public partial class DebugRegionNode : RegionNode
+public partial class DebugRegionNodeOld : RegionNode
 {
     #region Properties
 
@@ -14,7 +14,7 @@ public partial class DebugRegionNode : RegionNode
 
     #region Constructors and Initialisation
     
-    public DebugRegionNode(Region region) : base(region)
+    public DebugRegionNodeOld(Region region) : base(region)
     {
     }
     
@@ -34,7 +34,7 @@ public partial class DebugRegionNode : RegionNode
         if (CoreGlobal.DEBUG_ENABLED)
         {
                 
-            var size = Region.Dimension.Size * CoreGlobal.STANDARD_CELL_SIZE;
+            var size = Region.Dimension.Size * (int) CoreGlobal.STANDARD_CELL_SIZE;
             var rect2 = new Rect2(Vector2.Zero, size);
             DrawRect(rect2, Colors.Red, false, width:1f);
         }
@@ -120,10 +120,7 @@ public partial class DebugRegionNode : RegionNode
     #endregion
 
     #region Methods
-
-    protected override void OnShow() { }
-    protected override void OnHide() { }
-
+    // none
     #endregion
 
 

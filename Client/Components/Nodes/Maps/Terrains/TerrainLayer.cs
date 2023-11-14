@@ -41,7 +41,6 @@ public partial class TerrainLayer : GodotNode2D
     #endregion
 
     #region Overrides
-
     public override void Init()
     {
         Profile(() => { 
@@ -52,10 +51,10 @@ public partial class TerrainLayer : GodotNode2D
             
             InitTerrainShaderMaterial();
         });
+        
+        Render();
     }
-
-
-
+    
     private void InitTerrainShaderMaterial()
     {
         Profile(() =>

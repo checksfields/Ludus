@@ -56,7 +56,7 @@ public class MapRegionsComponent : LudusComponent
                 var xStart = x * RegionSize.x;
                 var yStart = y * RegionSize.y;
                 
-                var rect = new Rect2(xStart, yStart,RegionSize.x, RegionSize.x);
+                var rect = new Rect2I(xStart, yStart,RegionSize.x, RegionSize.x);
                 var index = x + y * Width;
 
                 var region = new Region(index, Map, rect);
