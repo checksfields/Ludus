@@ -1,6 +1,7 @@
 ﻿using Bitspoke.Core.Signal;
 using Bitspoke.Core.Utils.Reflection;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
+using Profile = OpenQA.Selenium.DevTools.V114.Profiler.Profile;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps;
 

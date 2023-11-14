@@ -1,4 +1,5 @@
-﻿using Bitspoke.Core.Common.Collections.Pools;
+﻿using Bitspoke.Core.Common.Collections.Arrays;
+using Bitspoke.Core.Common.Collections.Pools;
 using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Random;
 using Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural.Plants;
@@ -27,7 +28,7 @@ public class MapGenStepPlants : MapGenStep
 
     protected override void StepGenerate()
     {
-        Profiler.Start();
+        
         var spawnSystem = Map.GetSpawnSystem<NaturalPlantSpawnSystem>();
         spawnSystem.CurrentTargetPlantCountForMap = spawnSystem.CalculateTargetPlantCountForMap();
         
@@ -37,79 +38,66 @@ public class MapGenStepPlants : MapGenStep
         Pool<List<float>>.Instance.Return(primer);
         
         var randomCells = Map.Data.CellsContainer.Cells.RandomisedArray;
-        //var randomCells = Map.Cells.Randomised.ToArray();
         
-        Profiler.Start(additionalKey:"GetRandomCells");
-        var randoms = new List<int>();
-        for (int i = 0; i < randomCells.Length; i++)
-        {
-            if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance)) randoms.Add(i);
-        }
+        // TODO: Alternative Processing - remove when happy with other versions
+        // **** 20231114 Benchmark Run 1 = 6431 ms
+        // **** 20231114 Benchmark Run 2 = 6360 ms
+        // **** 20231114 Benchmark Run 3 = 6455 ms
+        // Profile(message: "**** Total CanSpawnAt in loop of randoms[]", toProfile:() => {
+        //     var randoms = new List<int>();
+        //     for (int i = 0; i < randomCells.Length; i++)
+        //     {
+        //         if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance)) randoms.Add(i);
+        //     }
+        //     
+        //     foreach (var i in randoms)
+        //     {
+        //             var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
+        //
+        //             if (canSpawnAt) {
+        //                 //plantSpawnLocations++;
+        //             }
+        //     }
+        // });
+
+        // TODO: Alternative Processing - remove when happy with other versions
+        // // **** 20231114 Benchmark Run 1 = 7616 ms
+        // // **** 20231114 Benchmark Run 2 = 7285 ms
+        // Profile(message: "**** Total CanSpawnAt in loop of randomCellsInBuckets", toProfile: () => {
+        //     var cellBuckets = Map.Data.CellsContainer.GetCellBucket(GodotGlobal.CPU_CORES);
+        //     foreach (var cells in cellBuckets.Values)
+        //     {
+        //             var randomCellInBucket = cells.RandomisedArray;
+        //             foreach (var randomCell in randomCellInBucket) {
+        //                 if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance))
+        //                 {
+        //                     var canSpawnAt = spawnSystem.CanSpawnAt(randomCell);
+        //                     if (canSpawnAt)
+        //                     {
+        //                         //plantSpawnLocations++;
+        //                     }
+        //                 }
+        //             }
+        //     }
+        // });
         
-        Profiler.End(message:"#### Map.Cells.Randomised ####>", additionalKey:"GetRandomCells");
-        Profiler.Start(additionalKey:"ProcessCells");
-
-        var totalCanSpawnAt = 0d;
-        foreach (var i in randoms)
-        {
-            totalCanSpawnAt += Profile(log: false, toTrace:() => {
-                var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
-
-                if (canSpawnAt) {
-                    //plantSpawnLocations++;
+        // **** 20231114 Benchmark Run 1 = 6690 ms
+        // **** 20231114 Benchmark Run 2 = 8054 ms
+        // **** 20231114 Benchmark Run 3 = 7110 ms
+        // **** 20231114 Benchmark Run 4 = 5931 ms
+        // **** 20231114 Benchmark Run 5 = 6411 ms
+        Profile(message: "**** Total CanSpawnAt in loop of randomCells", toProfile: () => {
+            foreach (var randomCell in randomCells) {
+                if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance))
+                {
+                    var canSpawnAt = spawnSystem.CanSpawnAt(randomCell);
+                    if (canSpawnAt)
+                    {
+                        //plantSpawnLocations++;
+                    }
                 }
-            });
-        }
-        
-//        // var randomCells2 = Map.Data.CellsContainer.Cells.RandomisedArray;
-        // for (var i = 0; i < randomCells2.Length; i++)
-        // {
-        //     if (Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance))
-        //     {
-        //         spawnSystem.CanSpawnAt2(randomCells2[i]);
-        //     }
-        // }
-        
-        
-        
-        // for (int i = 0; i < randomCells.Length; i++)
-        // {
-        //     var chance = Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance); 
-        //     if (chance)
-        //     {
-        //         var canSpawnAt = spawnSystem.CanSpawnAt(randomCells[i]);
-        //         if (canSpawnAt)
-        //         {
-        //             //plantSpawnLocations++;
-        //         }
-        //     }
-        // }
-        
-        // foreach (var mapCell in randomCells)
-        // {
-        //     var chance = Rand.Chance(MapGenStepPlantsDef.IndependentSpawnChance); 
-        //     if (chance)
-        //     {
-        //         var canSpawnAt = spawnSystem.CanSpawnAt(mapCell);
-        //         if (canSpawnAt)
-        //         {
-        //             //plantSpawnLocations++;
-        //         }
-        //     }
-        // }
-        
-        var totalProcessingTime = Profiler.End(message:"#### ProcessCells Complete ####>", additionalKey:"ProcessCells");
-        Log.Debug($"Average time per cell {totalProcessingTime/Map.Cells.Ordered.Count}ms");
-
-        if (CoreGlobal.DEBUG_ENABLED)
-        {
-            //Log.Debug($"Total Processing time for SpawnSystem.ProcessClusters: {spawnSystem.debugTotalProcessClustersTime}ms of {Map.Cells.Ordered.Count} cells @ {spawnSystem.debugTotalProcessClustersTime/Map.Cells.Ordered.Count}ms/cell");
-            Log.Debug($"Total Processing time for SpawnSystem.CanSpawnAt: {totalCanSpawnAt}ms of {Map.Cells.Ordered.Count} cells @ {totalCanSpawnAt/Map.Cells.Ordered.Count}ms/cell");
-        }
-            
-        
-        
-        Profiler.End();
+            }
+        });
     }
 
     #endregion

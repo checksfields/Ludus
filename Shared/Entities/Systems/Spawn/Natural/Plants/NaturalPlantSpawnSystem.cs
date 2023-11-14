@@ -101,6 +101,7 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         plant.LocationComponent.Location = mapCell.Location;
         
         //Map.Plants.Add(plant);
+        //lock(Map.Data.EntitiesContainer)
         Map.Data.EntitiesContainer.Add(plant, mapCell);
 //        Map.Entities.Add(plant, mapCell);
         //mapCell.GenericEntityContainer.Add(Map.Plants[plant.IDComponent.ID]);
