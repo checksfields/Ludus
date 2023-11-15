@@ -1,11 +1,10 @@
 ﻿using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.GodotEngine.Components.Settings.Game;
-using Bitspoke.Ludus.Shared;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Godot;
 
-namespace Shared.Components.Settings.Game;
+namespace Bitspoke.Ludus.Shared.Components.Settings.Game;
 
 public partial class LudusGameSettingsComponent : GameSettingsComponent
 {

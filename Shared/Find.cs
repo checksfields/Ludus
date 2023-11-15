@@ -17,7 +17,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Bitspoke.Ludus.Shared.Environment.World;
 using Bitspoke.Ludus.Shared.Systems.Growth;
-using Shared.Components.Settings.Game;
+using LudusGameSettingsComponent = Bitspoke.Ludus.Shared.Components.Settings.Game.LudusGameSettingsComponent;
 
 namespace Bitspoke.Ludus.Shared;
 

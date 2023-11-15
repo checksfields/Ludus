@@ -13,6 +13,7 @@ using Bitspoke.GodotEngine.Controllers.Resources;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders.Implementations;
 using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
+using Bitspoke.Ludus.Shared.Components.Settings.Game;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural.Rocks.Definitions;
 using Bitspoke.Ludus.Shared.Environment.Biome.Definitions;
@@ -23,7 +24,6 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.World.TypeData;
 using Bitspoke.Ludus.Shared.Systems.Growth;
 using Godot;
-using Shared.Components.Settings.Game;
 using TerrainDefsCollection = Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain.TerrainDefsCollection;
 
 namespace Bitspoke.Ludus.Client.Managers;
