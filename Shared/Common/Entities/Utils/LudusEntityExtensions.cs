@@ -24,15 +24,17 @@ public static class LudusEntityExtensions
     #endregion
     
     #region PlantGrowerComponent
-    public static PlantGrowerComponent? PlantGrower(this ComponentCollection components)
+    [Obsolete("PlantGrowthComponent is no longer supported",true)]
+    public static PlantGrowthComponent? PlantGrower(this ComponentCollection components)
     {
-        if (components.Contains<PlantGrowerComponent>())
-            return components.Get<PlantGrowerComponent>();
+        if (components.Contains<PlantGrowthComponent>())
+            return components.Get<PlantGrowthComponent>();
 
         return null;
     }
 
-    public static PlantGrowerComponent? PlantGrower(this Entity entity)
+    [Obsolete("PlantGrowthComponent is no longer supported",true)]
+    public static PlantGrowthComponent? PlantGrower(this Entity entity)
     {
         return entity.Components.PlantGrower();
     }

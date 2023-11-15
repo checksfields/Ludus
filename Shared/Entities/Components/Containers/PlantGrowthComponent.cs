@@ -2,11 +2,13 @@
 
 namespace Bitspoke.Ludus.Shared.Entities.Components.Containers;
 
-public class PlantGrowerComponent : LudusComponent
+// TODO: Remove by 20240101
+[Obsolete("PlantGrowthComponent is no longer supported.",true)]
+public class PlantGrowthComponent : LudusComponent
 {
     #region Properties
 
-    public override string ComponentName => nameof(PlantGrowerComponent);
+    public override string ComponentName => nameof(PlantGrowthComponent);
 
     #endregion
 

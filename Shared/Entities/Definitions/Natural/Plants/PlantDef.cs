@@ -111,7 +111,6 @@ public class PlantDef : EntityDef
             return placementReport;
         }
         
-        var hasPlantGrowerComponent = mapCellEntities.Any(s => s.HasComponent<PlantGrowerComponent>());
         var isPlantImpassable = MovementCostDef?.Is(MovementCostType.Impassable) ?? false;
         
         //check the entities in this cell again

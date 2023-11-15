@@ -16,6 +16,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Bitspoke.Ludus.Shared.Environment.World;
+using Bitspoke.Ludus.Shared.Systems.Growth;
 using Shared.Components.Settings.Game;
 
 namespace Bitspoke.Ludus.Shared;
@@ -91,6 +92,7 @@ public partial class Find : Bitspoke.GodotEngine.Find
     public class Systems
     {
         public static TimeSystem TimeSystem => TimeSystem.Instance;
+        public static GrowthSystem GrowthSystem => GrowthSystem.Instance;
     }
         
 }
