@@ -21,7 +21,7 @@ public class Region
         get {
             if (cachedCells == null)
                 // @PERFORMANCE: about 12ms call
-                cachedCells = Map.Cells.Ordered.Values.Where(s => Dimension.HasPoint(s.Location.ToVector2I())).ToList();
+                cachedCells =  Map.Data.CellsContainer.Cells.Where(s => Dimension.HasPoint(s.Location.ToVector2I())).ToList();
 
             return cachedCells;
         }

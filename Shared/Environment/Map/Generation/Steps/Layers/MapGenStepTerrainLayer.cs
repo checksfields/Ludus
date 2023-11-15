@@ -55,7 +55,7 @@ public class MapGenStepTerrainLayer : MapGenStepLayer
     private void ProcessCellsOld()
     {
         Profiler.Start();
-        foreach (var mapCell in Map.Cells.All)
+        foreach (var mapCell in Map.Data.CellsContainer.Cells)
         {
             mapCell.TerrainDef = GetTerrainLayerDefFor(mapCell)?.Clone() ?? null;
             if (mapCell.TerrainDef == null)

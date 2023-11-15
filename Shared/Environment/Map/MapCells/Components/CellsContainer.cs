@@ -1,10 +1,13 @@
 ﻿using Bitspoke.Core.Common.Collections.Arrays;
 using Bitspoke.Core.Common.Collections.Dictionaries;
 using Bitspoke.Core.Common.Collections.Lists;
+using Bitspoke.Core.Common.Collections.Matrices;
+using Bitspoke.Core.Common.Direction;
 using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Utils.Vector;
+using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
@@ -19,6 +22,7 @@ public class CellsContainer
     
     [JsonIgnore] public  BitspokeArray<MapCell> Cells { get; set; } //=> new (CellsByRegion.SelectMany(m => m));
     [JsonIgnore] private Dictionary<int, BitspokeDictionary<int, BitspokeArray<MapCell>>> CellBucketsCache { get; set; } = new ();
+    [JsonIgnore] public CellNeighbourMatrix NeighbourMatrix { get; protected set; }
     
     public MapCell? this[int index] => Cells?[index] ?? null;
     
@@ -58,7 +62,15 @@ public class CellsContainer
                 
             CellsByRegion[cell.RegionIndex].Add(cellIndex, cell);    
         }
-        
+
+        Profile(() => {
+            // generate the neighbour cell matrix
+            NeighbourMatrix = new CellNeighbourMatrix();
+            foreach (var mapCell in Cells)
+            {
+                NeighbourMatrix.AddOrUpdate(mapCell.Index, GetAllNeighbourCellsFor(mapCell));
+            }
+        });
         // for (int regionIndex = 0; regionIndex < CellsByRegion.Length; regionIndex++)
         // {
         //     var region = Map.Data.RegionsContainer[regionIndex];
@@ -134,6 +146,55 @@ public class CellsContainer
         
         return CellBucketsCache[numberOfBuckets];
     }
+
+    public MapCell[] GetAllNeighbourCellsFor(MapCell cell, bool addUpdateMatrix = true)
+    {
+        var neighbours = new MapCell[8];
+
+        // north
+        var nLoc = cell.Location + Cardinal.NORTH;
+        var nIdx = nLoc.y >= 0 ? nLoc.ToIndex(Map.Width) : -1;
+        if (nIdx >= 0) neighbours[1] = Cells[nIdx];
+
+        // east
+        var eLoc = cell.Location + Cardinal.EAST;
+        var eIdx = eLoc.x <= Map.Width - 1 ? eLoc.ToIndex(Map.Width) : -1;
+        if (eIdx >= 0) neighbours[3] = Cells[eIdx];
+
+        // south
+        var sLoc = cell.Location + Cardinal.SOUTH;
+        var sIdx = sLoc.y <= Map.Height - 1 ? sLoc.ToIndex(Map.Width) : -1;
+        if (sIdx >= 0) neighbours[5] = Cells[sIdx];
+
+        // west
+        var wLoc = cell.Location + Cardinal.WEST;
+        var wIdx = wLoc.x >= 0 ? wLoc.ToIndex(Map.Width) : -1;
+        if (wIdx >= 0) neighbours[7] = Cells[wIdx];
+
+        // north-west
+        if (nIdx >= 0 && wIdx >= 0) neighbours[0] = Cells[nIdx + 1];
+
+        // north-east
+        if (nIdx >= 0 && eIdx >= 0) neighbours[2] = Cells[nIdx + 1];
+
+        // south-east
+        if (sIdx >= 0 && eIdx >= 0) neighbours[4] = Cells[sIdx + 1];
+
+        // south-west
+        if (sIdx >= 0 && wIdx >= 0) neighbours[6] = Cells[sIdx - 1];
+
+        if (addUpdateMatrix)
+            NeighbourMatrix.AddOrUpdate(cell.Index, neighbours);
+
+
+        return neighbours;
+    }
+
+    [JsonIgnore] public List<TerrainDef?> TerrainDefs => Cells.Array
+        .Select(s => s)
+        .Where(w => w.TerrainDef != null)
+        .Select(s2 => s2.TerrainDef)
+        .ToList();
     
     #endregion
     

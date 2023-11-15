@@ -55,7 +55,7 @@ public class MapGenStepElevationLayer : MapGenStepLayer
         ElevationModifier = Find.DB.TypeData.ElevationTypeData[ElevationTypeDataKey].GetValue<float>();
 
         // TODO: REFACTOR - remove Map.Cells as it is replaced with Map.Data.CellsContainer 
-        ProcessCellsOld();
+        //ProcessCellsOld();
         ProcessCells();
             
         Profiler.End(message:"+++ Process Cells");
@@ -82,26 +82,26 @@ public class MapGenStepElevationLayer : MapGenStepLayer
         Profiler.End(message:"+++ (benchmark 80-90 ms)");
     }
         
-    private void ProcessCellsOld()
-    {
-        Profiler.Start();
-            
-        var tasks = new List<Task>();
-        foreach (var bucket in Map.Cells.Buckets)
-        {
-            tasks.Add(Task.Run(() =>
-            {
-                foreach (var mapCell in bucket.Values)
-                {
-                    mapCell.Elevation = Noise.GetValue(mapCell.Location, GetElevationValueFunc);
-                    //mapCell.Elevation = NoiseTexture2D.Noise.GetNoise2D(mapCell.Location.x, mapCell.Location.y);
-                    //mapCell.Elevation = GetElevationValueFunc(0,0, mapCell.Elevation);
-                }
-            }));
-        }
-        Task.WaitAll(tasks.ToArray());
-        Profiler.End(message:"OLD +++");
-    }
+    // private void ProcessCellsOld()
+    // {
+    //     Profiler.Start();
+    //         
+    //     var tasks = new List<Task>();
+    //     foreach (var bucket in Map.Cells.Buckets)
+    //     {
+    //         tasks.Add(Task.Run(() =>
+    //         {
+    //             foreach (var mapCell in bucket.Values)
+    //             {
+    //                 mapCell.Elevation = Noise.GetValue(mapCell.Location, GetElevationValueFunc);
+    //                 //mapCell.Elevation = NoiseTexture2D.Noise.GetNoise2D(mapCell.Location.x, mapCell.Location.y);
+    //                 //mapCell.Elevation = GetElevationValueFunc(0,0, mapCell.Elevation);
+    //             }
+    //         }));
+    //     }
+    //     Task.WaitAll(tasks.ToArray());
+    //     Profiler.End(message:"OLD +++");
+    // }
         
     private float GetElevationValueFunc(int x, int y, float value)
     {

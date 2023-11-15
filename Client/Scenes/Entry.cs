@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Components;
+using Bitspoke.Core.Components.Collections;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Signal;
@@ -109,7 +110,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	private void AddCamera2D()
 	{
 		AddChild(LudusCamera2D = new LudusCamera2D(
-			new ComponentCollection()
+			new GodotComponentCollection()
 			{
 				new Camera2DZoomComponent(),
 				new Camera2DDragComponent()
@@ -121,49 +122,49 @@ public partial class Entry : GodotNode2D, ITickConsumer
 
 	#region Draw
 
-	public override void _Draw()
-    	{
-    		base._Draw();
-    		if (CoreGlobal.DEBUG_DRAW_ENABLED)
-    		{
-    			foreach (var child in GetChildren())
-    			{
-    				if (child is IGodotComponentCollection)
-    					DrawNode2Ds((IGodotComponentCollection) child);
-    			}
-    		}
-    	}
-    
-    	private void DrawNode2Ds(IGodotComponentCollection nodeCollection)
-    	{
-    		foreach (var node in nodeCollection.Components?.Values)
-    		{
-    			if (node is IGodotComponentCollection)
-    			{
-    				DrawNode2Ds((IGodotComponentCollection)node);
-    			}
-    			
-    			DrawNode2D(node);
-    		}
-    	}
-    	
-    	private void DrawNode2D(Node node)
-    	{
-    		if (node is Control)
-    		{
-    			var pos = ((Control)node).Position;
-    			var size = ((Control)node).Size;
-    			var rect2 = new Rect2(pos, size);
-    			DrawRect(rect2, Colors.Magenta, false, width:1f);
-    		}
-    		
-    		if (node is Node2D)
-    		{
-    			var pos = ((Node2D)node).Position;
-    			var rect2 = new Rect2(pos, new Vector2(50f, 50f));
-    			DrawRect(rect2, Colors.Magenta, false, width:1f);		
-    		}
-    	}
+	// public override void _Draw()
+ //    	{
+ //    		base._Draw();
+ //    		if (CoreGlobal.DEBUG_DRAW_ENABLED)
+ //    		{
+ //    			foreach (var child in GetChildren())
+ //    			{
+ //    				if (child is IGodotComponentCollection)
+ //    					DrawNode2Ds((IGodotComponentCollection) child);
+ //    			}
+ //    		}
+ //    	}
+ //    
+ //    	private void DrawNode2Ds(IGodotComponentCollection nodeCollection)
+ //    	{
+ //    		foreach (var node in nodeCollection.Components?.Values)
+ //    		{
+ //    			if (node is IGodotComponentCollection)
+ //    			{
+ //    				DrawNode2Ds((IGodotComponentCollection)node);
+ //    			}
+ //    			
+ //    			DrawNode2D(node);
+ //    		}
+ //    	}
+ //    	
+ //    	private void DrawNode2D(Node node)
+ //    	{
+ //    		if (node is Control)
+ //    		{
+ //    			var pos = ((Control)node).Position;
+ //    			var size = ((Control)node).Size;
+ //    			var rect2 = new Rect2(pos, size);
+ //    			DrawRect(rect2, Colors.Magenta, false, width:1f);
+ //    		}
+ //    		
+ //    		if (node is Node2D)
+ //    		{
+ //    			var pos = ((Node2D)node).Position;
+ //    			var rect2 = new Rect2(pos, new Vector2(50f, 50f));
+ //    			DrawRect(rect2, Colors.Magenta, false, width:1f);		
+ //    		}
+ //    	}
 
 
 	#endregion

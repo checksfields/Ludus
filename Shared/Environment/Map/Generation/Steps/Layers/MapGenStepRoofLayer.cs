@@ -27,7 +27,7 @@ public class MapGenStepRoofLayer : MapGenStep
         Profiler.Start();
         var minElevation = ((MapGenStepRoofLayerDef)MapGenStepDef).MinElevation ?? 0.61f * 1.1f;
 
-        foreach (var mapCell in Map.Cells.All)
+        foreach (var mapCell in Map.Data.CellsContainer.Cells)
         {
             var cellElevation = mapCell.Elevation;
             if (cellElevation <= minElevation)
@@ -58,7 +58,7 @@ public class MapGenStepRoofLayer : MapGenStep
         var debugTotalFloodFillTime = 0d;
         var debugTotalFloodFills = 0;
         
-        foreach (var mapCell in Map.Cells.Ordered.Values)
+        foreach (var mapCell in Map.Data.CellsContainer.Cells.Array)
         {
             roofPatch.Clear();
             var mapCellIndex = mapCell.Index;
@@ -90,7 +90,7 @@ public class MapGenStepRoofLayer : MapGenStep
                 {
                     foreach (var index in roofPatch)
                     {
-                        Map.Cells.Ordered[index].RoofDef = null;
+                        Map.Data.CellsContainer.Cells.Array[index].RoofDef = null;
                     }
 
                     //Log.Debug($"Removing Roof Patch with {roofPatch.Count} cells.");
@@ -112,7 +112,7 @@ public class MapGenStepRoofLayer : MapGenStep
 
     private int[] Neighbours(int index)
     {
-        return Map.Cells.NeighbourMatrix[index].Where(w => w != null).Select(s =>  s.Index).ToArray();
+        return Map.Data.CellsContainer.NeighbourMatrix[index].Where(w => w != null).Select(s =>  s.Index).ToArray();
     }
 
     private void Processor(int index)
@@ -122,13 +122,13 @@ public class MapGenStepRoofLayer : MapGenStep
 
     private bool Validator(int index)
     {
-        return Map.Cells.Ordered[index].RoofDef?.IsNatural ?? false;
+        return Map.Data.CellsContainer.Cells.Array[index].RoofDef?.IsNatural ?? false;
     }
     
     private bool Validator(Vec2Int cellLocation)
     {
         var index = cellLocation.ToIndex(Map.Width);
-        return Map.Cells.Ordered[index].RoofDef?.IsNatural ?? false;
+        return Map.Data.CellsContainer.Cells.Array[index].RoofDef?.IsNatural ?? false;
     }
 
     #endregion

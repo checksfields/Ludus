@@ -13,12 +13,18 @@ using Newtonsoft.Json;
 namespace Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
 
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+[Obsolete("Deprecated", true)]
 public class MapCellsContainerComponent : CellBucketContainerComponent<MapCell>
 {
 
     #region Properties
         
     public override string ComponentName => nameof(MapCellsContainerComponent);
+    
+    public override void Init() { }
+    public override void AddComponents() { }
+    public override void ConnectSignals() { }
+
     public IDComponent MapID { get; set; }
 
 

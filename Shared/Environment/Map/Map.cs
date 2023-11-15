@@ -40,7 +40,7 @@ public class Map : LudusEntity
     [JsonIgnore] public IDComponent MapID => base.IDComponent;
     [JsonIgnore] public IDComponent WorldID => MapInitConfig?.WorldID ?? IDComponent.DEFAULT_ENTITY_ID;
         
-    [JsonIgnore] public MapCellsContainerComponent  Cells    => Components.Get<MapCellsContainerComponent>();
+    //[JsonIgnore] public MapCellsContainerComponent  Cells    => Components.Get<MapCellsContainerComponent>();
     [JsonIgnore] public MapRegionsComponent         Regions  => Components.Get<MapRegionsComponent>();
         
     public MapDataCollectionComponent Data { get; protected set; }
@@ -92,7 +92,7 @@ public class Map : LudusEntity
     public void AddComponentsPostConstructor()
     {
         Components.Add(new MapRegionsComponent(MapID));
-        Components.Add(new MapCellsContainerComponent(MapID));
+        //Components.Add(new MapCellsContainerComponent(MapID));
 
             
         Components.Add(new MapEntityContainerComponent(MapID));
@@ -129,7 +129,10 @@ public class Map : LudusEntity
 
         // Create image
         Image img = new Image();
-        var orderIndexArray = Cells.TerrainDefs.Select(s => (byte) s.OrderIndex).ToArray();
+        
+        //var orderIndexArray = Cells.TerrainDefs.Select(s => (byte) s.OrderIndex).ToArray();
+        var orderIndexArray = Data.CellsContainer.TerrainDefs.Select(s => (byte) s.OrderIndex).ToArray();
+        
         List<byte> data = new List<byte>();
             
         for (int y = start.y; y < start.y + size.y; y++)

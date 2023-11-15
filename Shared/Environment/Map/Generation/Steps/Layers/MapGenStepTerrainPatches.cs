@@ -27,7 +27,7 @@ public class MapGenStepTerrainPatches : MapGenStepLayer
     protected override void StepGenerate()
     {
         Profiler.Start();
-        foreach (var mapCell in Map.Cells.All)
+        foreach (var mapCell in  Map.Data.CellsContainer.Cells)
         {
                 
         }

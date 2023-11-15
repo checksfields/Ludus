@@ -387,7 +387,7 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         var targetPlantCount = 0f;
         var totalCellsWithNoPlants = 0;
         
-        foreach (var mapCell in Map.Cells.Ordered.Values)
+        foreach (var mapCell in Map.Data.CellsContainer.Cells)
         {
             var cellPlantCount = CalculatePlantDensityAt(mapCell);
             

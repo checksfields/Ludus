@@ -35,7 +35,7 @@ public class MapGenStepFertilityLayer : MapGenStepLayer
         //     Noise.GenerateImageTexture(325, 325, $"{GodotGlobal.SAVE_ROOT_PATH}/fertility.png");
             
         ProcessCells();
-        ProcessCellsOld();
+        //ProcessCellsOld();
             
         Profiler.End();
     }
@@ -62,25 +62,25 @@ public class MapGenStepFertilityLayer : MapGenStepLayer
         Profiler.End(message:"NEW +++");
     }
         
-    private void ProcessCellsOld()
-    {
-        Profiler.Start();
-            
-        var tasks = new List<Task>();
-        foreach (var bucket in Map.Cells.Buckets)
-        {
-            tasks.Add(Task.Run(() =>
-            {
-                foreach (var mapCell in bucket.Values)
-                {
-                    mapCell.Fertility = Noise.GetValue(mapCell.Location, GetFertilityValueFunc);
-                }
-                    
-            }));
-        }
-        Task.WaitAll(tasks.ToArray());
-        Profiler.End(message:"OLD +++");
-    }
+    // private void ProcessCellsOld()
+    // {
+    //     Profiler.Start();
+    //         
+    //     var tasks = new List<Task>();
+    //     foreach (var bucket in Map.Cells.Buckets)
+    //     {
+    //         tasks.Add(Task.Run(() =>
+    //         {
+    //             foreach (var mapCell in bucket.Values)
+    //             {
+    //                 mapCell.Fertility = Noise.GetValue(mapCell.Location, GetFertilityValueFunc);
+    //             }
+    //                 
+    //         }));
+    //     }
+    //     Task.WaitAll(tasks.ToArray());
+    //     Profiler.End(message:"OLD +++");
+    // }
         
     private float GetFertilityValueFunc(int x, int y, float value)
     {

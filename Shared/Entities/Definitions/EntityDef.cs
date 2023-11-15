@@ -1,4 +1,5 @@
 ﻿using Bitspoke.Core.Components.Collections;
+using Bitspoke.Core.Components.Collections.Definitions;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Newtonsoft.Json;

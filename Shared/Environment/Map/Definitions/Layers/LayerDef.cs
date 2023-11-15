@@ -1,4 +1,5 @@
 ﻿using Bitspoke.Core.Components.Collections;
+using Bitspoke.Core.Components.Collections.Definitions;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Newtonsoft.Json;

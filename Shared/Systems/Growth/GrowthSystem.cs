@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bitspoke.Core.Common.Collections.Arrays;
+using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
@@ -28,7 +29,7 @@ public class GrowthSystem : BitspokeSystem, ITickConsumer
     }
     
     //public Map Map { get; set; }
-    public BitspokeArray<GrowthComponent> GrowthComponents { get; set; }
+    public BitspokeList<GrowthComponent> GrowthComponents { get; set; }
     public TickComponent? TickComponent { get; }
     
     #endregion
@@ -45,21 +46,36 @@ public class GrowthSystem : BitspokeSystem, ITickConsumer
 
     #region Overrides
 
-    public override void Init() { }
+    public override void Init()
+    {
+        GrowthComponents = new();
+    }
+    
     public override void AddComponents() { }
     public override void ConnectSignals() { }
 
     #endregion
     
     #region Methods
-    // none
-    #endregion
+
+    public static void Register(GrowthComponent growthComponent)
+    {
+        
+    }
     
     public void OnTick()
     {
-        Log.Debug("Tick!");
-        
-        
-        
+        Profile(ProcessTick);
     }
+
+    private void ProcessTick()
+    {
+        foreach (var growthComponent in GrowthComponents)
+        {
+            growthComponent.Growth += growthComponent.GrowIncrementPerGrowthUpdate;
+            growthComponent.Growth = Math.Min(growthComponent.Growth, growthComponent.MaxGrowthPercent);
+        }
+    }
+    
+    #endregion
 }

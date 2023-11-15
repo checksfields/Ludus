@@ -4,7 +4,7 @@ using Bitspoke.Core.Components;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Components;
 
-public class DataComponent : SimpleComponent
+public class DataComponent : Component
 {
     #region Properties
         
@@ -19,10 +19,12 @@ public class DataComponent : SimpleComponent
 
     public override void Init()
     {
-        base.Init();
         ElevationGrid = new Grid<ValueGridItem<float>>();
         FertilityGrid = new Grid<ValueGridItem<float>>();
     }
+
+    public override void AddComponents() { }
+    public override void ConnectSignals() { }
 
     #endregion
 

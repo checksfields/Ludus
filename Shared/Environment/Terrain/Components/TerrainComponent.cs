@@ -19,9 +19,8 @@ public class TerrainComponent : Component
     #region Constructors and Initialisation
 
     public override void ConnectSignals() { }
-    public override void Init(params object[] args) { }
+    public override void Init() {}
     public override void AddComponents() { }
-    public override void PostInit() { }
         
     #endregion
 

@@ -65,7 +65,7 @@ public class MapGenStepRockFormations : MapGenStep
     {
         Profiler.Start();
 
-        cells ??= Map.Cells.All.ToArray();
+        cells ??=  Map.Data.CellsContainer.Cells.Array;
         
         if (cells.IsNullOrEmpty())
         {

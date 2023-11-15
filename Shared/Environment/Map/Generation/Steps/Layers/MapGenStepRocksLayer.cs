@@ -47,7 +47,7 @@ public class MapGenStepRocksLayer : MapGenStepLayer
         }
             
         ProcessCells(strataNoises);
-        ProcessCellsOld(strataNoises);
+        //ProcessCellsOld(strataNoises);
 
         Profiler.End();
     }
@@ -84,37 +84,37 @@ public class MapGenStepRocksLayer : MapGenStepLayer
         Profiler.End(message:"NEW +++");
     }
         
-    private void ProcessCellsOld(Dictionary<string, GodotNoise> strataNoises)
-    {
-        Profiler.Start();
-            
-        var tasks = new List<Task>();
-        foreach (var bucket in Map.Cells.Buckets)
-        {
-            tasks.Add(Task.Run(() =>
-            {
-                foreach (var mapCell in bucket.Values)
-                {
-                    string? stratumDefKey = null;
-                    float stratumDefValue = float.MinValue;
-                    foreach (var defNoise in strataNoises)
-                    {
-                        var noiseValue = defNoise.Value.GetValue(mapCell.Location);
-                        if (noiseValue > stratumDefValue)
-                        {
-                            stratumDefKey = defNoise.Key;
-                            stratumDefValue = noiseValue;
-                        }
-                    }
-
-                    mapCell.Stratum = stratumDefKey;
-                }
-            }));
-        }
-        Task.WaitAll(tasks.ToArray());
-            
-        Profiler.End(message:"OLD +++");
-    }
+    // private void ProcessCellsOld(Dictionary<string, GodotNoise> strataNoises)
+    // {
+    //     Profiler.Start();
+    //         
+    //     var tasks = new List<Task>();
+    //     foreach (var bucket in Map.Cells.Buckets)
+    //     {
+    //         tasks.Add(Task.Run(() =>
+    //         {
+    //             foreach (var mapCell in bucket.Values)
+    //             {
+    //                 string? stratumDefKey = null;
+    //                 float stratumDefValue = float.MinValue;
+    //                 foreach (var defNoise in strataNoises)
+    //                 {
+    //                     var noiseValue = defNoise.Value.GetValue(mapCell.Location);
+    //                     if (noiseValue > stratumDefValue)
+    //                     {
+    //                         stratumDefKey = defNoise.Key;
+    //                         stratumDefValue = noiseValue;
+    //                     }
+    //                 }
+    //
+    //                 mapCell.Stratum = stratumDefKey;
+    //             }
+    //         }));
+    //     }
+    //     Task.WaitAll(tasks.ToArray());
+    //         
+    //     Profiler.End(message:"OLD +++");
+    // }
 
     #endregion
 
