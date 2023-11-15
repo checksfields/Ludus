@@ -46,8 +46,8 @@ public abstract partial class RegionNode : GodotNode2D
         Map = Region.Map;
         Dimension = Region.Dimension;
             
-        //AddComponents();
-        //ConnectSignals();
+        AddComponents();
+        ConnectSignals();
     }
 
     public override void AddComponents() { }

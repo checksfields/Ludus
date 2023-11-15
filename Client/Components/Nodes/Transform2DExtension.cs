@@ -11,12 +11,14 @@ public static class Transform2DExtension
 
     public static Transform2D GenerateTransform2D(this GraphicDef graphicsDef, Vector2 location)
     {
-        var transform = new Transform2D(3.14159f, location);
+        var transform2D = new Transform2D(Mathf.Pi, location);
             
         if (graphicsDef.ScaleRange != null)
-            transform = transform.Scaled(Vector2.One * Rand.NextFloat(graphicsDef.ScaleRange.Min, graphicsDef.ScaleRange.Max));
+            transform2D = transform2D.Scaled(Vector2.One * Rand.NextFloat(graphicsDef.ScaleRange.Min, graphicsDef.ScaleRange.Max));
 
-        return transform;
+        transform2D.Origin = location;
+        
+        return transform2D;
     }
 
     #endregion

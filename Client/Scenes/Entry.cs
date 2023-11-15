@@ -173,6 +173,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		base._Ready();
 		
 		CoreFind.Managers.GameStateManager.SetState(LudusGameStatesTypeData.MAIN_KEY);
+		
 		Profile(() => { AddChild(TerrainLayer = new TerrainLayer(Map)); });
 	}
 	

@@ -43,6 +43,7 @@ public partial class PlantRegionNode : RegionNode
         }
     }
 
+
     public override void _Ready()
     {
         base._Ready();
@@ -57,7 +58,7 @@ public partial class PlantRegionNode : RegionNode
     private void ProcessPlants()
     {
         //var plantsByType = Map.Data.EntitiesContainer.EntitiesByRegion[RegionID];
-        
+        //Log.Debug($"Region[{RegionID}] - ProcessPlants");
         int layerID = 0;
         foreach (var plantByType in Region.PlantsByType())
         {
@@ -69,19 +70,19 @@ public partial class PlantRegionNode : RegionNode
             switch (textureType)
             {
                 case TextureType.MultiMesh:
-//                    layerID++;
-//                        
-//                    MultiMeshRegionLayer layer;
-//                        
-//                    // TODO: Fix
-//                    if (RegionLayers.ContainsKey(layerID))
-//                        layer = (MultiMeshRegionLayer) RegionLayers[layerID];
-//                    else
-//                    {
-//                        layer = new MultiMeshRegionLayer(layerID, def.GraphicDef, plantByType.Value);
-//                        RegionLayers.Add(layerID, layer);
-//                        AddChild(layer);
-//                    }
+                    layerID++;
+                        
+                    MultiMeshRegionLayer layer;
+                        
+                    // TODO: Fix
+                    if (RegionLayers.ContainsKey(layerID))
+                        layer = (MultiMeshRegionLayer) RegionLayers[layerID];
+                    else
+                    {
+                        layer = new MultiMeshRegionLayer(layerID, def.GraphicDef, plantByType.Value);
+                        RegionLayers.Add(layerID, layer);
+                        AddChild(layer);
+                    }
                         
                     break;
                 case TextureType.Single:

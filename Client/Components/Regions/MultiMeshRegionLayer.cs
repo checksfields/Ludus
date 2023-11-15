@@ -24,7 +24,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
     public MultiMeshInstance2D MultiMeshInstance2D { get; set; }
 
     public MeshInstance2D MeshInstance2D { get; set; } = new()
-        { Mesh = new PlaneMesh { Size = CoreGlobal.STANDARD_CELL_SIZE.ToVector2() } };
+        { Mesh = new PlaneMesh { Size = CoreGlobal.STANDARD_CELL_SIZE.ToVector2(), Orientation = PlaneMesh.OrientationEnum.Z } };
 
     private Dictionary<int, int> AdditionalMeshes { get; set; } = new();
 
@@ -49,7 +49,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
         LayerID = layerID;
         LayerEntities = layerEntities;
         GraphicDef = graphicDef;
-        LayerTexture = Find.DB.TextureDB[GraphicDef.TextureDef.TextureResourcePath];;
+        LayerTexture = Find.DB.TextureDB[GraphicDef.TextureDef.TextureResourcePath];
     }
 
     public override void Init()
@@ -58,17 +58,18 @@ public partial class MultiMeshRegionLayer : RegionLayer
         
         MultiMeshInstance2D = new MultiMeshInstance2D();
         AddChild(MultiMeshInstance2D);
-
+    
         MultiMeshInstance2D.Multimesh = new MultiMesh();
         MultiMeshInstance2D.Texture = LayerTexture;
-        MultiMeshInstance2D.GlobalPosition = Parent.Region.Dimension.Position * CoreGlobal.STANDARD_CELL_SIZE;
+        //MultiMeshInstance2D.GlobalPosition = Parent.Region.Dimension.Position * CoreGlobal.STANDARD_CELL_SIZE;
         MultiMeshInstance2D.Multimesh.Mesh = MeshInstance2D.Mesh;
             
         var  colour = MultiMeshInstance2D.SelfModulate;
         colour.A = GraphicDef.TextureDef.Opacity;
             
         MultiMeshInstance2D.SelfModulate = colour;
-            
+
+        //Profile(message:$"{LayerName}", toProfile:AddMeshes);
         AddMeshes();
     }
         
@@ -93,59 +94,66 @@ public partial class MultiMeshRegionLayer : RegionLayer
     {
         AddMeshes();
     }
-
+    
     private void AddMeshes()
     {
         AdditionalMeshes.Clear();
         var index = 0;
+        
+        if (LayerEntities.Count < 1)
+            return;
+        
+        // we only access one type of entity at a time (one def type)
+        var graphicsDef = LayerEntities[0].Def.GetDefComponent<GraphicDef>();
+        MultiMeshTextureTypeDetailsDef multiMeshTextureTypeDef = (MultiMeshTextureTypeDetailsDef) graphicsDef.TextureDef.TextureTypeDetails;
+        var maxCountInCell = multiMeshTextureTypeDef.MaxCountInCell;
+        var xLocationVariation = multiMeshTextureTypeDef.LocationVariationX;
+        var yLocationVariation = multiMeshTextureTypeDef.LocationVariationY;
 
+        
+        // **** 20231115 Benchmark @ 0 ms
         foreach (var ludusEntity in LayerEntities)
         {
-            var graphicsDef = ludusEntity.Def.GetDefComponent<GraphicDef>();
-            var maxCountInCell = ((MultiMeshTextureTypeDetailsDef)graphicsDef.TextureDef.TextureTypeDetails)
-                .MaxCountInCell;
-
             var growth = 1.0f;
             if (ludusEntity.HasComponent<GrowthComponent>())
-            {
                 growth = ludusEntity.GetComponent<GrowthComponent>().Growth;
-            }
-
-            var numberInCell = (growth + maxCountInCell).Ceiling();
+            
+            var numberInCell = (growth * maxCountInCell).Ceiling();
             AdditionalMeshes.Add(ludusEntity.IDComponent.ID, numberInCell);
         }
-
+        
         MultiMeshInstance2D.Multimesh.InstanceCount = AdditionalMeshes.Sum(s => s.Value);
 
+        // **** 20231115 Benchmark @ 2-8 ms
+        // Profile(() => {
         foreach (var ludusEntity in LayerEntities)
         {
-            Rand.PushState();
-            Rand.Seed = ludusEntity.GetHashCode();
+            // Rand.PushState();
+            // Rand.Seed = ludusEntity.GetHashCode();
 
-            var graphicsDef = ludusEntity.Def.GetDefComponent<GraphicDef>();
-            var xLocationVariation = ((MultiMeshTextureTypeDetailsDef)graphicsDef.TextureDef.TextureTypeDetails)
-                .LocationVariationX;
-            var yLocationVariation = ((MultiMeshTextureTypeDetailsDef)graphicsDef.TextureDef.TextureTypeDetails)
-                .LocationVariationY;
-
-            var numberInCell = AdditionalMeshes[ludusEntity.IDComponent.ID];
-
+            var numberInCell = 0;
+            var localLocation = Vector2.Zero;
+            
+            // **** 20231115 Benchmark @ 0 ms
+            numberInCell = AdditionalMeshes[ludusEntity.IDComponent.ID];
             var locComp = ludusEntity.GetComponent<LocationComponent>();
             var location = (locComp.Location.ToVector2() * CoreGlobal.STANDARD_CELL_SIZE) + CellOffset;
-            var localLocation = location - MultiMeshInstance2D.GlobalPosition;
-
+            localLocation = location - MultiMeshInstance2D.GlobalPosition;
+            
+            // **** 20231115 Benchmark @ 0 ms
             for (int i = 0; i < numberInCell; i++)
             {
                 var xOffset = xLocationVariation.RandRange();
                 var yOffset = yLocationVariation.RandRange();
                 var loc = localLocation + new Vector2(xOffset, yOffset);
-                var transform = graphicsDef.GenerateTransform2D(loc);
-
-                MultiMeshInstance2D.Multimesh.SetInstanceTransform2D(index++, transform);
+                var transform2D = graphicsDef.GenerateTransform2D(loc);
+                
+                MultiMeshInstance2D.Multimesh.SetInstanceTransform2D(index++, transform2D);
             }
-
-            Rand.PopState();
+           
+            // Rand.PopState();
         }
+        // });
     }
 
     #endregion

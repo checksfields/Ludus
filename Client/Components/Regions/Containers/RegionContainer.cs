@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Nodes;
@@ -53,6 +54,13 @@ public partial class RegionContainer : GodotNode2D
         VisibleOnScreenNotifierComponent.Rect = new Rect2(position, size);
     }
 
+    public override void _Draw()
+    {
+        base._Draw();
+        
+//        DrawRect(Rect, Colors.Magenta, false, 2f);
+    }
+    
     // public override void _Draw()
     // {
     //     base._Draw();
@@ -78,16 +86,18 @@ public partial class RegionContainer : GodotNode2D
     #endregion
     
     #region Methods
-
+    
     private void AddRegion()
     {
         this.AddComponent(Regions =  new DefaultGodotNode2D());
         AddPlantsRegion();
+        
     }
 
     private void AddPlantsRegion()
     {
-        Regions.AddComponent(PlantRegionNode = new(Region));
+        Regions.AddComponent(PlantRegionNode = new(Region), true);
+        //Regions.AddComponent(PlantRegionNode = new(Region));
     }
     
     private void OnScreenEntered()
