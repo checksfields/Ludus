@@ -6,8 +6,8 @@ using Bitspoke.Core.Random;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
-using Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural.Plants;
 using Bitspoke.Ludus.Shared.Systems.Spawn;
+using Bitspoke.Ludus.Shared.Systems.Spawn.Natural.Plants;
 using Godot;
 
 namespace Bitspoke.Ludus.Shared.Entities.Natural.Plants;

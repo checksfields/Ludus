@@ -15,7 +15,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;
 using Range = Bitspoke.Core.Common.Values.Range;
 
-namespace Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural.Plants;
+namespace Bitspoke.Ludus.Shared.Systems.Spawn.Natural.Plants;
 
 public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
 {

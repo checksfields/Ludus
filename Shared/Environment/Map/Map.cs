@@ -6,12 +6,12 @@ using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Entities.Natural.Plants;
-using Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Biome.Definitions;
 using Bitspoke.Ludus.Shared.Environment.Map.Components;
 using Bitspoke.Ludus.Shared.Environment.Map.Entities.Components;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;
 using Bitspoke.Ludus.Shared.Systems.Spawn;
+using Bitspoke.Ludus.Shared.Systems.Spawn.Natural.Plants;
 using Godot;
 using Newtonsoft.Json;
 

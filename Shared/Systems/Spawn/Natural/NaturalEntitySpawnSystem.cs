@@ -1,4 +1,6 @@
-﻿namespace Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural;
+﻿using Bitspoke.Ludus.Shared.Entities.Systems.Spawn;
+
+namespace Bitspoke.Ludus.Shared.Systems.Spawn.Natural;
 
 public abstract class NaturalEntitySpawnSystem<T> : EntitySpawnSystem<T>
 {
