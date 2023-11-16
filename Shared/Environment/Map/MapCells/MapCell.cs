@@ -1,12 +1,7 @@
-﻿using Bitspoke.Core.Common.Collections.Lists;
-using Bitspoke.Core.Entities.Containers;
-using Bitspoke.Core.Models.Cells;
+﻿using Bitspoke.Core.Models.Cells;
 using Bitspoke.Core.Utils.Primatives.Int;
 using Bitspoke.GodotEngine.Common.Vector;
-using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Common.Entities.Collections;
-using Bitspoke.Ludus.Shared.Entities.Containers;
-using Bitspoke.Ludus.Shared.Entities.Containers.Extensions;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Structures;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural;
@@ -27,7 +22,7 @@ public class MapCell : Cell
     [JsonIgnore] public Region? Region => Map?.Data.RegionsContainer[RegionIndex] ?? null; 
 
         
-    [JsonIgnore] public int MapID { get; set; }
+    [JsonIgnore] public ulong MapID { get; set; }
     [JsonIgnore] public Map? Map => Find.Map(MapID);
 
     public float Elevation { get; set; }
@@ -85,7 +80,7 @@ public class MapCell : Cell
 
     #region Constructors and Initialisation
 
-    public MapCell(int index, int mapID) : base()
+    public MapCell(int index, ulong mapID) : base()
     {
         Index = index;
         MapID = mapID;

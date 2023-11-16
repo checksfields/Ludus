@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.Vector;
-using Bitspoke.Core.Components;
-using Bitspoke.Core.Components.Collections;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Signal;
@@ -12,16 +8,13 @@ using Bitspoke.Core.Systems.Time;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Camera;
 using Bitspoke.GodotEngine.Components.Camera._2D;
-using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.Performance;
 using Bitspoke.GodotEngine.Controllers.Inputs;
 using Bitspoke.GodotEngine.Controllers.Resources;
-using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.Ludus.Client.Components;
 using Bitspoke.Ludus.Client.Components.Nodes.Maps.Terrains;
-using Bitspoke.Ludus.Client.Components.Regions;
 using Bitspoke.Ludus.Client.Components.Regions.Containers;
-using Bitspoke.Ludus.Client.Components.Regions.Debug;
 using Bitspoke.Ludus.Client.Components.UI.Information;
 using Bitspoke.Ludus.Shared.Common.Controllers.Admin;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
@@ -29,9 +22,7 @@ using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.World;
 using Bitspoke.Ludus.Shared.Tests.Maps;
 using Godot;
-using Newtonsoft.Json;
 using Console = Bitspoke.GodotEngine.Components.Console.Console;
-using PlantRegionNode = Bitspoke.Ludus.Client.Components.Regions.Plants.PlantRegionNode;
 
 
 namespace Bitspoke.Ludus.Client.Scenes;
@@ -65,7 +56,8 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	public float TotalFPS { get; set; } = 0;
 	public int TotalProcessCalls { get; set; }
 	
-	public override string Name => GetType().Name;	
+	public override string NodeName => GetType().Name;
+	public override Node Node => this;
 	
 	#endregion
 	
@@ -77,8 +69,8 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	public override void AddComponents()
 	{
 		//this.AddComponent(SettingsComponent = new LudusGameSettingsComponent());
-		this.AddComponent(PerformanceComponent = new PerformanceComponent());
-		this.AddComponent(GameStateInformationComponent = new GameStateInformationComponent());
+		this.AddGodotNode(PerformanceComponent = new PerformanceComponent());
+		this.AddGodotNode(GameStateInformationComponent = new GameStateInformationComponent());
 	}
 
 	public override void ConnectSignals()
@@ -104,13 +96,13 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		
 		AddCamera2D();
 		
-		this.AddComponent(RegionsContainer = new RegionsContainer(Map));		
+		this.AddGodotNode(RegionsContainer = new RegionsContainer(Map));		
 	}
 
 	private void AddCamera2D()
 	{
 		AddChild(LudusCamera2D = new LudusCamera2D(
-			new GodotComponentCollection()
+			new GodotNodeCollection()
 			{
 				new Camera2DZoomComponent(),
 				new Camera2DDragComponent()

@@ -96,7 +96,7 @@ public class MapCellsContainerComponent : CellBucketContainerComponent<MapCell>
 
     #region Constructors and Initialisation
 
-    public MapCellsContainerComponent(IDComponent mapID) : base(mapID.ID.FindMap()?.Regions.Area ?? 0)
+    public MapCellsContainerComponent(IDComponent mapID) : base(mapID.ID.Value.FindMap()?.Regions.Area ?? 0)
     {
         MapID = mapID;
         InitCollection();
@@ -110,14 +110,14 @@ public class MapCellsContainerComponent : CellBucketContainerComponent<MapCell>
     {
         Profiler.Start();
             
-        ContainerWidth = MapID.ID.FindMap()?.Size.Width() ?? 0;
-        ContainerHeight = MapID.ID.FindMap()?.Size.Height() ?? 0;
-        TotalElements = MapID.ID.FindMap()?.Size.Area() ?? 0;
+        ContainerWidth =  MapID.ID.Value.FindMap()?.Size.Width() ?? 0;
+        ContainerHeight = MapID.ID.Value.FindMap()?.Size.Height() ?? 0;
+        TotalElements =   MapID.ID.Value.FindMap()?.Size.Area() ?? 0;
             
         for (var i = 0; i < TotalElements; i++)
         {
             var cellLocation = i.ToVec2Int(ContainerWidth);
-            var mapCell = new MapCell(i, MapID.ID);
+            var mapCell = new MapCell(i, MapID.ID.Value);
 
             Container.Add(i, mapCell);
         }

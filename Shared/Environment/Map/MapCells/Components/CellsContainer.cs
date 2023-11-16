@@ -1,12 +1,9 @@
 ﻿using Bitspoke.Core.Common.Collections.Arrays;
 using Bitspoke.Core.Common.Collections.Dictionaries;
-using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Common.Collections.Matrices;
 using Bitspoke.Core.Common.Direction;
 using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Utils.Primatives.Float;
-using Bitspoke.GodotEngine.Common.Vector;
-using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Newtonsoft.Json;
 
@@ -29,8 +26,6 @@ public class CellsContainer
     #endregion
 
     #region Constructors and Initialisation
-
-    public CellsContainer(int mapID) : this(Find.Map(mapID)) { }
     
     public CellsContainer(Map map)
     {

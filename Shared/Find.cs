@@ -28,13 +28,13 @@ public partial class Find : Bitspoke.GodotEngine.Find
     public static LudusGameSettingsComponent LudusGameSettingsComponent => LudusGameSettingsComponent.Instance;
 
     public static World CurrentWorld => WorldManager.Instance.CurrentWorld;
-    public static World World(int mapID)
+    public static World World(ulong mapID)
     {
         Log.TODO("Get from worlds collection.  For now just return current world.  Note we may only ever have 1 world per game/save");
         return CurrentWorld;
     }
     public static Map CurrentMap => CurrentWorld?.Maps?.Current ?? null;
-    public static Map Map(int mapID) => CurrentWorld?.Maps?[mapID] ?? null;
+    public static Map Map(ulong? mapID) => CurrentWorld?.Maps?[mapID.Value] ?? null;
         
     public class Common
     {

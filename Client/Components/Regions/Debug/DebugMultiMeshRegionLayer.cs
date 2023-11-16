@@ -22,7 +22,8 @@ public partial class DebugMultiMeshRegionLayer : RegionLayer
     public Vector2 CellOffset => CoreGlobal.STANDARD_CELL_SIZE.ToVector2() / 2;
     public List<MapCell> LayerMapCells { get; set; }
     
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
     
     #endregion
 

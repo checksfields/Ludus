@@ -1,4 +1,5 @@
 using Bitspoke.Ludus.Shared.Common.Controllers.Admin;
+using Godot;
 using Console = Bitspoke.GodotEngine.Components.Console.Console;
 
 namespace Bitspoke.Ludus.Client.Components.Admin;
@@ -7,8 +8,8 @@ public partial class AdminConsole : Console
 {
     #region Properties
 
-    public override string Name => nameof(AdminConsole);
-    
+    public virtual string NodeName => GetType().Name;
+    public virtual Node Node => this;
 
     #endregion
 

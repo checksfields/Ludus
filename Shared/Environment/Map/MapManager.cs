@@ -1,5 +1,6 @@
 ﻿using BaseManager = Bitspoke.GodotEngine.Managers.Manager;
 using Bitspoke.Ludus.Shared.Environment.Map.Generation;
+using Godot;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map;
 
@@ -19,7 +20,8 @@ public partial class MapManager : BaseManager
         }
     }
     
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
         
     #endregion
 

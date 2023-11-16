@@ -22,4 +22,8 @@
       <Folder Include="Components\Entities\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Environment\Map\Entities\Components\CellEntityCollectionComponent.cs" />
+    </ItemGroup>
+
 </Project>

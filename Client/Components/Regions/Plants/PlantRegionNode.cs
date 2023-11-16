@@ -17,7 +17,8 @@ public partial class PlantRegionNode : RegionNode
     public Dictionary<string, Texture2D> Textures { get; set; }
     public Dictionary<string, PlantDef> PlantDefs { get; set; }
     
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
 
     #endregion
 

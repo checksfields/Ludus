@@ -2,7 +2,7 @@
 
 namespace Bitspoke.Ludus.Shared.Environment.Map;
 
-public class MapContainer : Container<Map>
+public class MapContainer : Container<ulong, Map>
 {
     #region Properties
 

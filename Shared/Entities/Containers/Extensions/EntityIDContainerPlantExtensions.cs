@@ -55,7 +55,7 @@ public static class EntityIDContainerPlantExtensions
         if (map == null)
             map = Find.CurrentMap;
 
-        var entities = map.Plants.EntitiesList.Where(w => container.ContainsKey(w.IDComponent.ID) && container.ContainsValue(EntityType.Plant)).ToList();
+        var entities = map.Plants.EntitiesList.Where(w => container.ContainsKey(w.ID) && container.ContainsValue(EntityType.Plant)).ToList();
         Profiler.End();
         return entities;
     }

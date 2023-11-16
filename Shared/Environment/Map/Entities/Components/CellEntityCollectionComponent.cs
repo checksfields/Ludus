@@ -10,7 +10,8 @@ public partial class CellEntityCollectionComponent : GodotNode
     #region Properties
 
     public MapCell MapCell { get; set; }
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
     
     #endregion
 

@@ -1,6 +1,5 @@
 ﻿using Bitspoke.Core.Common.Collections.Arrays;
 using Bitspoke.Core.Common.Collections.Dictionaries;
-using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Definitions;
 using BitspokeEntitiesContainer = Bitspoke.Core.Entities.Containers.EntitiesContainer<Bitspoke.Ludus.Shared.Common.Entities.LudusEntity>;
 using Bitspoke.Ludus.Shared.Common.Entities;
@@ -16,8 +15,8 @@ public class EntitiesContainer : BitspokeEntitiesContainer
 
     public Map Map { get; set; }
     
-    private BitspokeDictionary<int, int> EntityCellMap { get; set; } = new();
-    private BitspokeDictionary<int, int> EntityRegionMap { get; set; } = new();
+    private BitspokeDictionary<ulong, int> EntityCellMap { get; set; } = new();
+    private BitspokeDictionary<ulong, int> EntityRegionMap { get; set; } = new();
     
     public BitspokeDictionary<EntityType, LudusEntityList> EntitiesByType { get; set; } = new();
     public BitspokeDictionary<EntityType, BitspokeDictionary<Def, LudusEntityList>> EntitiesByTypeAndDef { get; set; } = new();

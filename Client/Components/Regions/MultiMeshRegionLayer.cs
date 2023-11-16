@@ -4,7 +4,6 @@ using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
-using Bitspoke.Core.Random;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Utils.Vector;
@@ -26,14 +25,15 @@ public partial class MultiMeshRegionLayer : RegionLayer
     public MeshInstance2D MeshInstance2D { get; set; } = new()
         { Mesh = new PlaneMesh { Size = CoreGlobal.STANDARD_CELL_SIZE.ToVector2(), Orientation = PlaneMesh.OrientationEnum.Z } };
 
-    private Dictionary<int, int> AdditionalMeshes { get; set; } = new();
+    private Dictionary<ulong, int> AdditionalMeshes { get; set; } = new();
 
     public Vector2 CellOffset => CoreGlobal.STANDARD_CELL_SIZE.ToVector2() / 2;
     public List<LudusEntity> LayerEntities { get; set; }
 
     public GraphicDef GraphicDef { get; set; }
     
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
     
     #endregion
 
@@ -119,7 +119,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
                 growth = ludusEntity.GetComponent<GrowthComponent>().Growth;
             
             var numberInCell = (growth * maxCountInCell).Ceiling();
-            AdditionalMeshes.Add(ludusEntity.IDComponent.ID, numberInCell);
+            AdditionalMeshes.Add(ludusEntity.ID, numberInCell);
         }
         
         MultiMeshInstance2D.Multimesh.InstanceCount = AdditionalMeshes.Sum(s => s.Value);
@@ -135,7 +135,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
             var localLocation = Vector2.Zero;
             
             // **** 20231115 Benchmark @ 0 ms
-            numberInCell = AdditionalMeshes[ludusEntity.IDComponent.ID];
+            numberInCell = AdditionalMeshes[ludusEntity.ID];
             var locComp = ludusEntity.GetComponent<LocationComponent>();
             var location = (locComp.Location.ToVector2() * CoreGlobal.STANDARD_CELL_SIZE) + CellOffset;
             localLocation = location - MultiMeshInstance2D.GlobalPosition;

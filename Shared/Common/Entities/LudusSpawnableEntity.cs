@@ -14,7 +14,7 @@ public abstract class LudusSpawnableEntity : LudusEntity, ISpawnableEntity
 
     #region Methods
 
-    public abstract SpawnSystem GetSpawnSystem(int mapID);
+    public abstract SpawnSystem GetSpawnSystem(ulong mapID);
     
     #endregion
 

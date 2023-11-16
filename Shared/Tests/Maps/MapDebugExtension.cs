@@ -1,8 +1,4 @@
-﻿using System.Text;
-using Bitspoke.Core.Common.Vector;
-using Bitspoke.GodotEngine.Utils.Files;
-using Bitspoke.Ludus.Shared.Entities.Containers.Extensions;
-using Bitspoke.Ludus.Shared.Environment.Map;
+﻿using Bitspoke.Ludus.Shared.Environment.Map;
 
 namespace Bitspoke.Ludus.Shared.Tests.Maps;
 

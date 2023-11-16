@@ -1,5 +1,5 @@
 ﻿using System;
-using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Utils.Images;
 using Bitspoke.Ludus.Client.Components.Nodes.Shaders;
 using Bitspoke.Ludus.Shared.Environment.Map;
@@ -11,7 +11,8 @@ public partial class TerrainLayer : GodotNode2D
 {
     #region Properties
 
-    public override string Name => $"{this.GetType().Name}_{GetInstanceId()}";
+    public virtual string NodeName => GetType().Name;
+    public virtual Node Node => this;
 
     public const String TERRAIN_ATLAS = "Terrain/Atlas";
     public const String BLEND_TEXTURE = "Support/tileblend";

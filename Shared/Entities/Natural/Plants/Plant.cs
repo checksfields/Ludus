@@ -67,7 +67,7 @@ public class Plant : LudusSpawnableEntity
     #region Methods
 
     private SpawnSystem? spawnSystem { get; set; } = null;
-    public override SpawnSystem GetSpawnSystem(int mapID)
+    public override SpawnSystem GetSpawnSystem(ulong mapID)
     {
         if (spawnSystem == null)
             spawnSystem = Find.Map(mapID).GetSpawnSystem<NaturalPlantSpawnSystem>();

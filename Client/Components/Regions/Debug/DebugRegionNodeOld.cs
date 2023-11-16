@@ -8,7 +8,8 @@ public partial class DebugRegionNodeOld : RegionNode
 {
     #region Properties
 
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
     
     #endregion
 

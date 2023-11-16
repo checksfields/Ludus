@@ -3,6 +3,7 @@ using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.Ludus.Shared.Entities.Containers;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;
+using Godot;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Entities.Components;
 
@@ -11,7 +12,8 @@ public partial class MapDataCollectionComponent : GodotNode
     #region Properties
 
     private Map? Map { get; set; } = null;
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
 
     #region Containers
 

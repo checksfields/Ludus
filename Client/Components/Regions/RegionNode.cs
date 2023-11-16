@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.GodotEngine.Common.Vector;
-using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;

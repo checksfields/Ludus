@@ -1,6 +1,7 @@
 ﻿using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Signal;
 using Bitspoke.GodotEngine.Components;
+using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.GodotEngine.Components.Nodes.CanvasItems;
 using Bitspoke.GodotEngine.Components.Nodes.CanvasItems.Controls;
 using Bitspoke.GodotEngine.Components.Nodes.CanvasItems.Controls.Containers;
@@ -14,7 +15,8 @@ public partial class GameStateInformationComponent : GodotCanvasLayer
 {
     #region Properties
 
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
 
     private GodotPanelContainer MainContainer { get; set; }
     private GodotMarginContainer MarginContainer { get; set; }
@@ -66,11 +68,11 @@ public partial class GameStateInformationComponent : GodotCanvasLayer
             container.AddThemeConstantOverride("v_separation", -5);
         });
         
-        GridContainer.AddComponent(CurrentStateLabel = new DefaultLabel { Text = "Current Game State:"});
-        GridContainer.AddComponent(CurrentStateValueLabel = new DefaultLabel { Text = "Not Set"});
+        GridContainer.AddGodotNode(CurrentStateLabel = new DefaultLabel { Text = "Current Game State:"});
+        GridContainer.AddGodotNode(CurrentStateValueLabel = new DefaultLabel { Text = "Not Set"});
         
-        GridContainer.AddComponent(PreviousStateLabel = new DefaultLabel { Text = "Previous Game State:"});
-        GridContainer.AddComponent(PreviousStateValueLabel = new DefaultLabel { Text = "Not Set"});
+        GridContainer.AddGodotNode(PreviousStateLabel = new DefaultLabel { Text = "Previous Game State:"});
+        GridContainer.AddGodotNode(PreviousStateValueLabel = new DefaultLabel { Text = "Not Set"});
     }
 
     public override void ConnectSignals()
@@ -88,14 +90,14 @@ public partial class GameStateInformationComponent : GodotCanvasLayer
     
     #region Methods
 
-    private GodotPanelContainer AddPanelContainer(Node parent)
+    private GodotPanelContainer AddPanelContainer(IGodotNode parent)
     {
         var container = new GodotPanelContainer();
 
         container.SetLayoutTopRight();
         container.SetOpacity(0f);
         
-        parent.AddComponent(container);
+        parent.AddGodotNode(container);
         return container;
     }
     

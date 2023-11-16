@@ -3,6 +3,7 @@ using Bitspoke.Core.Random;
 using Bitspoke.GodotEngine.Managers;
 using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.Ludus.Shared.Environment.World.Generation;
+using Godot;
 using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.World;
@@ -25,7 +26,8 @@ public partial class WorldManager : Manager
         
     public World CurrentWorld { get; set; } = null;
     
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
     
     
 

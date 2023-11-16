@@ -13,19 +13,20 @@ namespace Bitspoke.Ludus.Shared.Environment.Map.Entities.Components;
 
 
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+[Obsolete("Deprecated. Use Map.Data.EntityContainer instead.", true)]
 public class MapEntityContainerComponent : LudusComponent
 {
     #region Properties
 
     public override string ComponentName => nameof(MapEntityContainerComponent);
 
-    public int MapID { get; set; }
+    public ulong MapID { get; set; }
     private Map Map => MapID.FindMap();
     
     private Dictionary<EntityType, List<LudusEntity>> EntitiesByType { get; set; }
     private BucketCollection<int, EntitiesContainer<LudusEntity>> EntitiesByRegion { get; set; }
     private BucketCollection<int, EntitiesContainer<LudusEntity>> EntitiesByCellID { get; set; }
-    private BucketCollection<int, LudusEntity> Entities  { get; set; }
+    private BucketCollection<ulong, LudusEntity> Entities  { get; set; }
 
     private Dictionary<Vec2Int, int> PositionCellIndexMap { get; set; }
 
@@ -35,7 +36,7 @@ public class MapEntityContainerComponent : LudusComponent
 
     public MapEntityContainerComponent(IDComponent mapID) : base()
     {
-        MapID = mapID.ID;
+        MapID = mapID.ID.Value;
         InternalInit();
     }
 
@@ -44,7 +45,7 @@ public class MapEntityContainerComponent : LudusComponent
         var map = Map;
         var buckets = map.Regions.MapRegions.Count;
 
-        Entities = new BucketCollection<int, LudusEntity>(buckets);
+        Entities = new BucketCollection<ulong, LudusEntity>(buckets);
         EntitiesByType = new Dictionary<EntityType, List<LudusEntity>>();
         EntitiesByRegion = new BucketCollection<int, EntitiesContainer<LudusEntity>>(map.Regions.Area, bucketKeyCalculator: k =>
         {
@@ -82,7 +83,7 @@ public class MapEntityContainerComponent : LudusComponent
         }
 
         // BY ID
-        var id = entity.IDComponent.ID;
+        var id = entity.ID;
         Entities.Add(id, entity);
         
         // BY CELL

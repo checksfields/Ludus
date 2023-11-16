@@ -10,7 +10,6 @@ using Bitspoke.Ludus.Shared.Entities.Systems.Spawn.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Biome.Definitions;
 using Bitspoke.Ludus.Shared.Environment.Map.Components;
 using Bitspoke.Ludus.Shared.Environment.Map.Entities.Components;
-using Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;
 using Bitspoke.Ludus.Shared.Systems.Spawn;
 using Godot;
@@ -38,7 +37,7 @@ public class Map : LudusEntity
     public BiomeDef? BiomeDef { get; set; } = null;
 
     [JsonIgnore] public IDComponent MapID => base.IDComponent;
-    [JsonIgnore] public IDComponent WorldID => MapInitConfig?.WorldID ?? IDComponent.DEFAULT_ENTITY_ID;
+    [JsonIgnore] public IDComponent? WorldID => MapInitConfig?.WorldID ?? null;
         
     //[JsonIgnore] public MapCellsContainerComponent  Cells    => Components.Get<MapCellsContainerComponent>();
     [JsonIgnore] public MapRegionsComponent         Regions  => Components.Get<MapRegionsComponent>();
@@ -67,7 +66,7 @@ public class Map : LudusEntity
 
         var world = WorldID.ID.FindWorld();
         if (world != null)
-            world.Maps[MapID.ID] = this;
+            world.Maps[MapID.ID.Value] = this;
             
         BiomeDef = Find.DB.BiomeDefs.Get<BiomeDef>(initConfig.BiomeKey);
         AddComponentsPostConstructor();
@@ -93,9 +92,7 @@ public class Map : LudusEntity
     {
         Components.Add(new MapRegionsComponent(MapID));
         //Components.Add(new MapCellsContainerComponent(MapID));
-
-            
-        Components.Add(new MapEntityContainerComponent(MapID));
+        //Components.Add(new MapEntityContainerComponent(MapID));
     }
         
     private void AddSystems()

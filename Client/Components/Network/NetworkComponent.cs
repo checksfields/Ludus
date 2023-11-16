@@ -1,7 +1,7 @@
 using Bitspoke.Core.Models.Server;
 using Bitspoke.Core.Models.User;
 using Bitspoke.Core.Signal;
-using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.Security;
 using Bitspoke.GodotEngine.Components.Server.Game;
 using Bitspoke.GodotEngine.Components.Server.Gateway;
@@ -28,7 +28,8 @@ public partial class NetworkComponent : GodotNode2D
     public AuthenticationComponent? AuthenticationComp { get; set; }
     public GameServerComponent? GameServerComp { get; set; }
         
-    public override string Name => GetType().Name;
+    public virtual string NodeName => GetType().Name;
+    public virtual Node Node => this;
     
     #endregion
 

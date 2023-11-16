@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Bitspoke.Core.Common.Collections.Arrays;
-using Bitspoke.Core.Common.Collections.Lists;
+﻿using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Systems;
 using Bitspoke.Core.Systems.Time;
-using Bitspoke.Ludus.Shared.Environment.Map;
 
 namespace Bitspoke.Ludus.Shared.Systems.Growth;
 

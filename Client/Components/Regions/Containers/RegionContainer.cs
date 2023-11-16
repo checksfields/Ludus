@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Bitspoke.Core.Utils.Primatives.Float;
+﻿using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Components;
-using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.Nodes._2D.Notifiers;
 using Bitspoke.Ludus.Client.Components.Regions.Plants;
@@ -18,7 +14,8 @@ public partial class RegionContainer : GodotNode2D
 
     #region Properties
     
-    public override string Name => $"{this.GetType().Name}_{GetInstanceId()}";
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
 
     public GodotVisibleOnScreenNotifierComponent VisibleOnScreenNotifierComponent { get; set; }
     public Region Region { get; set; }
@@ -53,25 +50,11 @@ public partial class RegionContainer : GodotNode2D
         
         VisibleOnScreenNotifierComponent.Rect = new Rect2(position, size);
     }
-
-    public override void _Draw()
-    {
-        base._Draw();
-        
-//        DrawRect(Rect, Colors.Magenta, false, 2f);
-    }
     
-    // public override void _Draw()
-    // {
-    //     base._Draw();
-    //     DrawRect(VisibleOnScreenNotifierComponent.Rect, Colors.Magenta, false, 3f);
-    // }
-
     public override void Init() { }
-
     public override void AddComponents()
     {
-        this.AddComponent(VisibleOnScreenNotifierComponent = new());
+        this.AddGodotNode(VisibleOnScreenNotifierComponent = new());
         
     }
 
@@ -89,14 +72,14 @@ public partial class RegionContainer : GodotNode2D
     
     private void AddRegion()
     {
-        this.AddComponent(Regions =  new DefaultGodotNode2D());
+        this.AddGodotNode(Regions =  new DefaultGodotNode2D());
         AddPlantsRegion();
         
     }
 
     private void AddPlantsRegion()
     {
-        Regions.AddComponent(PlantRegionNode = new(Region), true);
+        Regions.AddGodotNode(PlantRegionNode = new(Region), true);
         //Regions.AddComponent(PlantRegionNode = new(Region));
     }
     

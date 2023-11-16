@@ -7,7 +7,7 @@ using Bitspoke.Core.Signal;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Components;
-using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.UI.Scale;
 using Bitspoke.GodotEngine.Controllers.Resources;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders.Implementations;
@@ -47,7 +47,8 @@ public partial class GameManager : GodotNode2D
             return instance;
         }
     }
-    public override string Name => GetType().Name;
+    public override string NodeName => GetType().Name;
+    public override Node Node => this;
 
     public LudusGameSettingsComponent LudusGameSettingsComponent => LudusGameSettingsComponent.Instance; 
 
@@ -95,7 +96,7 @@ public partial class GameManager : GodotNode2D
     {
         Log.Info("AddComponents");
         
-        this.AddComponent(new LudusGameSettingsComponent());
+        this.AddGodotNode(new LudusGameSettingsComponent());
             
         _ = new GameStateManager(LudusGameStatesTypeData.INITIALISING_KEY);
         _ = new GameSpeedSystem();

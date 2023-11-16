@@ -4,5 +4,5 @@ namespace Bitspoke.Ludus.Shared.Common.Entities;
 
 public interface ISpawnableEntity
 {
-    SpawnSystem GetSpawnSystem(int mapID);
+    SpawnSystem GetSpawnSystem(ulong mapID);
 }

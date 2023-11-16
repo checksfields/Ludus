@@ -24,7 +24,7 @@ public class RegionsContainer
 
     #region Constructors and Initialisation
 
-    public RegionsContainer(int mapID, Vector2I? regionSize = null) : this(Find.Map(mapID), regionSize)
+    public RegionsContainer(ulong mapID, Vector2I? regionSize = null) : this(Find.Map(mapID), regionSize)
     {
     }
     

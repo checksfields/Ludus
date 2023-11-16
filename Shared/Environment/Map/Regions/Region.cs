@@ -1,5 +1,4 @@
-﻿using Bitspoke.Core.Common.Collections.Lists;
-using Bitspoke.GodotEngine.Common.Vector;
+﻿using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Common.Entities.Collections;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;

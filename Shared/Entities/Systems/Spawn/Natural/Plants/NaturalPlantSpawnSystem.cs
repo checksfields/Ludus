@@ -1,5 +1,4 @@
-﻿using Bitspoke.Core.Common.Collections.Dictionaries;
-using Bitspoke.Core.Common.Collections.Pools;
+﻿using Bitspoke.Core.Common.Collections.Pools;
 using Bitspoke.Core.Common.Maths.Geometry;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Profiling;
@@ -7,9 +6,7 @@ using Bitspoke.Core.Utils.Collections;
 using Bitspoke.Core.Utils.Math;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.Ludus.Shared.Common.Entities;
-using Bitspoke.Ludus.Shared.Common.Entities.Collections;
 using Bitspoke.Ludus.Shared.Common.Reports;
-using Bitspoke.Ludus.Shared.Entities.Containers.Extensions;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Entities.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map;

@@ -1,4 +1,4 @@
-using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 
 namespace Bitspoke.Ludus.Client.Components.Regions;
 
