@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bitspoke.Core.Components.Identity;
 using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.GodotEngine.Components.Nodes.CanvasItems.Controls.Containers;
@@ -10,14 +11,21 @@ public static class NameValueGridContainerHelper
 {
     #region Methods
 
-    public static void AddLocationComponent(this NameValueGridContainer container, LocationComponent component, int order = -1)
+    public static void AddIDComponent(this NameValueGridContainer container, IDComponent component, int order = -1, bool showDetailed = true)
     {
-        container.AddNameValuePair("Location:", component.Location.ToString, order);
+        //container.AddHeader("ID", false);
+        container.AddNameValuePair($"ID:", component.ID.ToString, order != -1 ? order++ : order, !showDetailed);
+    }
+    
+    public static void AddLocationComponent(this NameValueGridContainer container, LocationComponent component, int order = -1, bool showDetailed = true)
+    {
+        //container.AddHeader("Growth", false);
+        container.AddNameValuePair($"Location:", component.Location.ToString, order != -1 ? order++ : order, !showDetailed);
     }
     
     public static void AddGrowthComponent(this NameValueGridContainer container, GrowthComponent component, int order = -1, bool showDetailed = true)
     {
-        container.AddHeader("Growth", false);
+        //container.AddHeader("Growth", false);
         container.AddNameValuePair($"Current Growth:", component.CurrentGrowthPercent.ToString, order != -1 ? order++ : order, !showDetailed);
         
         if (!showDetailed)

@@ -25,8 +25,6 @@ public partial class NaturalPlantDetailsDisplayNode : PlantDetailsDisplayNode
     public override void BuildNode()
     {
         base.BuildNode();
-
-        Details.AddGrowthComponent(Plant.GrowthComponent);
     }
 
     #endregion

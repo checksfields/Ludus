@@ -1,7 +1,11 @@
-﻿using Bitspoke.GodotEngine.Components.Nodes._2D;
+﻿using Bitspoke.Core.Components.Identity;
+using Bitspoke.Core.Components.Location;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.Nodes.CanvasItems;
 using Bitspoke.GodotEngine.Components.Nodes.CanvasItems.Controls.Containers;
+using Bitspoke.Ludus.Client.Components.Common.Display;
 using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Entities.Natural.Plants;
 using Godot;
 
 namespace Bitspoke.Ludus.Client.Components.Entities;
@@ -34,11 +38,6 @@ public abstract partial class EntityDetailsDisplayNode : GodotNode2D
 
     #region Methods
 
-    public override void Init()
-    {
-        base.Init();
-    }
-
     public override void _EnterTree()
     {
         base._EnterTree();
@@ -53,22 +52,13 @@ public abstract partial class EntityDetailsDisplayNode : GodotNode2D
         BuildNode();
     }
 
-    public override void AddComponents()
-    {
-        base.AddComponents();
-        // MainContainer   = this.AddContainer<GodotPanelContainer>();
-        // MarginContainer = MainContainer.AddContainer<GodotMarginContainer>(container => { container.SetOpacity(0.5f, true); });
-        // VBoxContainer   = MarginContainer.AddContainer<GodotVBoxContainer>();
-        // Details = VBoxContainer.AddContainer<NameValueGridContainer>();
-        // this.ZIndex = 1000;
-        // BuildNode();
-    }
-
     public virtual void BuildNode()
     {
         Details.AddThemeConstantOverride("separation", -5);
         Details.AddHeader("Entity:", false);
-        Details.AddNameValuePair("Test:", () => "test");
+        
+        Details.AddLocationComponent(LudusEntity.GetComponent<LocationComponent>());
+        Details.AddIDComponent(LudusEntity.GetComponent<IDComponent>());
     }
 
     #endregion

@@ -104,7 +104,10 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	
 	private void OnUIMouseOverExit()
 	{
-		ToolTipLayer.RemoveAllChildren();
+		if (IsInstanceValid(ToolTipLayer))
+		{
+			ToolTipLayer.RemoveAllChildren();	
+		}
 	}
 
 	public ulong ElapsedTime { get; set; } = 0;

@@ -48,7 +48,7 @@ public abstract partial  class EntitySprite2D : GodotSprite2D
     protected virtual void OnMouseEntered()
     {
         var detailsNode = GetDetailsNode();
-        detailsNode.GlobalPosition = GlobalPosition;
+        detailsNode.GlobalPosition = (GlobalPosition - GetViewport().GetCamera2D().Position) * GetViewport().GetCamera2D().Zoom;
         GodotGlobal.Actions.UIMouseOverEnter.Invoke(detailsNode);
     }
 

@@ -1,4 +1,5 @@
-﻿using Bitspoke.Ludus.Shared.Entities.Natural.Plants;
+﻿using Bitspoke.Ludus.Client.Components.Common.Display;
+using Bitspoke.Ludus.Shared.Entities.Natural.Plants;
 
 namespace Bitspoke.Ludus.Client.Components.Entities.Plants;
 
@@ -25,7 +26,8 @@ public abstract partial class PlantDetailsDisplayNode : EntityDetailsDisplayNode
     public override void BuildNode()
     {
         base.BuildNode();
-        Details.AddNameValuePair("PlantDetailsDisplayNode:", () => "_PlantDetailsDisplayNode");
+
+        Details.AddGrowthComponent(Plant.GrowthComponent);
     }
 
     #endregion
