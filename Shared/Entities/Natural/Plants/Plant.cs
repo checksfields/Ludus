@@ -18,6 +18,8 @@ public class Plant : LudusSpawnableEntity
     
     public override string EntityName => nameof(Plant);
 
+    public PlantDef? PlantDef => (Def is PlantDef def) ? def : null;
+    
     public LocationComponent LocationComponent => GetComponent<LocationComponent>();
     public GrowthComponent   GrowthComponent   => GetComponent<GrowthComponent>();
     public AgeComponent      AgeComponent      => GetComponent<AgeComponent>();
@@ -46,7 +48,7 @@ public class Plant : LudusSpawnableEntity
                 var lifeCycleDef = Def.GetDefComponent<LifeCycleDef>();
                 var lifespanDays = lifeCycleDef.LifespanDays;
                 
-                GrowthComponent.Growth =  Mathf.Clamp(lifeCycleDef.InitialGrowthRange.RandRange(), 0, 1);
+                GrowthComponent.CurrentGrowthPercent =  Mathf.Clamp(lifeCycleDef.InitialGrowthRange.RandRange(), 0, 1);
                 var lifespanTicks = (int)(lifespanDays * Global.PLANT_GROW_DAY_TICKS);
                 AgeComponent.Age =  Rand.NextInt(0, Mathf.Max(lifespanTicks - 50, 0));
             }
@@ -58,8 +60,8 @@ public class Plant : LudusSpawnableEntity
     public override void AddComponents()
     {
         Components.Add(new LocationComponent());
-        Components.Add(new GrowthComponent());
-        Components.Add(new AgeComponent());
+        Components.Add(new GrowthComponent(this));
+        Components.Add(new AgeComponent(this));
     }
     
     #endregion

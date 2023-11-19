@@ -1,4 +1,5 @@
-﻿using Bitspoke.Core.Utils.Primatives.Float;
+﻿using Bitspoke.Core.Systems.Growth;
+using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.Nodes._2D.Notifiers;
@@ -20,7 +21,7 @@ public partial class RegionContainer : GodotNode2D
     public GodotVisibleOnScreenNotifierComponent VisibleOnScreenNotifierComponent { get; set; }
     public Region Region { get; set; }
     
-    public DefaultGodotNode2D Regions { get; set; }
+    public GodotNode2D Regions { get; set; }
     
     public PlantRegionNode? PlantRegionNode { get; set; } = null;
     
@@ -64,8 +65,11 @@ public partial class RegionContainer : GodotNode2D
         VisibleOnScreenNotifierComponent.ScreenExited += OnScreenExited;
     }
 
-    
-    
+    private void OnGrowthSystemTickComplete()
+    {
+        PlantRegionNode.Refresh();
+    }
+
     #endregion
     
     #region Methods
@@ -85,11 +89,13 @@ public partial class RegionContainer : GodotNode2D
     
     private void OnScreenEntered()
     {
+        GrowthSystem.Instance.TickComplete += OnGrowthSystemTickComplete;
         AddRegion();
     }
     
     private void OnScreenExited()
     {
+        GrowthSystem.Instance.TickComplete -= OnGrowthSystemTickComplete;
         Regions.QueueFree();
     }
     

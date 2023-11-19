@@ -116,7 +116,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
         {
             var growth = 1.0f;
             if (ludusEntity.HasComponent<GrowthComponent>())
-                growth = ludusEntity.GetComponent<GrowthComponent>().Growth;
+                growth = ludusEntity.GetComponent<GrowthComponent>().CurrentGrowthPercent;
             
             var numberInCell = (growth * maxCountInCell).Ceiling();
             AdditionalMeshes.Add(ludusEntity.ID, numberInCell);

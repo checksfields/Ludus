@@ -126,14 +126,11 @@ public class CellsContainer
         if (!CellBucketsCache.ContainsKey(numberOfBuckets))
         {
             var buckets = new BitspokeDictionary<int, BitspokeArray<MapCell>>();
-            var cellsPerBucket = (Cells.Length / (float)numberOfBuckets).Ceiling();
-            for (int i = 0; i < numberOfBuckets; i++)
-            {
-                var length = Math.Min(cellsPerBucket, Map.Area - (i * cellsPerBucket));
-                var slice = Cells.Array.Slice(i * cellsPerBucket, length);
-                buckets.Add(i, new BitspokeArray<MapCell>(slice));
-            }
 
+            var bucketsArray = Cells.Array.Slice(numberOfBuckets);
+            for (int i = 0; i < numberOfBuckets; i++)
+                buckets.Add(i, new BitspokeArray<MapCell>(bucketsArray[i]));
+            
             CellBucketsCache.Add(numberOfBuckets, buckets);
         }
 

@@ -1,5 +1,12 @@
 using System.Collections.Generic;
 using Bitspoke.Core.Common.Graphics.Textures;
+using Bitspoke.Core.Components.Life;
+using Bitspoke.Core.Components.Location;
+using Bitspoke.GodotEngine.Common.Vector;
+using Bitspoke.GodotEngine.Components;
+using Bitspoke.GodotEngine.Utils.Vector;
+using Bitspoke.Ludus.Client.Components.Nodes.Sprites;
+using Bitspoke.Ludus.Client.Components.Nodes.Sprites.Plants.Natural;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
@@ -20,6 +27,8 @@ public partial class PlantRegionNode : RegionNode
     public override string NodeName => GetType().Name;
     public override Node Node => this;
 
+    public bool IsDirty { get; set; }
+    
     #endregion
 
     #region Constructors and Initialisation
@@ -51,12 +60,33 @@ public partial class PlantRegionNode : RegionNode
         ProcessPlants();
     }
 
-    public void ReprocessPlants()
+    private int nullSpriteOccurences = 0;
+    public override void _Process(double delta)
     {
-        ProcessPlants();
+        base._Process(delta);
+
+        if (IsDirty)
+        {
+            //Sprites.QueueFree();
+            if (Sprites != null)
+                Sprites.Free();
+            
+            //Profile(message: $"[{Region.Index}]:", toProfile:() => ProcessPlants());
+            ProcessPlants();
+            IsDirty = false;
+        }
+        
+    }
+
+    public void Refresh()
+    {
+        // we are coming in from another thread so we can't update directly ... we need to flag we need to do an update
+        // and then let _Process handle the update
+        IsDirty = true;
     }
     
-    private void ProcessPlants()
+    
+    private void ProcessPlants(bool includeMultiMesh = true)
     {
         //var plantsByType = Map.Data.EntitiesContainer.EntitiesByRegion[RegionID];
         //Log.Debug($"Region[{RegionID}] - ProcessPlants");
@@ -71,6 +101,8 @@ public partial class PlantRegionNode : RegionNode
             switch (textureType)
             {
                 case TextureType.MultiMesh:
+                    if (!includeMultiMesh) break;
+                    
                     layerID++;
                         
                     MultiMeshRegionLayer layer;
@@ -90,7 +122,7 @@ public partial class PlantRegionNode : RegionNode
                     layerID++;
                     SpritesCount += plantByType.Value.Count;
                     var texture = Textures[plantByType.Key];
-                    AddSprites(texture, Region, plantByType.Value);
+                    AddSprites(texture, plantByType.Value);
                     break;
                 default:
                     break;
@@ -100,6 +132,15 @@ public partial class PlantRegionNode : RegionNode
     
     #endregion
 
+    protected new void AddSprites(Texture2D texture, List<LudusEntity> regionEntities)
+    {
+        if (Sprites == null || !IsInstanceValid(Sprites) || Sprites.IsQueuedForDeletion())
+            AddChild(Sprites = new());
 
-
+        foreach (var ludusEntity in regionEntities)
+        {
+            Sprites.AddSprite<NaturalPlantSprite2D>(ludusEntity, texture);
+        }
+    }
+    
 }

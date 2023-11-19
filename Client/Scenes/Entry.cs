@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
@@ -8,7 +9,9 @@ using Bitspoke.Core.Systems.Time;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Camera;
 using Bitspoke.GodotEngine.Components.Camera._2D;
+using Bitspoke.GodotEngine.Components.Nodes;
 using Bitspoke.GodotEngine.Components.Nodes._2D;
+using Bitspoke.GodotEngine.Components.Nodes.CanvasLayers;
 using Bitspoke.GodotEngine.Components.Performance;
 using Bitspoke.GodotEngine.Controllers.Inputs;
 using Bitspoke.GodotEngine.Controllers.Resources;
@@ -41,6 +44,8 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	public PerformanceComponent PerformanceComponent { get; set; }
 	public GameStateInformationComponent GameStateInformationComponent { get; set; }
 	
+	public ToolTipCanvasLayer ToolTipLayer { get; set; }
+	
 //	public Node2D RegionsContainer { get; set; }
 //	public Node2D PlantRegionsContainer { get; set; }
 //	public Dictionary<int, RegionNode_Old> RegionNodes { get; set; }
@@ -71,6 +76,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		//this.AddComponent(SettingsComponent = new LudusGameSettingsComponent());
 		this.AddGodotNode(PerformanceComponent = new PerformanceComponent());
 		this.AddGodotNode(GameStateInformationComponent = new GameStateInformationComponent());
+		this.AddGodotNode(ToolTipLayer = new ToolTipCanvasLayer());
 	}
 
 	public override void ConnectSignals()
@@ -83,6 +89,22 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		SignalManager.Connect(new SignalDetails(CameraZoomComponent.ZOOM_CHANGE, typeof(CameraZoomComponent), this, nameof(OnZoomChanged)));
 		
 		TimeSystem.RegisterForTick(TickTypeData.LONG_TICK_KEY, this);
+		
+		GodotGlobal.Actions.UIMouseOverEnter += OnUIMouseOverEnter;
+		GodotGlobal.Actions.UIMouseOverExit += OnUIMouseOverExit;
+	}
+	
+	
+	
+	private void OnUIMouseOverEnter(GodotNode2D toShow)
+	{
+		ToolTipLayer.RemoveAllChildren();
+		ToolTipLayer.AddChild(toShow);
+	}
+	
+	private void OnUIMouseOverExit()
+	{
+		ToolTipLayer.RemoveAllChildren();
 	}
 
 	public ulong ElapsedTime { get; set; } = 0;

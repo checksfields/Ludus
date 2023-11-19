@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components.Nodes._2D;
+using Bitspoke.GodotEngine.Components.Nodes.Sprites;
+using Bitspoke.GodotEngine.Utils.Vector;
+using Bitspoke.Ludus.Client.Components.Nodes.Sprites.Plants.Natural;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
@@ -25,7 +29,7 @@ public abstract partial class RegionNode : GodotNode2D
     public Dictionary<int, RegionLayer> RegionLayers { get; set; }
 
     public int SpritesCount { get; set; }
-    public Node2D Sprites { get; set; }
+    public GodotNode2D Sprites { get; set; }
 
     public int MeshesCount => RegionLayers.Values
         .Where(w => w.GetType() == typeof(MultiMeshRegionLayer))
@@ -57,17 +61,18 @@ public abstract partial class RegionNode : GodotNode2D
 
     #region Methods
 
-    protected void AddSprites(Texture2D layerTexture, Region region, List<LudusEntity> regionEntities)
+    protected void AddSprites(Texture2D layerTexture, List<LudusEntity> regionEntities)
     {
-        Sprites = null;
-        foreach (Node2D child in GetChildren())
-        {
-            if (child.Name == "sprite_layer")
-                Sprites = (Node2D)child;
-        }
+        // Sprites = null;
+        // foreach (Node2D child in GetChildren())
+        // {
+        //     if (child.Name == "sprite_layer")
+        //         Sprites = (Node2D)child;
+        // }
 
-        if (Sprites == null)
-            AddChild(Sprites = new Node2D() { Name = "sprite_layer" });
+        
+        if (Sprites == null || !IsInstanceValid(Sprites) || Sprites.IsQueuedForDeletion())
+            AddChild(Sprites = new());
 
         foreach (var ludusEntity in regionEntities)
         {
@@ -77,10 +82,11 @@ public abstract partial class RegionNode : GodotNode2D
 
             var sprite = new Sprite2D();
             sprite.Texture = layerTexture;
-            //sprite.Position = localLocation;
             sprite.GlobalPosition = localLocation;
             sprite.ZIndex = (int)sprite.Position.Y;
-            //sprite.ZAsRelative = true;
+            
+            var growthComp = ludusEntity.GetComponent<GrowthComponent>();
+            sprite.Scale = growthComp?.CurrentGrowthPercent.ToVector2() ?? Vector2.One;
 
             Sprites.AddChild(sprite);
         }
