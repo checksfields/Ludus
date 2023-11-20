@@ -8,7 +8,7 @@
       "Key": "wood",
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       }

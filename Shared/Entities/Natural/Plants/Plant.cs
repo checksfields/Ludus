@@ -1,11 +1,12 @@
 ﻿using Bitspoke.Core.Common.States.Games;
-using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.Core.Definitions.Parts.Entity.Living;
 using Bitspoke.Core.Random;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
+using Bitspoke.Ludus.Shared.Components.Entities.Living;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
+using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Bitspoke.Ludus.Shared.Systems.Spawn;
 using Bitspoke.Ludus.Shared.Systems.Spawn.Natural.Plants;
 using Godot;

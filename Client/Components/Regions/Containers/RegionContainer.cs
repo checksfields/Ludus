@@ -1,10 +1,10 @@
-﻿using Bitspoke.Core.Systems.Growth;
-using Bitspoke.Core.Utils.Primatives.Float;
+﻿using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.Nodes._2D.Notifiers;
 using Bitspoke.Ludus.Client.Components.Regions.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
+using Bitspoke.Ludus.Shared.Systems.Growth;
 using Godot;
 
 namespace Bitspoke.Ludus.Client.Components.Regions.Containers;

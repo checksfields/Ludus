@@ -209,6 +209,31 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		SignalManager.Emit(TimeSystem.UPDATE, delta);
 	}
 
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
+		if (@event is InputEventKey)
+		{
+			var keyEvent = (InputEventKey) @event;
+			if (keyEvent.Pressed)
+			{
+				if (keyEvent.Keycode == Key.Equal)
+				{
+					Log.Debug("Increase Game Speed");
+					GameSpeedSystem.IncrementSpeed();
+					//GameSpeedSystem.Instance.OnChangeSpeed(GameSpeedTypeData.FAST_KEY);
+				}
+				
+				if (keyEvent.Keycode == Key.Minus)
+				{
+					Log.Debug("Decrease Game Speed");
+					GameSpeedSystem.DecrementSpeed();
+					//GameSpeedSystem.Instance.OnChangeSpeed(GameSpeedTypeData.FAST_KEY);
+				}
+			}
+		}
+	}
+
 	protected void OnResourcesLoaded() { }
 	protected void OnNotificationUpdate(string message) { Log.Info($"!!!!!!!!!!! {message}"); }
 	protected void OnNotificationClose(string message) { Log.Info(message); }

@@ -94,6 +94,8 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
 
         var plant = new Plant((PlantDef) result.Key);
 
+        plant.MapCell = mapCell;
+        
         plant.LocationComponent.Index = mapCell.Index;
         plant.LocationComponent.Location = mapCell.Location;
         

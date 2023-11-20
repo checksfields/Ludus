@@ -15,12 +15,19 @@ public partial class MapDataCollectionComponent : GodotNode
     public override string NodeName => GetType().Name;
     public override Node Node => this;
 
+    // in celsius
+    public float Temp { get; set; }
+    // 0.0f - 1.0f
+    public float Light { get; set; }
+    // 0.0f - 1.0f
+    public float Moisture { get; set; }
+    
     #region Containers
 
     public EntitiesContainer EntitiesContainer { get; set; }
     public CellsContainer    CellsContainer    { get; set; }
     public RegionsContainer  RegionsContainer  { get; set; }
-
+    
     #endregion
 
 
@@ -37,7 +44,12 @@ public partial class MapDataCollectionComponent : GodotNode
 
     #region Methods
 
-    public override void Init() {}
+    public override void Init()
+    {
+        // TODO - Tier 1 - Calculate Environmental Variables based on season, time of day and current events
+        
+        
+    }
     public override void AddComponents() {}
     public override void ConnectSignals() {}
     
@@ -50,6 +62,13 @@ public partial class MapDataCollectionComponent : GodotNode
         EntitiesContainer = new EntitiesContainer(Map);
 
         Profiler.End(message:"+++++++++++++++++++++");
+    }
+
+    private void SetEnvironmentalVariables()
+    {
+        Temp = 30.0f;
+        Light = 0.5f;
+        Moisture = 0.5f;
     }
 
     #endregion

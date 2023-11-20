@@ -3,10 +3,11 @@ using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.TypeDatas;
 using Bitspoke.Core.Databases.Definitions;
 using Bitspoke.Core.Definitions;
-using Bitspoke.Core.Systems.Growth;
+using Bitspoke.Core.Systems.Age;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.GodotEngine.Databases.Resources.Shaders;
 using Bitspoke.GodotEngine.Databases.Resources.Textures;
+using Bitspoke.Ludus.Shared.Components.Entities.Living;
 using Bitspoke.Ludus.Shared.Entities.Definitions;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural.Rocks.Definitions;
@@ -17,6 +18,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Bitspoke.Ludus.Shared.Environment.World;
+using Bitspoke.Ludus.Shared.Systems.Growth;
 using LudusGameSettingsComponent = Bitspoke.Ludus.Shared.Components.Settings.Game.LudusGameSettingsComponent;
 
 namespace Bitspoke.Ludus.Shared;
@@ -85,7 +87,11 @@ public partial class Find : Bitspoke.GodotEngine.Find
             public static TypeDataCollection VegetationDensityTypeData = CoreFind.DB.TypeData.All.GetFromDB<TypeDataCollection>(nameof(VegetationDensityTypeData));
             
         }
-        
+        public class Systems
+        {
+            public static AgeSystem AgeSystem => AgeSystem.Instance;
+            public static GrowthSystem GrowthSystem => GrowthSystem.Instance;
+        }
         
     }
 

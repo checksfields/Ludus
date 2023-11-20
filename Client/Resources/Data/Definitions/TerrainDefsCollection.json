@@ -31,7 +31,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -68,7 +68,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -105,7 +105,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -139,7 +139,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -174,7 +174,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -204,7 +204,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -241,7 +241,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -276,7 +276,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -311,7 +311,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -341,7 +341,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },
@@ -371,7 +371,7 @@
       },
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {}
       },

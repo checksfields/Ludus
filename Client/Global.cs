@@ -31,6 +31,6 @@ public static class Global
         GodotGlobal.ZOOM_2D_MAX = 2.0f;
         GodotGlobal.ZOOM_2D_MIN = 0.25f;
         
-        GodotGlobal.RUN_BOOTSTRAP_ENABLED  = false;
+        GodotGlobal.RUN_BOOTSTRAP_ENABLED  = true;
     }
 }

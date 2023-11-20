@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components.Nodes._2D;
@@ -8,6 +7,7 @@ using Bitspoke.GodotEngine.Components.Nodes.Sprites;
 using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Client.Components.Nodes.Sprites.Plants.Natural;
 using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Components.Entities.Living;
 using Bitspoke.Ludus.Shared.Environment.Map;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;

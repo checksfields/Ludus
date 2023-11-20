@@ -12,7 +12,7 @@
       "Order": 1.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -81,7 +81,7 @@
       "Order": 1.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -150,7 +150,7 @@
       "Order": 1.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -219,7 +219,7 @@
       "Order": 2.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -256,6 +256,15 @@
               },
               "Opacity": 1.0
             }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 2.5,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
           }
         }
       },
@@ -270,7 +279,7 @@
       "Order": 3.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -344,7 +353,7 @@
       "Order": 3.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -358,8 +367,8 @@
           },
           "ClusterDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
-            "Radius": 8,
-            "Wieght": 20
+            "Radius": 16,
+            "Wieght": 80
           },
           "fertilityrange": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
@@ -382,6 +391,15 @@
               },
               "Opacity": 1.0
             }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 2.5,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
           }
         }
       },
@@ -396,7 +414,7 @@
       "Order": 3.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -410,8 +428,8 @@
           },
           "ClusterDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
-            "Radius": 8,
-            "Wieght": 20
+            "Radius": 16,
+            "Wieght": 80
           },
           "fertilityrange": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
@@ -434,6 +452,15 @@
               },
               "Opacity": 1.0
             }
+          },
+          "LifeCycleDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
+            "GrowDays": 2.5,
+            "InitialGrowthRange": {
+              "Min": 0.7,
+              "Max": 1.5
+            },
+            "GrowthDaysPercentageOfLifespan": 0.125
           }
         }
       },
@@ -448,7 +475,7 @@
       "Order": 3.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -513,7 +540,7 @@
       "Order": 3.0,
       "DefCollectionComponent": {
         "Key": "DefCollectionComponent",
-        "ClassName": "Bitspoke.Core.Components.Collections.DefCollectionComponent",
+        "ClassName": "Bitspoke.Core.Components.Collections.Definitions.DefCollectionComponent",
         "AssemblyName": "Core",
         "Defs": {
           "PlacementMaskDef": {
@@ -545,7 +572,7 @@
             "Scale": 1.0,
             "ScaleRange": {
               "Min": 0.3,
-              "Max": 1.0
+              "Max": 0.6
             },
             "TextureDef": {
               "TextureResourcePath": "Entities/Plants/Natural/BerryPlant/berrybusha",

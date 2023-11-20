@@ -4,7 +4,7 @@ using Bitspoke.Core.Common.States.Games;
 using Bitspoke.Core.Common.Vector;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Signal;
-using Bitspoke.Core.Systems.Growth;
+using Bitspoke.Core.Systems.Age;
 using Bitspoke.Core.Systems.Time;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Components;
@@ -23,6 +23,9 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Affordances;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Floors;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.World.TypeData;
+using Bitspoke.Ludus.Shared.Systems.Environmental;
+using Bitspoke.Ludus.Shared.Systems.Growth;
+using Bitspoke.Ludus.Shared.Systems.Time;
 using Godot;
 using TerrainDefsCollection = Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain.TerrainDefsCollection;
 
@@ -102,6 +105,9 @@ public partial class GameManager : GodotNode2D
         _ = new GameSpeedSystem();
         _ = new TimeSystem(true);
         _ = new GrowthSystem();
+        _ = new AgeSystem();
+        _ = new WeatherSystem();
+        _ = new CalendarSystem();
             
         LoadCachedData();
         LoadRuntime();

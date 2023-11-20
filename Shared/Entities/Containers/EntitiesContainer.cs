@@ -15,8 +15,8 @@ public class EntitiesContainer : BitspokeEntitiesContainer
 
     public Map Map { get; set; }
     
-    private BitspokeDictionary<ulong, int> EntityCellMap { get; set; } = new();
-    private BitspokeDictionary<ulong, int> EntityRegionMap { get; set; } = new();
+    public BitspokeDictionary<ulong, int> EntityCellMap { get; set; } = new();
+    public BitspokeDictionary<ulong, int> EntityRegionMap { get; set; } = new();
     
     public BitspokeDictionary<EntityType, LudusEntityList> EntitiesByType { get; set; } = new();
     public BitspokeDictionary<EntityType, BitspokeDictionary<Def, LudusEntityList>> EntitiesByTypeAndDef { get; set; } = new();

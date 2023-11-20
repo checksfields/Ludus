@@ -28,6 +28,7 @@ public abstract partial class PlantDetailsDisplayNode : EntityDetailsDisplayNode
         base.BuildNode();
 
         Details.AddGrowthComponent(Plant.GrowthComponent);
+        Details.AddAgeComponent(Plant.AgeComponent);
     }
 
     #endregion

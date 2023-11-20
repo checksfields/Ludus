@@ -19,21 +19,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Components\Entities\" />
       <Folder Include="Entities\Systems\Spawn\Natural\Plants\" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Environment\Map\Entities\Components\CellEntityCollectionComponent.cs" />
-      <Compile Remove="Systems\Growth\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="Systems\Growth\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Systems\Growth\**" />
+      <Compile Include="Systems\Growth\IGrowable.cs" />
+      <Compile Remove="Environment\Map\Entities\Components\MapEntityContainerComponent.cs" />
     </ItemGroup>
 
 </Project>

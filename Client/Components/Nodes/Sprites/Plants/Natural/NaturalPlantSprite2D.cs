@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components;
@@ -12,6 +11,7 @@ using Bitspoke.Ludus.Client.Components.Entities;
 using Bitspoke.Ludus.Client.Components.Entities.Plants.Natural;
 using Bitspoke.Ludus.Client.Components.Regions.Plants;
 using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Components.Entities.Living;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Entities.Natural.Plants;
 using Godot;

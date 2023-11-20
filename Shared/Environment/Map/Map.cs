@@ -55,7 +55,7 @@ public class Map : LudusEntity
     [JsonIgnore] public EntitiesContainer<Plant>? Plants => CommonEntities[EntityType.Plant] as EntitiesContainer<Plant>;
 
     [JsonIgnore] public BucketCollection<int, LudusEntity> EntityCollection { get; set; }
-
+    
     #endregion
 
     #region Constructors and Initialisation

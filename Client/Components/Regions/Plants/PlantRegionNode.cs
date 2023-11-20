@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Bitspoke.Core.Common.Graphics.Textures;
-using Bitspoke.Core.Components.Life;
 using Bitspoke.Core.Components.Location;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components;
