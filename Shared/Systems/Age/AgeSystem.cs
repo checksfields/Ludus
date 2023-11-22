@@ -84,12 +84,10 @@ public class AgeSystem : BitspokeSystem, ITickConsumer
         Ticks++;
         
         // throwing ProcessTick into a task so we can return control asap
-        Profile(() => { Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete); });
+        //Profile(() => { Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete); });
+        Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete); 
     }
     
-    /// <summary>
-    /// @PERFORMANCE => 20231117 Benchmark: ~ 0.3 to 0.4 ms
-    /// </summary>
     private void ProcessTick()
     {
         var arrayCopy = new AgeComponent[AgeComponents.Count];
@@ -108,7 +106,7 @@ public class AgeSystem : BitspokeSystem, ITickConsumer
                 
                 foreach (var component in comps)
                 {
-                    component.Age += component.AgeIncrementPerAgeSystemTick;
+                    component.Age += component.AgeToAppendOnTick;
                 }
             }));    
         }

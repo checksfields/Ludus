@@ -47,7 +47,10 @@ public class CalendarSystem: BitspokeSystem, ITickConsumer
     
     #region Methods
 
-    public void OnTick() { Log.Debug(); }
+    public void OnTick()
+    {
+        //Log.Debug();
+    }
     
     #endregion
 }

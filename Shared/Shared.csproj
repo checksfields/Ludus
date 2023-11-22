@@ -24,7 +24,6 @@
 
     <ItemGroup>
       <Compile Remove="Environment\Map\Entities\Components\CellEntityCollectionComponent.cs" />
-      <Compile Include="Systems\Growth\IGrowable.cs" />
       <Compile Remove="Environment\Map\Entities\Components\MapEntityContainerComponent.cs" />
     </ItemGroup>
 

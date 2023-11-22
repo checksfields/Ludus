@@ -1,4 +1,6 @@
-﻿using Bitspoke.Core.Utils.Primatives.Float;
+﻿using System.Threading.Tasks;
+using Bitspoke.Core.Systems.Age;
+using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Components;
 using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.Nodes._2D.Notifiers;
@@ -46,13 +48,34 @@ public partial class RegionContainer : GodotNode2D
         
         var rect = Region.Dimension;
         var origSize = rect.Size * CoreGlobal.STANDARD_CELL_SIZE; 
-        var size = new Vector2I((origSize.X * 1.5f).Ceiling(), (origSize.Y * 1.5f).Ceiling());
-        var position = new Vector2I((origSize.X * -0.5f).Floor(), (origSize.Y * -0.5f).Floor());
+        var size = new Vector2I((origSize.X * 1.2f).Ceiling(), (origSize.Y * 1.2f).Ceiling());
+        var position = new Vector2I((origSize.X * -0.4f).Floor(), (origSize.Y * -0.5f).Floor());
         
         VisibleOnScreenNotifierComponent.Rect = new Rect2(position, size);
     }
+
+    public bool PlantRegionsReady { get; set; } = false;
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        if (PlantRegionsReady)
+        {
+            Regions.AddChild(PlantRegionNode);
+            PlantRegionsReady = false;
+        }
+    }
+
+    // public override void _Draw()
+    // {
+    //     base._Draw();
+    //     DrawRect(VisibleOnScreenNotifierComponent.Rect, Colors.Magenta, false, 4f);
+    // }
+
+    public override void Init()
+    {
+        AddChild(Regions = new DefaultGodotNode2D());
+    }
     
-    public override void Init() { }
     public override void AddComponents()
     {
         this.AddGodotNode(VisibleOnScreenNotifierComponent = new());
@@ -67,36 +90,41 @@ public partial class RegionContainer : GodotNode2D
 
     private void OnGrowthSystemTickComplete()
     {
-        PlantRegionNode.Refresh();
+        PlantRegionNode?.GrowthRefresh();
+    }
+    
+    private void OnAgeSystemTickComplete()
+    {
+        PlantRegionNode?.AgeRefresh();
     }
 
     #endregion
     
     #region Methods
     
-    private void AddRegion()
-    {
-        this.AddGodotNode(Regions =  new DefaultGodotNode2D());
-        AddPlantsRegion();
-        
-    }
-
     private void AddPlantsRegion()
     {
-        Regions.AddGodotNode(PlantRegionNode = new(Region), true);
+        PlantRegionNode = new(Region);
+        PlantRegionsReady = true;
+        //Regions.AddChild(PlantRegionNode = new(Region));
         //Regions.AddComponent(PlantRegionNode = new(Region));
     }
     
     private void OnScreenEntered()
     {
         GrowthSystem.Instance.TickComplete += OnGrowthSystemTickComplete;
-        AddRegion();
+        AgeSystem.Instance.TickComplete += OnAgeSystemTickComplete;
+
+        Task.Run(AddPlantsRegion);
+        //AddPlantsRegion();
     }
     
     private void OnScreenExited()
     {
         GrowthSystem.Instance.TickComplete -= OnGrowthSystemTickComplete;
-        Regions.QueueFree();
+        AgeSystem.Instance.TickComplete -= OnAgeSystemTickComplete;
+        //Regions.QueueFree();
+        PlantRegionNode?.QueueFree();
     }
     
     #endregion

@@ -11,8 +11,9 @@ public class AgeComponent : Component
     #region Properties
 
     public override string ComponentName => nameof(AgeComponent);
-    public int Age { get; set; }
-    public int AgeIncrementPerAgeSystemTick { get; set; }
+    public float Age { get; set; }
+    public float MaxAge { get; set; }
+    public float AgeToAppendOnTick { get; set; }
     
 
     #endregion

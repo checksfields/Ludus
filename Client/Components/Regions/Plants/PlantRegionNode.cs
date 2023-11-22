@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bitspoke.Core.Common.Graphics.Textures;
 using Bitspoke.Core.Components.Location;
+using Bitspoke.Core.Definitions.Parts.Graphics;
+using Bitspoke.Core.Utils.Objects;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Components;
+using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Utils.Vector;
 using Bitspoke.Ludus.Client.Components.Nodes.Sprites;
 using Bitspoke.Ludus.Client.Components.Nodes.Sprites.Plants.Natural;
@@ -27,6 +31,13 @@ public partial class PlantRegionNode : RegionNode
     public override Node Node => this;
 
     public bool IsDirty { get; set; }
+    public bool SpritesReadyForRefresh { get; set; } = false;
+    public List<NaturalPlantSprite2D> SpriteStagingNodes { get; set; }
+
+    public bool MeshIsDirty { get; set; }
+    public bool MeshesReadyForRefresh { get; set; } = false;
+    public Dictionary<int, MultiMeshRegionLayer> MeshStagingNodes { get; set; }
+
     
     #endregion
 
@@ -66,19 +77,82 @@ public partial class PlantRegionNode : RegionNode
 
         if (IsDirty)
         {
+            ProcessIsDirty();
+        }
+
+        if (SpritesReadyForRefresh == true)
+        {
             //Sprites.QueueFree();
             if (Sprites != null)
                 Sprites.Free();
             
-            //Profile(message: $"[{Region.Index}]:", toProfile:() => ProcessPlants());
-            ProcessPlants();
-            IsDirty = false;
+            if (Sprites == null || !IsInstanceValid(Sprites) || Sprites.IsQueuedForDeletion())
+                AddChild(Sprites = new());
+        
+            foreach (var sprite2D in SpriteStagingNodes)
+            {
+                Sprites.AddChild(sprite2D);
+            }
+            
+            SpritesReadyForRefresh = false;
         }
+
+        if (MeshesReadyForRefresh)
+        {    foreach (var stagingMeshes in MeshStagingNodes)
+            {
+                RegionLayers.Add(stagingMeshes.Key, stagingMeshes.Value);
+                AddChild(stagingMeshes.Value);
+            }
+            
+            MeshesReadyForRefresh = false;
+            MeshStagingNodes = null;
+        }
+                
         
     }
 
-    public void Refresh()
+    private void ProcessIsDirty()
     {
+        //Profile(message: $"[{Region.Index}]:", toProfile:() => ProcessPlants(MeshIsDirty));
+        ProcessPlants(MeshIsDirty);
+        IsDirty = false;
+        // Task.Run(() =>
+        // {
+        //     ProcessPlants(MeshIsDirty);
+        //     IsDirty = false;
+        // }).ContinueWith(OnProcessIsDirtyComplete);
+    }
+
+    // private void OnProcessIsDirtyComplete(Task completedTask)
+    // {
+    //     completedTask.Dispose();
+    //     
+    //     //Sprites.QueueFree();
+    //     if (Sprites != null)
+    //         Sprites.Free();
+    //         
+    //     if (Sprites == null || !IsInstanceValid(Sprites) || Sprites.IsQueuedForDeletion())
+    //         AddChild(Sprites = new());
+    //
+    //     foreach (var sprite2D in SpriteStagingNodes)
+    //     {
+    //         Sprites.AddChild(sprite2D);
+    //     }
+    //         
+    //     SpritesReadyForRefresh = false;
+    // }
+
+    public void GrowthRefresh()
+    {
+        // Log.Debug();
+        // we are coming in from another thread so we can't update directly ... we need to flag we need to do an update
+        // and then let _Process handle the update
+        IsDirty = true;
+    }
+    
+    public void AgeRefresh()
+    {
+        // Log.Debug();
         // we are coming in from another thread so we can't update directly ... we need to flag we need to do an update
         // and then let _Process handle the update
         IsDirty = true;
@@ -102,24 +176,25 @@ public partial class PlantRegionNode : RegionNode
                 case TextureType.MultiMesh:
                     if (!includeMultiMesh) break;
                     
+                    // layerID++;
+                    //     
+                    // MultiMeshRegionLayer layer;
+                    //     
+                    // // TODO: Fix
+                    // if (RegionLayers.ContainsKey(layerID))
+                    //     layer = (MultiMeshRegionLayer) RegionLayers[layerID];
+                    // else
+                    // {
+                    //     layer = new MultiMeshRegionLayer(layerID, def.GraphicDef, plantByType.Value);
+                    //     RegionLayers.Add(layerID, layer);
+                    //     AddChild(layer);
+                    // }
                     layerID++;
-                        
-                    MultiMeshRegionLayer layer;
-                        
-                    // TODO: Fix
-                    if (RegionLayers.ContainsKey(layerID))
-                        layer = (MultiMeshRegionLayer) RegionLayers[layerID];
-                    else
-                    {
-                        layer = new MultiMeshRegionLayer(layerID, def.GraphicDef, plantByType.Value);
-                        RegionLayers.Add(layerID, layer);
-                        AddChild(layer);
-                    }
+                    AddMeshes(layerID, def.GraphicDef, plantByType.Value);
                         
                     break;
                 case TextureType.Single:
                     layerID++;
-                    SpritesCount += plantByType.Value.Count;
                     var texture = Textures[plantByType.Key];
                     AddSprites(texture, plantByType.Value);
                     break;
@@ -131,15 +206,39 @@ public partial class PlantRegionNode : RegionNode
     
     #endregion
 
+    private void AddMeshes(int layerID, GraphicDef graphicDef, List<LudusEntity> regionEntities)
+    {
+        if (MeshStagingNodes == null)
+            MeshStagingNodes = new();
+        
+        MultiMeshRegionLayer layer;
+                        
+        // TODO: Fix
+        if (MeshStagingNodes.ContainsKey(layerID))
+            layer = (MultiMeshRegionLayer) MeshStagingNodes[layerID];
+        else
+        {
+            layer = new MultiMeshRegionLayer(layerID, graphicDef, regionEntities);
+            MeshStagingNodes.Add(layerID, layer);
+        }
+
+        MeshesReadyForRefresh = true;
+    }
+    
     protected new void AddSprites(Texture2D texture, List<LudusEntity> regionEntities)
     {
-        if (Sprites == null || !IsInstanceValid(Sprites) || Sprites.IsQueuedForDeletion())
-            AddChild(Sprites = new());
-
+        SpriteStagingNodes = new List<NaturalPlantSprite2D>();
+        // if (Sprites == null || !IsInstanceValid(Sprites) || Sprites.IsQueuedForDeletion())
+        //     AddChild(Sprites = new());
+        
         foreach (var ludusEntity in regionEntities)
         {
-            Sprites.AddSprite<NaturalPlantSprite2D>(ludusEntity, texture);
+            var globalPosition = this.GlobalPosition;
+            var sprite2D = ludusEntity.BuildSprite<NaturalPlantSprite2D>(globalPosition, texture);
+            SpriteStagingNodes.Add(sprite2D);
         }
+
+        SpritesReadyForRefresh = true;
     }
     
 }

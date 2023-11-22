@@ -44,7 +44,7 @@ public static class NameValueGridContainerHelper
         if (!showDetailed)
             return;
         
-        container.AddNameValuePair($"Increment per Tick:", component.AgeIncrementPerAgeSystemTick.ToString,  order != -1 ? order++ : order, true);
+        container.AddNameValuePair($"Increment per Tick:", component.AgeToAppendOnTick.ToString,  order != -1 ? order++ : order, true);
     }
     
     #endregion

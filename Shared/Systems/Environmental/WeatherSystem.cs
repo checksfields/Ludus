@@ -47,7 +47,10 @@ public class WeatherSystem : BitspokeSystem, ITickConsumer
     
     #region Methods
 
-    public void OnTick() { Log.Debug(); }
+    public void OnTick()
+    {
+        //Log.Debug();
+    }
     
     #endregion
 }

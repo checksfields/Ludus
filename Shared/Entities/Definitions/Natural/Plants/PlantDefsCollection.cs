@@ -77,7 +77,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
             Ascii = 'T',
             Order = 3.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 16, Wieght = 80});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Wieght = 20});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.6f, 1f));
         plantDef.AddDefComponent(new MovementCostDef() { Type = MovementCostType.Impassable, Cost = 1f });
         var graphicDef_Tree = new GraphicDef();
@@ -88,6 +88,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Tree);
         
+        AddAgeDef(plantDef);
         AddLifeCycleDef(plantDef);
         
         return plantDef;
@@ -114,6 +115,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Bush);
         
+        AddAgeDef(plantDef, 0.075f);
         AddLifeCycleDef(plantDef);
         
         return plantDef;
@@ -147,6 +149,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Grass);
 
+        AddAgeDef(plantDef, 0.1f);
         AddLifeCycleDef(plantDef);
      
         return plantDef;
@@ -180,6 +183,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Grass);
 
+        AddAgeDef(plantDef, 0.09f);
         AddLifeCycleDef(plantDef, 3f);
 
         return plantDef;
@@ -212,6 +216,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Brambles);
 
+        AddAgeDef(plantDef, 0.08f);
         AddLifeCycleDef(plantDef, 3f);
      
         return plantDef;
@@ -239,6 +244,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Healroot);
         
+        AddAgeDef(plantDef, 0.075f);
         AddLifeCycleDef(plantDef, 10f);
         
         return plantDef;
@@ -266,6 +272,7 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Berry);
         
+        AddAgeDef(plantDef, 0.075f);
         AddLifeCycleDef(plantDef, 6f);
         
         return plantDef;
@@ -298,11 +305,28 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         };
         plantDef.AddDefComponent(graphicDef_Dandelion);
         
+        AddAgeDef(plantDef, 0.1f);
         AddLifeCycleDef(plantDef);
         
         return plantDef;
     }
 
+    private static void AddAgeDef(PlantDef def, float? ageToAppendOnTick = null)
+    {
+        var ageDef = new AgeDef();
+
+        if (ageToAppendOnTick == null)
+            ageToAppendOnTick = 0.01f;
+        
+        ageDef.AgeToAppendOnTick = ageToAppendOnTick.Value;
+        
+        ageDef.MinAgeRange = new RangeDef<float>(0.0f, 0.1f);
+        ageDef.MaxAgeRange = new RangeDef<float>(0.7f, 1.0f);
+        ageDef.InitialAgeRange = new RangeDef<float>(0.0f, 0.7f);
+        
+        def.AddDefComponent(ageDef);
+    }
+    
     private static void AddLifeCycleDef(PlantDef def, 
         float growDays = 2.5f, 
         RangeDef<float> initialGrowRange = null,

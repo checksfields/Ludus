@@ -220,15 +220,13 @@ public partial class Entry : GodotNode2D, ITickConsumer
 				if (keyEvent.Keycode == Key.Equal)
 				{
 					Log.Debug("Increase Game Speed");
-					GameSpeedSystem.IncrementSpeed();
-					//GameSpeedSystem.Instance.OnChangeSpeed(GameSpeedTypeData.FAST_KEY);
+					Profile(GameSpeedSystem.IncrementSpeed);
 				}
 				
 				if (keyEvent.Keycode == Key.Minus)
 				{
 					Log.Debug("Decrease Game Speed");
-					GameSpeedSystem.DecrementSpeed();
-					//GameSpeedSystem.Instance.OnChangeSpeed(GameSpeedTypeData.FAST_KEY);
+					Profile(GameSpeedSystem.DecrementSpeed);
 				}
 			}
 		}

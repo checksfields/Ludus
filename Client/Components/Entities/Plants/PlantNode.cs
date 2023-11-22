@@ -23,16 +23,16 @@ public abstract partial class PlantNode : GodotNode2D
         
     }
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-        var mousePos = GetViewport().GetMousePosition();
-        var spriteRect = GetSprite2D().GetRect();
-        spriteRect.Position += GlobalPosition;
-        spriteRect.HasPoint(mousePos);
-        
-        
-    }
+    // public override void _Process(double delta)
+    // {
+    //     base._Process(delta);
+    //     var mousePos = GetViewport().GetMousePosition();
+    //     var spriteRect = GetSprite2D().GetRect();
+    //     spriteRect.Position += GlobalPosition;
+    //     spriteRect.HasPoint(mousePos);
+    //     
+    //     
+    // }
 
     #endregion
     

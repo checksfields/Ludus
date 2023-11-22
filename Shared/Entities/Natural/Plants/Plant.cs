@@ -42,18 +42,63 @@ public class Plant : LudusSpawnableEntity
     {
         Def = def;
         
+        // if (GameStateManager.IsCurrentState(LudusGameStatesTypeData.MAP_GENERATION_KEY))
+        // {
+        //     InitAge();
+        //     InitGrowth();
+        // }
+        
+        AddAgeComponent(); 
+        AddGrowthComponent();
+    }
+
+    private void AddGrowthComponent()
+    {
+        if (!Def.HasDefComponent<LifeCycleDef>()) 
+            return;
+
+        var growthComponent = new GrowthComponent(this);
+        
+        var initialAge = 0f;
         if (GameStateManager.IsCurrentState(LudusGameStatesTypeData.MAP_GENERATION_KEY))
         {
-            if (Def.HasDefComponent<LifeCycleDef>())
-            {
-                var lifeCycleDef = Def.GetDefComponent<LifeCycleDef>();
-                var lifespanDays = lifeCycleDef.LifespanDays;
-                
-                GrowthComponent.CurrentGrowthPercent =  Mathf.Clamp(lifeCycleDef.InitialGrowthRange.RandRange(), 0, 1);
-                var lifespanTicks = (int)(lifespanDays * Global.PLANT_GROW_DAY_TICKS);
-                AgeComponent.Age =  Rand.NextInt(0, Mathf.Max(lifespanTicks - 50, 0));
-            }
+            var lifeCycleDef = Def.GetDefComponent<LifeCycleDef>();
+            growthComponent.CurrentGrowthPercent = Mathf.Clamp(lifeCycleDef.InitialGrowthRange.RandRange(), 0, 1);
         }
+        else
+            // TODO: Implement for not map gen events (such as in-game spawn)
+            Log.TODO("Implement for not map gen events (such as in-game spawn)");
+        
+        Components.Add(growthComponent);
+    }
+
+    private void AddAgeComponent()
+    {
+        if (!Def.HasDefComponent<AgeDef>()) 
+            return;
+
+        var ageComponent = new AgeComponent(this);
+        
+        var ageDef =  Def.GetDefComponent<AgeDef>();
+        ageComponent.AgeToAppendOnTick = ageDef.AgeToAppendOnTick;
+        
+        var maxAge = ageDef.MaxAgeRange.RandRange();
+        
+        var initialAge = 0f;
+        if (GameStateManager.IsCurrentState(LudusGameStatesTypeData.MAP_GENERATION_KEY))
+        {
+            ageDef.InitialAgeRange.RandRange();
+            initialAge = Math.Min(initialAge, maxAge);
+            if (Math.Abs(initialAge - maxAge) < 0.05) initialAge = maxAge * Rand.NextFloat(0.9f, 0.95f);
+        }
+        else
+            // TODO: Implement for not map gen events (such as in-game spawn)
+            Log.TODO("Implement for not map gen events (such as in-game spawn)");
+        
+        ageComponent.Age =  initialAge;
+        ageComponent.MaxAge =  maxAge;
+        
+        Components.Add(ageComponent);
     }
     
     protected override void ConnectSignals() { }
@@ -61,8 +106,8 @@ public class Plant : LudusSpawnableEntity
     public override void AddComponents()
     {
         Components.Add(new LocationComponent());
-        Components.Add(new GrowthComponent(this));
-        Components.Add(new AgeComponent(this));
+        
+        
     }
     
     #endregion

@@ -59,6 +59,20 @@
               "Opacity": 0.65
             }
           },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.1
+          },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
             "GrowDays": 2.5,
@@ -127,6 +141,20 @@
               },
               "Opacity": 0.65
             }
+          },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.09
           },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
@@ -197,6 +225,20 @@
               "Opacity": 1.0
             }
           },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.08
+          },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
             "GrowDays": 3.0,
@@ -256,6 +298,20 @@
               },
               "Opacity": 1.0
             }
+          },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.075
           },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
@@ -331,6 +387,20 @@
               "Opacity": 1.0
             }
           },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.1
+          },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
             "GrowDays": 2.5,
@@ -367,8 +437,8 @@
           },
           "ClusterDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
-            "Radius": 16,
-            "Wieght": 80
+            "Radius": 8,
+            "Wieght": 20
           },
           "fertilityrange": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
@@ -391,6 +461,20 @@
               },
               "Opacity": 1.0
             }
+          },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.01
           },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
@@ -428,8 +512,8 @@
           },
           "ClusterDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.ClusterDef, Core",
-            "Radius": 16,
-            "Wieght": 80
+            "Radius": 8,
+            "Wieght": 20
           },
           "fertilityrange": {
             "$type": "Bitspoke.Core.Definitions.Parts.Common.RangeDef`1[[System.Single, System.Private.CoreLib]], Core",
@@ -452,6 +536,20 @@
               },
               "Opacity": 1.0
             }
+          },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.01
           },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
@@ -518,6 +616,20 @@
               "Opacity": 1.0
             }
           },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.075
+          },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",
             "GrowDays": 10.0,
@@ -582,6 +694,20 @@
               },
               "Opacity": 1.0
             }
+          },
+          "AgeDef": {
+            "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.AgeDef, Core",
+            "MinAgeRange": {
+              "Max": 0.1
+            },
+            "MaxAgeRange": {
+              "Min": 0.7,
+              "Max": 1.0
+            },
+            "InitialAgeRange": {
+              "Max": 0.7
+            },
+            "AgeToAppendOnTick": 0.075
           },
           "LifeCycleDef": {
             "$type": "Bitspoke.Core.Definitions.Parts.Entity.Living.LifeCycleDef, Core",

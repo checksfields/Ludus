@@ -27,13 +27,7 @@ public abstract partial class RegionNode : GodotNode2D
     public int TotalInstances { get; set; }
 
     public Dictionary<int, RegionLayer> RegionLayers { get; set; }
-
-    public int SpritesCount { get; set; }
     public GodotNode2D Sprites { get; set; }
-
-    public int MeshesCount => RegionLayers.Values
-        .Where(w => w.GetType() == typeof(MultiMeshRegionLayer))
-        .Sum(c => ((MultiMeshRegionLayer)c).MultiMeshInstance2D.Multimesh.InstanceCount);
 
     public int ItemCount { get; set; } = 0;
 

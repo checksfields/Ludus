@@ -90,7 +90,7 @@ public class GrowthSystem : BitspokeSystem, ITickConsumer
         
         // throwing ProcessTick into a task so we can return control asap
         //Profile(() => { Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete); });
-        Profile(() => { Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete); });
+        Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete);
     }
     
     /// <summary>
@@ -98,7 +98,7 @@ public class GrowthSystem : BitspokeSystem, ITickConsumer
     /// </summary>
     private void ProcessTick()
     {
-        Profile(() => { 
+        //Profile(() => { 
             
         var map = Find.CurrentMap;    
             
@@ -130,7 +130,7 @@ public class GrowthSystem : BitspokeSystem, ITickConsumer
             }));    
         }
         Task.WaitAll(tasks.ToArray());
-        });
+        //});
     }
     
     private void OnProcessTickComplete(Task obj)
