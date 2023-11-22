@@ -88,7 +88,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		SignalManager.Connect(new SignalDetails(AdminCommandControllerSignals.SET_TERRAIN_LAYER_VISIBLE, typeof(AdminCommandControllerSignals), this, nameof(OnShowTerrainLayer)));
 		SignalManager.Connect(new SignalDetails(CameraZoomComponent.ZOOM_CHANGE, typeof(CameraZoomComponent), this, nameof(OnZoomChanged)));
 		
-		TimeSystem.RegisterForTick(TickTypeData.LONG_TICK_KEY, this);
+		//TimeSystem.RegisterForTick(TickTypeData.LONG_TICK_KEY, this);
 		
 		GodotGlobal.Actions.UIMouseOverEnter += OnUIMouseOverEnter;
 		GodotGlobal.Actions.UIMouseOverExit += OnUIMouseOverExit;
@@ -137,54 +137,6 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		LudusCamera2D.AnchorMode = Camera2D.AnchorModeEnum.FixedTopLeft;
 	}
 
-	#region Draw
-
-	// public override void _Draw()
- //    	{
- //    		base._Draw();
- //    		if (CoreGlobal.DEBUG_DRAW_ENABLED)
- //    		{
- //    			foreach (var child in GetChildren())
- //    			{
- //    				if (child is IGodotComponentCollection)
- //    					DrawNode2Ds((IGodotComponentCollection) child);
- //    			}
- //    		}
- //    	}
- //    
- //    	private void DrawNode2Ds(IGodotComponentCollection nodeCollection)
- //    	{
- //    		foreach (var node in nodeCollection.Components?.Values)
- //    		{
- //    			if (node is IGodotComponentCollection)
- //    			{
- //    				DrawNode2Ds((IGodotComponentCollection)node);
- //    			}
- //    			
- //    			DrawNode2D(node);
- //    		}
- //    	}
- //    	
- //    	private void DrawNode2D(Node node)
- //    	{
- //    		if (node is Control)
- //    		{
- //    			var pos = ((Control)node).Position;
- //    			var size = ((Control)node).Size;
- //    			var rect2 = new Rect2(pos, size);
- //    			DrawRect(rect2, Colors.Magenta, false, width:1f);
- //    		}
- //    		
- //    		if (node is Node2D)
- //    		{
- //    			var pos = ((Node2D)node).Position;
- //    			var rect2 = new Rect2(pos, new Vector2(50f, 50f));
- //    			DrawRect(rect2, Colors.Magenta, false, width:1f);		
- //    		}
- //    	}
-
-
-	#endregion
 	
 	public override void _Ready()
 	{
@@ -203,10 +155,13 @@ public partial class Entry : GodotNode2D, ITickConsumer
 			Log.Debug($"Total Elapsed Time since _EnterTree = {ElapsedTime} ms");
 		}
 		
-		if (CoreGlobal.DEBUG_DRAW_ENABLED)
-			QueueRedraw();
-		
-		SignalManager.Emit(TimeSystem.UPDATE, delta);
+		//SignalManager.Emit(TimeSystem.UPDATE, delta);
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+		TickSystem.PhysicsTick.Invoke(delta);
 	}
 
 	public override void _Input(InputEvent @event)

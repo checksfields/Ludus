@@ -7,7 +7,7 @@ using Bitspoke.Core.Systems.Time;
 
 namespace Bitspoke.Ludus.Shared.Systems.Environmental;
 
-public class WeatherSystem : BitspokeSystem, ITickConsumer
+public class WeatherSystem : BitspokeSystem//, ITickConsumer
 {
     #region Properties
 
@@ -40,14 +40,15 @@ public class WeatherSystem : BitspokeSystem, ITickConsumer
 
     public override void ConnectSignals()
     {
-        TimeSystem.RegisterForTick(TickTypeData.LONG_TICK_KEY, this);
+        //TimeSystem.RegisterForTick(TickTypeData.LONG_TICK_KEY, this);
+        TickSystem.Register(300, OnTick);
     }
 
     #endregion
     
     #region Methods
 
-    public void OnTick()
+    public void OnTick(ulong ticks)
     {
         //Log.Debug();
     }

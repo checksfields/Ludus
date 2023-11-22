@@ -116,13 +116,13 @@ public class Region
         return result;
     }
 
-    public int CachedBaseDesiredPlantsCountForTick { get; set; } = -999999;
+    public ulong? CachedBaseDesiredPlantsCountForTick { get; set; } = null;
     public double CachedBaseDesiredPlantsCount { get; set; }
     
     public double GetDesiredPlantsCount(bool allowCache = true)
     {
-        int ticksGame = Find.Systems.TimeSystem.TimerTicks;
-        if (allowCache && ticksGame - this.CachedBaseDesiredPlantsCountForTick < 2500)
+        var ticksGame = Find.Systems.TickSystem.TimerTicks;
+        if (allowCache && ticksGame - CachedBaseDesiredPlantsCountForTick < 2500u)
             return this.CachedBaseDesiredPlantsCount;
         this.CachedBaseDesiredPlantsCount = 0.0f;
         Map map = this.Map;

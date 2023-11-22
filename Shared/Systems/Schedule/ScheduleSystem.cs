@@ -5,20 +5,20 @@ using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Systems;
 using Bitspoke.Core.Systems.Time;
 
-namespace Bitspoke.Ludus.Shared.Systems.Time;
+namespace Bitspoke.Ludus.Shared.Systems.Schedule;
 
-public class CalendarSystem: BitspokeSystem//, ITickConsumer
+public class ScheduleSystem: BitspokeSystem//, ITickConsumer
 {
     #region Properties
 
-    private static CalendarSystem? instance { get; set; }
-    public static CalendarSystem Instance
+    private static ScheduleSystem? instance { get; set; }
+    public static ScheduleSystem Instance
     {
-        get => instance ??= new CalendarSystem();
+        get => instance ??= new ScheduleSystem();
         set
         {
             if (instance != null)
-                Log.Exception("Cannot create a second instance of a CalendarSystem.", -9999999);
+                Log.Exception("Cannot create a second instance of a ScheduleSystem.", -9999999);
 
             instance = value;
         }
@@ -40,17 +40,16 @@ public class CalendarSystem: BitspokeSystem//, ITickConsumer
 
     public override void ConnectSignals()
     {
-        //TimeSystem.RegisterForTick(TickTypeData.MEDIUM_TICK_KEY, this);
-        TickSystem.Register(TickSystem.StandardTickIntervals.MEDIUM, OnTick);
+        //TimeSystem.RegisterForTick(TickTypeData.SHORT_TICK_KEY, this);
+        TickSystem.Register(300, OnTick);
     }
-
+    
     #endregion
     
     #region Methods
 
     public void OnTick(ulong ticks)
     {
-        //Log.Debug();
     }
     
     #endregion

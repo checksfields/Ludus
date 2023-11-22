@@ -2,6 +2,7 @@
 using Bitspoke.Core.Common.Collections.Lists;
 using Bitspoke.Core.Components.Identity;
 using Bitspoke.Core.Components.Time;
+using Bitspoke.Core.Definitions.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Systems.Identifier;
 using Bitspoke.Core.Systems.Time;
@@ -9,7 +10,7 @@ using Bitspoke.Ludus.Shared.Components.Entities.Living;
 
 namespace Bitspoke.Core.Systems.Age;
 
-public class AgeSystem : BitspokeSystem, ITickConsumer
+public class AgeSystem : BitspokeSystem//, ITickConsumer
 {
     #region Properties
 
@@ -59,8 +60,10 @@ public class AgeSystem : BitspokeSystem, ITickConsumer
 
     public override void ConnectSignals()
     {
-        if (TimeSystem.HasInstance)
-            TimeSystem.RegisterForTick(TickTypeData.MEDIUM_TICK_KEY, this);
+        // if (TimeSystem.HasInstance)
+        //     TimeSystem.RegisterForTick(TickTypeData.MEDIUM_TICK_KEY, this);
+        
+        TickSystem.Register(300, OnTick);
     }
 
     #endregion
@@ -76,10 +79,13 @@ public class AgeSystem : BitspokeSystem, ITickConsumer
     {
         Instance.AgeComponents.Remove(component);
     }
+
+    // public void OnTick2(ulong ticks)
+    // {
+    //     
+    // }
     
-    
-    
-    public void OnTick()
+    public void OnTick(ulong ticks)
     {
         Ticks++;
         

@@ -25,6 +25,7 @@ using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 using Bitspoke.Ludus.Shared.Environment.World.TypeData;
 using Bitspoke.Ludus.Shared.Systems.Environmental;
 using Bitspoke.Ludus.Shared.Systems.Growth;
+using Bitspoke.Ludus.Shared.Systems.Schedule;
 using Bitspoke.Ludus.Shared.Systems.Time;
 using Godot;
 using TerrainDefsCollection = Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain.TerrainDefsCollection;
@@ -103,11 +104,13 @@ public partial class GameManager : GodotNode2D
             
         _ = new GameStateManager(LudusGameStatesTypeData.INITIALISING_KEY);
         _ = new GameSpeedSystem();
-        _ = new TimeSystem(true);
+        //_ = new TimeSystem(true);
+        _ = new TickSystem();
         _ = new GrowthSystem();
         _ = new AgeSystem();
         _ = new WeatherSystem();
         _ = new CalendarSystem();
+        _ = new ScheduleSystem();
             
         LoadCachedData();
         LoadRuntime();

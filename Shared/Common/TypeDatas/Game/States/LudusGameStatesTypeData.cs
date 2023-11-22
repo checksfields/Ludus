@@ -30,13 +30,13 @@ public class LudusGameStatesTypeData : GameStatesTypeData
         LudusGameStatesTypeData gameStatesTypeData = new LudusGameStatesTypeData();
 
         var key = GameStatesTypeData.DEFAULT_KEY;
-        gameStatesTypeData.Add(key,                       GameStateDefaultTypeDef.BootstrapTypeData<string>(key, false, new List<string>()));
-        gameStatesTypeData.Add(key = INITIALISING_KEY,    GameStateDefaultTypeDef.BootstrapTypeData<string>(key, false));
-        gameStatesTypeData.Add(key = MAIN_KEY,            GameStateDefaultTypeDef.BootstrapTypeData<string>(key, false));
-        gameStatesTypeData.Add(key = NONE_KEY,            GameStateDefaultTypeDef.BootstrapTypeData<string>(key, false, new List<string>()));
-        gameStatesTypeData.Add(key = IN_GAME_KEY,         GameStateDefaultTypeDef.BootstrapTypeData<string>(key, true, new List<string> { "ANY" }));
-        gameStatesTypeData.Add(key = CONSOLE_OPEN_KEY,    GameStateDefaultTypeDef.BootstrapTypeData<string>(key, false));
-        gameStatesTypeData.Add(key = MAP_GENERATION_KEY,  GameStateDefaultTypeDef.BootstrapTypeData<string>(key, false, new List<string> { MAIN_KEY }));
+        gameStatesTypeData.Add(key,                       GameStateDefaultTypeDef.BootstrapTypeData<string>(key, true, false, new List<string>()));
+        gameStatesTypeData.Add(key = INITIALISING_KEY,    GameStateDefaultTypeDef.BootstrapTypeData<string>(key, true, false));
+        gameStatesTypeData.Add(key = MAIN_KEY,            GameStateDefaultTypeDef.BootstrapTypeData<string>(key, true, false));
+        gameStatesTypeData.Add(key = NONE_KEY,            GameStateDefaultTypeDef.BootstrapTypeData<string>(key, true, false, new List<string>()));
+        gameStatesTypeData.Add(key = IN_GAME_KEY,         GameStateDefaultTypeDef.BootstrapTypeData<string>(key, false, true, new List<string> { "ANY" }));
+        gameStatesTypeData.Add(key = CONSOLE_OPEN_KEY,    GameStateDefaultTypeDef.BootstrapTypeData<string>(key, true, false));
+        gameStatesTypeData.Add(key = MAP_GENERATION_KEY,  GameStateDefaultTypeDef.BootstrapTypeData<string>(key, true, false, new List<string> { MAIN_KEY }));
             
         if (writeToFile)
         {

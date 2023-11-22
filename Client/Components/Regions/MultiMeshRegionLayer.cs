@@ -68,7 +68,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
         colour.A = GraphicDef.TextureDef.Opacity;
             
         MultiMeshInstance2D.SelfModulate = colour;
-
+        
         //Profile(message:$"{LayerName}", toProfile:AddMeshes);
         AddMeshes();
     }

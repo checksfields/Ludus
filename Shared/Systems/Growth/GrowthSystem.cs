@@ -15,7 +15,7 @@ using Profile = OpenQA.Selenium.DevTools.V115.Profiler.Profile;
 
 namespace Bitspoke.Ludus.Shared.Systems.Growth;
 
-public class GrowthSystem : BitspokeSystem, ITickConsumer
+public class GrowthSystem : BitspokeSystem//, ITickConsumer
 {
     #region Properties
 
@@ -66,8 +66,15 @@ public class GrowthSystem : BitspokeSystem, ITickConsumer
 
     public override void ConnectSignals()
     {
-        if (TimeSystem.HasInstance)
-            TimeSystem.RegisterForTick(TickTypeData.MEDIUM_TICK_KEY, this);
+        // if (TimeSystem.HasInstance)
+        //     TimeSystem.RegisterForTick(TickTypeData.MEDIUM_TICK_KEY, this);
+        
+        TickSystem.Register(300, OnTick2);
+    }
+
+    private void OnTick2(ulong obj)
+    {
+        
     }
 
     #endregion
@@ -84,7 +91,7 @@ public class GrowthSystem : BitspokeSystem, ITickConsumer
         Instance.GrowthComponents.Remove(growthComponent);
     }
     
-    public void OnTick()
+    public void OnTick(ulong ticks)
     {
         Ticks++;
         
