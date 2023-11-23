@@ -36,6 +36,14 @@ public partial  class NaturalPlantSprite2D : PlantSprite2D
 
     #region Override
 
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        
+        if (!IsInsideTree() && !IsQueuedForDeletion())
+            QueueFree();
+    }
+
     public override void Init()
     {
         base.Init();
@@ -62,12 +70,18 @@ public partial  class NaturalPlantSprite2D : PlantSprite2D
         Texture = texture2D;
         GlobalPosition = localLocation;
         ZIndex = (int) Position.Y;
-            
+
+        ClipChildren = ClipChildrenMode.Disabled;
+        
         var growthComp = LudusEntity.GetComponent<GrowthComponent>();
         Scale = growthComp?.CurrentGrowthPercent.ToVector2() ?? Vector2.One;
     }
 
-    
+    public override void UpdateSprite()
+    {
+        var growthComp = LudusEntity.GetComponent<GrowthComponent>();
+        Scale = growthComp?.CurrentGrowthPercent.ToVector2() ?? Vector2.One;
+    }
 
     #endregion
     

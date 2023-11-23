@@ -31,8 +31,7 @@ public class AgeSystem : BitspokeSystem//, ITickConsumer
     
     //public Map Map { get; set; }
     public BitspokeList<AgeComponent> AgeComponents { get; set; }
-    public TickComponent? TickComponent { get; } = new(IDProvisionSystem.NextID(IDType.TimerComponent));
-    
+    public ulong DeltaTicks { get; set; } = 0u;
     public ulong Ticks { get; set; } = 0u;
     
     #endregion
@@ -85,9 +84,10 @@ public class AgeSystem : BitspokeSystem//, ITickConsumer
     //     
     // }
     
-    public void OnTick(ulong ticks)
+    public void OnTick(ulong? ticks)
     {
         Ticks++;
+        DeltaTicks = ticks.Value;
         
         // throwing ProcessTick into a task so we can return control asap
         //Profile(() => { Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete); });
@@ -112,7 +112,7 @@ public class AgeSystem : BitspokeSystem//, ITickConsumer
                 
                 foreach (var component in comps)
                 {
-                    component.Age += component.AgeToAppendOnTick;
+                    component.Age += DeltaTicks;
                 }
             }));    
         }

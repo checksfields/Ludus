@@ -31,6 +31,7 @@ public abstract partial  class EntitySprite2D : GodotSprite2D
     #region Overrides
 
     public abstract void BuildSprite(Vector2 parentGlobalPosition, Texture2D texture2D = null);
+    public abstract void UpdateSprite();
     
     public override void AddComponents()
     {

@@ -39,12 +39,13 @@ public static class NameValueGridContainerHelper
     public static void AddAgeComponent(this NameValueGridContainer container, AgeComponent component, int order = -1, bool showDetailed = true)
     {
         //container.AddHeader("Growth", false);
-        container.AddNameValuePair($"Current Age:", component.Age.ToString, order != -1 ? order++ : order, !showDetailed);
+        //container.AddNameValuePair($"Current Age:", component.Age.ToString, order != -1 ? order++ : order, !showDetailed);
+        container.AddNameValuePair($"Current Age:", component.DisplayAge, order != -1 ? order++ : order, !showDetailed);
         
         if (!showDetailed)
             return;
         
-        container.AddNameValuePair($"Increment per Tick:", component.AgeToAppendOnTick.ToString,  order != -1 ? order++ : order, true);
+        container.AddNameValuePair($"Max Age:", component.MaxAge.ToString,  order != -1 ? order++ : order, true);
     }
     
     #endregion

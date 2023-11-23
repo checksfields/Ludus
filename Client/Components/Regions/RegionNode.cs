@@ -53,7 +53,7 @@ public abstract partial class RegionNode : GodotNode2D
     
     #endregion
 
-    #region Methods
+    #region Method
 
     protected void AddSprites(Texture2D layerTexture, List<LudusEntity> regionEntities)
     {

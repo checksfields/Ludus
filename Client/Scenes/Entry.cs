@@ -172,17 +172,15 @@ public partial class Entry : GodotNode2D, ITickConsumer
 			var keyEvent = (InputEventKey) @event;
 			if (keyEvent.Pressed)
 			{
-				if (keyEvent.Keycode == Key.Equal)
+				if (keyEvent.Keycode == Key.Equal) GameSpeedSystem.IncrementSpeed();
+				if (keyEvent.Keycode == Key.Minus) GameSpeedSystem.DecrementSpeed();
+				
+				if (keyEvent.Keycode == Key.Slash)
 				{
-					Log.Debug("Increase Game Speed");
-					Profile(GameSpeedSystem.IncrementSpeed);
+					Log.Debug("Print Orphans");
+					PrintOrphanNodes();
 				}
 				
-				if (keyEvent.Keycode == Key.Minus)
-				{
-					Log.Debug("Decrease Game Speed");
-					Profile(GameSpeedSystem.DecrementSpeed);
-				}
 			}
 		}
 	}

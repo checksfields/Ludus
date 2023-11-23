@@ -48,8 +48,8 @@ public partial class RegionContainer : GodotNode2D
         
         var rect = Region.Dimension;
         var origSize = rect.Size * CoreGlobal.STANDARD_CELL_SIZE; 
-        var size = new Vector2I((origSize.X * 1.2f).Ceiling(), (origSize.Y * 1.2f).Ceiling());
-        var position = new Vector2I((origSize.X * -0.4f).Floor(), (origSize.Y * -0.5f).Floor());
+        var size = new Vector2I((origSize.X * 2f).Ceiling(), (origSize.Y * 2f).Ceiling());
+        var position = new Vector2I((origSize.X * -1f).Floor(), (origSize.Y * -1f).Floor());
         
         VisibleOnScreenNotifierComponent.Rect = new Rect2(position, size);
     }

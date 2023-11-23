@@ -25,6 +25,15 @@
     <ItemGroup>
       <Compile Remove="Environment\Map\Entities\Components\CellEntityCollectionComponent.cs" />
       <Compile Remove="Environment\Map\Entities\Components\MapEntityContainerComponent.cs" />
+      <Compile Remove="Systems\Time\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Systems\Time\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Systems\Time\**" />
     </ItemGroup>
 
 </Project>

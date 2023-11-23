@@ -48,7 +48,7 @@ public class WeatherSystem : BitspokeSystem//, ITickConsumer
     
     #region Methods
 
-    public void OnTick(ulong ticks)
+    public void OnTick(ulong? ticks)
     {
         //Log.Debug();
     }

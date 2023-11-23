@@ -5,6 +5,8 @@ using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
 using Bitspoke.Core.Profiling;
+using Bitspoke.Core.Systems.Calendar;
+using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Utils.Files;
 using Bitspoke.Ludus.Shared.Common.Components.Movement;
 using Bitspoke.Ludus.Shared.Common.Definitions.Movement;
@@ -320,9 +322,10 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         
         ageDef.AgeToAppendOnTick = ageToAppendOnTick.Value;
         
-        ageDef.MinAgeRange = new RangeDef<float>(0.0f, 0.1f);
-        ageDef.MaxAgeRange = new RangeDef<float>(0.7f, 1.0f);
-        ageDef.InitialAgeRange = new RangeDef<float>(0.0f, 0.7f);
+        ageDef.MinAgeRange = new RangeDef<ulong>(0u, CoreGlobal.CalendarConstants.TICKS_PER_DAY);
+        var maxAgeMin = (ulong)(CoreGlobal.CalendarConstants.TICKS_PER_YEAR * 0.7f).Ceiling();
+        ageDef.MaxAgeRange = new RangeDef<ulong>(maxAgeMin, CoreGlobal.CalendarConstants.TICKS_PER_YEAR);
+        ageDef.InitialAgeRange = new RangeDef<ulong>(0u, maxAgeMin);
         
         def.AddDefComponent(ageDef);
     }

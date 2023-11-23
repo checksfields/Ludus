@@ -9,6 +9,14 @@ namespace Bitspoke.Ludus.Shared.Systems.Time;
 
 public class CalendarSystem: BitspokeSystem//, ITickConsumer
 {
+    public static class StandardCalendarIntervals
+    {
+        public const ulong HOUR = 2400;
+        public const ulong DAY = HOUR * 24;
+        public const ulong MONTH = DAY * 5;
+        public const ulong YEAR = MONTH * 4;
+    }
+    
     #region Properties
 
     private static CalendarSystem? instance { get; set; }

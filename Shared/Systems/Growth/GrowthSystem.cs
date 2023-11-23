@@ -69,12 +69,7 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
         // if (TimeSystem.HasInstance)
         //     TimeSystem.RegisterForTick(TickTypeData.MEDIUM_TICK_KEY, this);
         
-        TickSystem.Register(300, OnTick2);
-    }
-
-    private void OnTick2(ulong obj)
-    {
-        
+        TickSystem.Register(300, OnTick);
     }
 
     #endregion
@@ -91,7 +86,7 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
         Instance.GrowthComponents.Remove(growthComponent);
     }
     
-    public void OnTick(ulong ticks)
+    public void OnTick(ulong? ticks)
     {
         Ticks++;
         

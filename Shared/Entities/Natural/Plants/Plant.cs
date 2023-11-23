@@ -2,11 +2,11 @@
 using Bitspoke.Core.Components.Location;
 using Bitspoke.Core.Definitions.Parts.Entity.Living;
 using Bitspoke.Core.Random;
+using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Components.Entities.Living;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
-using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Bitspoke.Ludus.Shared.Systems.Spawn;
 using Bitspoke.Ludus.Shared.Systems.Spawn.Natural.Plants;
 using Godot;
@@ -78,18 +78,18 @@ public class Plant : LudusSpawnableEntity
             return;
 
         var ageComponent = new AgeComponent(this);
-        
         var ageDef =  Def.GetDefComponent<AgeDef>();
-        ageComponent.AgeToAppendOnTick = ageDef.AgeToAppendOnTick;
         
-        var maxAge = ageDef.MaxAgeRange.RandRange();
+        ulong maxAge = ageDef.MaxAgeRange.RandRange();
+        ulong initialAge = 0u;
         
-        var initialAge = 0f;
         if (GameStateManager.IsCurrentState(LudusGameStatesTypeData.MAP_GENERATION_KEY))
         {
-            ageDef.InitialAgeRange.RandRange();
+            initialAge = ageDef.InitialAgeRange.RandRange();
             initialAge = Math.Min(initialAge, maxAge);
-            if (Math.Abs(initialAge - maxAge) < 0.05) initialAge = maxAge * Rand.NextFloat(0.9f, 0.95f);
+            ulong ageDiffAbs = (ulong) Math.Abs((long)initialAge - (long) maxAge);
+            if (ageDiffAbs < CoreGlobal.CalendarConstants.TICKS_PER_HOUR) 
+                initialAge = (ulong) (maxAge * Rand.NextFloat(0.9f, 0.95f)).Ceiling();
         }
         else
             // TODO: Implement for not map gen events (such as in-game spawn)
