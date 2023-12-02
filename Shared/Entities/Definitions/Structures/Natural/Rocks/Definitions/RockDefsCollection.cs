@@ -5,7 +5,7 @@ using Bitspoke.Core.Utils.Primatives.Chars;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders.Implementations;
 using Bitspoke.GodotEngine.Utils.Colors;
-using Bitspoke.GodotEngine.Utils.Files;
+using Bitspoke.GodotEngine.Utils.IO;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Godot;
 using Newtonsoft.Json;

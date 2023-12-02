@@ -13,7 +13,7 @@ using Bitspoke.GodotEngine.Components.Nodes._2D;
 using Bitspoke.GodotEngine.Components.UI.Scale;
 using Bitspoke.GodotEngine.Controllers.Resources;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders.Implementations;
-using Bitspoke.GodotEngine.Utils.Files;
+using Bitspoke.GodotEngine.Utils.IO;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
 using Bitspoke.Ludus.Shared.Components.Settings.Game;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;

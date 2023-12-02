@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Bitspoke.Core.Common.Vector;
+using Bitspoke.Core.Common.XML.Loaders;
 using Bitspoke.Core.Components.Time;
 using Bitspoke.Core.Definitions.TypeDatas.Time;
 using Bitspoke.Core.Signal;
@@ -15,6 +19,8 @@ using Bitspoke.GodotEngine.Components.Nodes.CanvasLayers;
 using Bitspoke.GodotEngine.Components.Performance;
 using Bitspoke.GodotEngine.Controllers.Inputs;
 using Bitspoke.GodotEngine.Controllers.Resources;
+using Bitspoke.GodotEngine.Definitions.Loaders;
+using Bitspoke.GodotEngine.Utils.IO;
 using Bitspoke.Ludus.Client.Components;
 using Bitspoke.Ludus.Client.Components.Nodes.Maps.Terrains;
 using Bitspoke.Ludus.Client.Components.Regions.Containers;
@@ -69,6 +75,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	public override void Init()
 	{
 		Log.Info();
+		
 	}
 
 	public override void AddComponents()
@@ -114,6 +121,30 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	
 	public override void _EnterTree()
 	{
+		// var x = new JsonObject()
+		// {
+		// 	["name"] = "nameValue"
+		// };
+		//
+		// x.Add("age", 42);
+		// x.Add("height", "6'2\"");
+		// //x[1] = new JsonObject { new("weight", 100) };
+		// //x[0] = new JsonObject { new("id", 121542u) };
+		//
+		// var parentX = new JsonObject()
+		// {
+		// 	["type"] = "parentX",
+		// 	["id"] = -1
+		// };
+		//
+		// foreach (var (key, value) in parentX)
+		// {
+		// 	var clonedNode = JsonNode.Parse(value.ToJsonString());
+		// 	x.Add(KeyValuePair.Create(key, clonedNode));
+		// }
+		//
+		// Log.Debug(x.ToJsonString());
+		
 		ElapsedTime = 0u;
 		base._EnterTree();
 		
@@ -145,6 +176,10 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		CoreFind.Managers.GameStateManager.SetState(LudusGameStatesTypeData.MAIN_KEY);
 		
 		Profile(() => { AddChild(TerrainLayer = new TerrainLayer(Map)); });
+		Profile(() => GodotXMLLoader.Load(GodotGlobal.FULL_DEFINITIONS_ROOT_PATH));
+		Profile(() => GodotJsonLoader.Load("res://Resources/Data/TestDefs"));
+
+
 	}
 	
 	public override void _Process(double delta)

@@ -1,0 +1,34 @@
+﻿{
+  "TreeOak": {
+    "Parent": "TreeBase",
+    "Order": 3.0,
+    "LabelKey": "tree_oak",
+    "DescriptionKey": "tree_oak_desc",
+    "Graphic": {
+      "Texture": {
+          "Options": [{
+              "Normal": [
+                { "Weight": 1, "Path": "oaka" },
+                { "Weight": 1, "Path": "oakb" }
+              ],
+              "Lifeless": [
+                { "Path": "oaka_lifeless" },
+                { "Path": "oakb_lifeless" }
+              ]
+          }]
+      }
+    },
+    "Plant": {
+      "Fertility": { "Min": 0.6, "Max": 0.95 },
+      "Cluster": { "Weight": 48 }
+    },
+    "Age": {
+      "Grow": {
+        "Days": [
+          { "Biome" : { "Type": "General", "Days": 30 }},
+          { "Biome" : { "Type": "Temperate", "Days": 30 }}
+        ]
+      }
+    }
+  }
+}

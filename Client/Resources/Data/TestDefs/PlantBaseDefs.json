@@ -1,0 +1,63 @@
+﻿{
+  "PlantBase": {
+    "Abstract": "True",
+    "DefType": "Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants.PlantDef",
+    "AssemblyName": "Core",
+    "Class": "...Plant",
+    "Graphic": {
+      "Scale": {
+        "Min": 0.3,
+        "Max": 1.0
+      },
+      "PositionVariation": {
+        "Min": -0.25,
+        "Max": 0.25
+      }
+    },
+    "Plant": {
+      "Fertility": {
+        "Min": 0.35,
+        "Max": 1.0,
+        "Sensitivity": 1.0
+      }
+    },
+    "UI": {
+      "Interactable": false,
+      "Tooltip": false
+    },
+    "Age": {
+      "TickInterval": "Long"
+    }
+  },
+  "TreeBase": {
+    "Parent": "PlantBase",
+    "Abstract": "True",
+    "Graphic": {
+      "Texture": {
+        "RootPath": "Entities/Plants/Natural/Tree/",
+        "Type": {
+          "Single": { }
+        }
+      },
+      "Scale": { "Min": 1.3, "Max": 2.0  }
+    },
+    "Plant": {
+      "IsWild": true,
+      "IsFarmable": true,
+      "Fertility": { "Min": 0.5, "Max": 0.8 },
+      "Cluster": { "Radius": 8, "Weight": 24 }
+    },
+    "UI": {
+      "Interactable": true,
+      "Tooltip": true
+    },
+    "Age": {
+      "Grow": {
+        "Multiplier": 9
+      }
+    },
+    "Placement": {
+      "Structure": -1
+    }
+  }
+}

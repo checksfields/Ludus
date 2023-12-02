@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <Def ParentName="TreeBase" Name="PlantTreeOak">
+    <order>3.0</order>
+    <label>oak tree</label>
+    <description>Description</description>
+    <graphic>
+      <texture>
+        <options IsList="True">
+          <option State="Normal" IsList="True">
+            <path Weight="1">oaka</path>
+            <path Weight="1">oakb</path>
+          </option>
+          <option State="Lifeless" IsList="True">
+            <path>oaka_lifeless</path>
+            <path>oakb_lifeless</path>
+          </option>
+        </options>
+      </texture>
+    </graphic>
+    <plant>
+      <fertility>
+        <min>0.6</min>
+        <max>1.0</max>
+      </fertility>
+      <growDays IsList="True">
+        <biome Type="General">30</biome>  
+        <biome Type="Temperate">30</biome>  
+      </growDays>
+      <ClusterRadius>
+        <Weight>48</Weight>
+      </ClusterRadius>
+    </plant>
+  </Def>
+  <Def ParentName="TreeBase" Name="PlantTreePoplar">
+    <order>3.0</order>
+    <label>poplar tree</label>
+    <description>Description</description>
+    <graphic>
+      <texture>
+        <option State="Normal">
+          <path Weight="1">poplara</path>
+        </option>
+      </texture>
+    </graphic>
+    <plant>
+      <fertility>
+        <min>0.6</min>
+        <max>1.0</max>
+      </fertility>
+      <growDays>
+        <forBiome Biome="General">20</forBiome>
+      </growDays>
+      <ClusterRadius>
+        <Weight>35</Weight>
+      </ClusterRadius>
+    </plant>
+  </Def>
+  <Def ParentName="TreeBase" Name="PlantTreeBirch">
+    <order>3.0</order>
+    <label>poplar Birch</label>
+    <description>Description</description>
+    <graphic>
+      <texture>
+        <options IsList="True">
+          <option State="Normal">
+            <path Weight="1">bircha</path>
+          </option>
+        </options>
+      </texture>
+    </graphic>
+    <plant>
+      <fertility>
+        <min>0.4</min>
+        <max>0.8</max>
+      </fertility>
+      <growDays>
+        <forBiome Biome="General">20</forBiome>
+      </growDays>
+      <ClusterRadius>
+        <Weight>35</Weight>
+      </ClusterRadius>
+    </plant>
+  </Def>
+  
+</Defs>
