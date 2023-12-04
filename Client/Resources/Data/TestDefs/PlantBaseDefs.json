@@ -1,8 +1,8 @@
 ﻿{
   "PlantBase": {
-    "Abstract": "True",
-    "DefType": "Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants.PlantDef",
-    "AssemblyName": "Core",
+    "Abstract": true,
+    "DefType": "Bitspoke.GodotEngine.Definitions.Loaders.TestDef",
+    "AssemblyName": "GodotEngine",
     "Class": "...Plant",
     "Graphic": {
       "Scale": {
@@ -31,7 +31,7 @@
   },
   "TreeBase": {
     "Parent": "PlantBase",
-    "Abstract": "True",
+    "Abstract": true,
     "Graphic": {
       "Texture": {
         "RootPath": "Entities/Plants/Natural/Tree/",
