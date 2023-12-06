@@ -1,4 +1,6 @@
-﻿using Bitspoke.Core.Definitions.Collections;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Definitions.Parts.Common;
 using Bitspoke.Core.Definitions.Parts.Entity.Living;
 using Bitspoke.Core.Definitions.Parts.Graphics;
@@ -6,6 +8,7 @@ using Bitspoke.Core.Definitions.Parts.Graphics.Textures;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
 using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Systems.Calendar;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Utils.IO;
 using Bitspoke.Ludus.Shared.Common.Components.Movement;
@@ -31,7 +34,10 @@ public class PlantDefsCollection : DefCollection<PlantDef>
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
     #region Bootstrap

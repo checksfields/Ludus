@@ -1,6 +1,9 @@
-﻿using Bitspoke.Core.Definitions.Collections;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Definitions.Parts.TypeDatas;
 using Bitspoke.Core.Profiling;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.GodotEngine.Utils.IO;
 using Newtonsoft.Json;
 
@@ -12,7 +15,10 @@ public class VegetationDensityTypeData : DefCollection<DefaultTypeDataDef>
     public override string Key { get; set; } = nameof(VegetationDensityTypeData);
     public override string ClassName => GetType().FullName;
     public override string? AssemblyName => GetType().Assembly.GetName().Name;
-        
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }  
         
     #region Bootstrap
 

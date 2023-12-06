@@ -1,7 +1,10 @@
-﻿using Bitspoke.Core.Definitions.Parts.Graphics;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Links;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
+using Bitspoke.Core.Utils.Json;
 using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
@@ -21,7 +24,10 @@ public class TerrainDef : LayerDef
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     public TerrainDef Clone()
     {
         var toClone = new TerrainDef();

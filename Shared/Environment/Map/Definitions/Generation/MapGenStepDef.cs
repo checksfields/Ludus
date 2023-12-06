@@ -1,5 +1,8 @@
-﻿using Bitspoke.Core.Definitions.Generation;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Generation;
 using Bitspoke.Core.Definitions.Parts.Common.Noise;
+using Bitspoke.Core.Utils.Json;
 using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
@@ -19,7 +22,10 @@ public class MapGenStepDef : GenStepDef
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
         

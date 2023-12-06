@@ -7,7 +7,6 @@
       "Key": "sandstone",
       "Type": "Structure",
       "GraphicDef": {
-        "Scale": 1.0,
         "Modulate": {
           "Red": 0.49411765,
           "Green": 0.40784314,
@@ -38,7 +37,6 @@
       "Key": "granite",
       "Type": "Structure",
       "GraphicDef": {
-        "Scale": 1.0,
         "Modulate": {
           "Red": 0.4117647,
           "Green": 0.37254903,
@@ -69,7 +67,6 @@
       "Key": "marble",
       "Type": "Structure",
       "GraphicDef": {
-        "Scale": 1.0,
         "Modulate": {
           "Red": 0.5176471,
           "Green": 0.5294118,
@@ -100,7 +97,6 @@
       "Key": "limestone",
       "Type": "Structure",
       "GraphicDef": {
-        "Scale": 1.0,
         "Modulate": {
           "Red": 0.61960787,
           "Green": 0.6,
@@ -131,7 +127,6 @@
       "Key": "slate",
       "Type": "Structure",
       "GraphicDef": {
-        "Scale": 1.0,
         "Modulate": {
           "Red": 0.27450982,
           "Green": 0.27450982,

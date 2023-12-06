@@ -1,5 +1,8 @@
-﻿using Bitspoke.Core.Definitions.Parts;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Parts;
 using Bitspoke.Core.Definitions.Parts.Common;
+using Bitspoke.Core.Utils.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Biome.Definitions;
 
@@ -44,7 +47,10 @@ public class BiomeAnimalsDef : DefPart
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
     #region Bootstrap

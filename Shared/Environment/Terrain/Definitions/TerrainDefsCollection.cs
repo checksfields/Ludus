@@ -1,9 +1,12 @@
-﻿using Bitspoke.Core.Definitions.Collections;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Links;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
 using Bitspoke.Core.Profiling;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.GodotEngine.Utils.IO;
 using Newtonsoft.Json;
 
@@ -26,7 +29,10 @@ public class TerrainDefsCollection : DefCollection<TerrainDef>
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
     #region Bootstrap

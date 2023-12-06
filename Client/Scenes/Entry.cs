@@ -177,7 +177,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		
 		Profile(() => { AddChild(TerrainLayer = new TerrainLayer(Map)); });
 		Profile(() => GodotXMLLoader.Load(GodotGlobal.FULL_DEFINITIONS_ROOT_PATH));
-		Profile(() => GodotJsonLoader.Load("res://Resources/Data/TestDefs"));
+		Profile(() => GodotJsonDefLoader.Load());
 
 
 	}

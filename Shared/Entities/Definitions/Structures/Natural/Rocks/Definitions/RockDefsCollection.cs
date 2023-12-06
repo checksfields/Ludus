@@ -1,6 +1,9 @@
-﻿using Bitspoke.Core.Definitions.Collections;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Signal;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Core.Utils.Primatives.Chars;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders;
 using Bitspoke.GodotEngine.Controllers.Resources.Loaders.Implementations;
@@ -39,6 +42,11 @@ public class RockDefsCollection : DefCollection<RockDef>
 
     #region Methods
 
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
+    
     /// <summary>
     /// Called once the loader for this class has finished loading all defs. 
     /// </summary>

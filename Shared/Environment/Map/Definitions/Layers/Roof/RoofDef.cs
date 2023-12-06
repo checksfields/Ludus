@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Utils.Json;
+using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof;
 
@@ -17,7 +20,10 @@ public class RoofDef : LayerDef
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     public RoofDef Clone()
     {
         var clone = new RoofDef();

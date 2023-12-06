@@ -1,6 +1,9 @@
-﻿using Bitspoke.Core.Definitions.Collections;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Definitions.Parts.Common.Noise;
 using Bitspoke.Core.Profiling;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.GodotEngine.Utils.IO;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Entities.Natural;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Layers;
@@ -27,7 +30,10 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
         

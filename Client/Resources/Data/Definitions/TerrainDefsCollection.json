@@ -16,7 +16,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -53,7 +52,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -90,7 +88,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -124,7 +121,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -159,7 +155,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -189,7 +184,6 @@
       "Fertility": 0.0,
       "Key": "mud",
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -226,7 +220,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -261,7 +254,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -296,7 +288,6 @@
         "Diggable"
       ],
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -326,7 +317,6 @@
       "Fertility": 0.0,
       "Key": "water",
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },
@@ -356,7 +346,6 @@
       "Fertility": 0.0,
       "Key": "waterdeep",
       "GraphicDef": {
-        "Scale": 1.0,
         "LinkDef": {
           "LinkFlags": "Rock, Edge, Wall"
         },

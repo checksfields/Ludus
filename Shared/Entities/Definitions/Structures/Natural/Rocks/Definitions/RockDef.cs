@@ -1,8 +1,11 @@
-﻿using Bitspoke.Core.Definitions.Parts.Common;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Parts.Common;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Links;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Ludus.Shared.Common.Entities;
 using Newtonsoft.Json;
 
@@ -28,6 +31,11 @@ public class RockDef : NaturalStructureDef
 
     #region Methods
 
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
+    
     public RockDef Clone()
     {
         var toClone = new RockDef();

@@ -1,5 +1,7 @@
-﻿using Bitspoke.Core.Definitions;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Definitions.Parts.Graphics;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Ludus.Shared.Common.Definitions.Placement;
 using Newtonsoft.Json;
 
@@ -26,7 +28,10 @@ public class TerrainDef : Def
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
 }

@@ -1,4 +1,7 @@
-﻿using Bitspoke.Core.Definitions.Parts;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Parts;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Ludus.Shared.Common.Entities;
 
 namespace Bitspoke.Ludus.Shared.Common.Definitions.Placement;
@@ -6,7 +9,7 @@ namespace Bitspoke.Ludus.Shared.Common.Definitions.Placement;
 public class PlacementMaskDef : DefPart
 {
     #region Properties
-
+    
     public Dictionary<EntityType, int?> BannedPlacements { get; set; }
 
     #endregion
@@ -35,7 +38,10 @@ public class PlacementMaskDef : DefPart
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
 

@@ -1,6 +1,9 @@
-﻿using Bitspoke.Core.Definitions.Collections;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Definitions.Common.Affordances;
 using Bitspoke.Core.Profiling;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.GodotEngine.Utils.Colors;
 using Bitspoke.GodotEngine.Utils.IO;
 using Godot;
@@ -25,7 +28,10 @@ public class LayerAffordanceDefsCollection : DefCollection<AffordanceDef>
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
     #region Bootstrap

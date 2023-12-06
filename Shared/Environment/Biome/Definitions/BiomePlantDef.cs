@@ -1,5 +1,8 @@
-﻿using Bitspoke.Core.Definitions.Parts;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Parts;
 using Bitspoke.Core.Definitions.Parts.Common;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Newtonsoft.Json;
 
@@ -58,7 +61,10 @@ public class BiomePlantDef : DefPart
     #endregion
 
     #region Methods
-        
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }  
     #endregion
 
     #region Bootstrap

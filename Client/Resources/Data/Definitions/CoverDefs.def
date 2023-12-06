@@ -1,0 +1,43 @@
+﻿{
+  "Grass": {
+    "Parent": "CoverBase",
+    "LabelKey": "cover_grass",
+    "DescriptionKey": "cover_grass_desc",
+    "Graphic": {
+      "Texture": {
+          "Variations": {
+              "Normal":  [
+                { "Weight": 1, "Path": "grassa" }
+              ]
+          }
+      }
+    },
+    "Grow": {
+      "DaysByBiome": {
+        "General": 1,
+        "Temperate": 1.2
+      }
+    }
+  },
+  "TallGrass": {
+    "Parent": "CoverBase",
+    "LabelKey": "cover_tall_grass",
+    "DescriptionKey": "cover_tall_grass_desc",
+    "Graphic": {
+      "Texture": {
+        "Variations": {
+          "Normal":  [
+            { "Weight": 1, "Path": "grassb" }
+          ]
+        }
+      },
+      "Scale": { "Min": 0.6, "Max": 0.75  }
+    },
+    "Grow": {
+      "DaysByBiome": {
+        "General": 1.1,
+        "Temperate": 1.3
+      }
+    }
+  }
+}

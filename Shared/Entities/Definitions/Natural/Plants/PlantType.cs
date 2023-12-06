@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json.Converters;
 
 namespace Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 
 [Flags]
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
+[Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
 public enum PlantType : int
 {
     Undefined = 0,

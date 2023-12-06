@@ -1,4 +1,7 @@
-﻿using Bitspoke.Core.Definitions.Parts;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Parts;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Ludus.Shared.Common.Components.Movement;
 
 namespace Bitspoke.Ludus.Shared.Common.Definitions.Movement;
@@ -32,7 +35,10 @@ public class MovementCostDef : DefPart
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
 

@@ -1,7 +1,10 @@
-﻿using Bitspoke.Core.Definitions.Collections;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Definitions.Collections;
 using Bitspoke.Core.Definitions.Parts.Common;
 using Bitspoke.Core.Definitions.Parts.Common.Noise;
 using Bitspoke.Core.Profiling;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.GodotEngine.Utils.IO;
 using Newtonsoft.Json;
 
@@ -27,7 +30,10 @@ public class BiomeDefsCollection : DefCollection<BiomeDef>
     #endregion
 
     #region Methods
-
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     #endregion
 
     #region Bootstrap

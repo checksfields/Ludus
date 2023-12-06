@@ -6,7 +6,7 @@
     "DescriptionKey": "tree_oak_desc",
     "Graphic": {
       "Texture": {
-          "Options": {
+          "Variations": {
               "Normal":  [
                 { "Weight": 1, "Path": "oaka" },
                 { "Weight": 1, "Path": "oakb" }
@@ -20,15 +20,13 @@
       }
     },
     "Plant": {
-      "Fertility": { "Min": 0.6, "Max": 0.95 },
+      "Fertility": { "Range": { "Min": 0.6, "Max": 0.95 } },
       "Cluster": { "Weight": 48 }
     },
-    "Age": {
-      "Grow": {
-        "Days": [
-          { "Biome" : { "Type": "General", "Days": 30 }},
-          { "Biome" : { "Type": "Temperate", "Days": 30 }}
-        ]
+    "Grow": {
+      "DaysByBiome": {
+        "General":  20,
+        "Temperate": 20
       }
     }
   },
@@ -39,18 +37,18 @@
     "DescriptionKey": "tree_birch_desc",
     "Graphic": {
       "Texture": {
-        "Options": [{
+        "Variations": {
           "Normal": [
             { "Weight": 1, "Path": "bircha" }
           ],
           "Lifeless": [
             { "Path": "bircha_lifeless" }
           ]
-        }]
+        }
       }
     },
     "Plant": {
-      "Fertility": { "Min": 0.4, "Max": 0.8 },
+      "Fertility": { "Range": { "Min": 0.4, "Max": 0.8 } },
       "Cluster": { "Weight": 35 }
     }
   },
@@ -61,24 +59,22 @@
     "DescriptionKey": "tree_poplar_desc",
     "Graphic": {
       "Texture": {
-        "Options": [{
+        "Variations": {
           "Normal": [
             { "Weight": 1, "Path": "poplara" }
           ],
           "Lifeless": [
             { "Path": "poplara_lifeless" }
           ]
-        }]
+        }
       }
     },
     "Plant": {
-      "Fertility": { "Min": 0.6, "Max": 1.0 }
+      "Fertility": { "Range": { "Min": 0.6, "Max": 1.0 } }
     },
-    "Age": {
-      "Grow": {
-        "Days": [
-          { "Biome" : { "Type": "General", "Days": 20 }}
-        ]
+    "Grow": {
+      "DaysByBiome": {
+        "General" : 16
       }
     }
   }

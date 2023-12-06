@@ -1,7 +1,12 @@
-﻿using Bitspoke.Core.Common.Localisation;
+﻿using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
+using Bitspoke.Core.Common.Localisation;
+using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Definitions.Parts.Common;
+using Bitspoke.Core.Definitions.Parts.Entity.Living;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Utils.Enums;
+using Bitspoke.Core.Utils.Json;
 using Bitspoke.Ludus.Shared.Common.Components.Movement;
 using Bitspoke.Ludus.Shared.Common.Definitions.Movement;
 using Bitspoke.Ludus.Shared.Common.Definitions.Placement;
@@ -10,7 +15,6 @@ using Bitspoke.Ludus.Shared.Common.Entities.Utils;
 using Bitspoke.Ludus.Shared.Common.Reports;
 using Bitspoke.Ludus.Shared.Common.Reports.Placement;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
-using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 
@@ -18,14 +22,14 @@ public class PlantDef : EntityDef
 {
     #region Properties
 
-    public override string     Key  { get; set; }
-    public override EntityType Type { get; set; } = EntityType.Plant;
-    public override int        SubTypesFlag => SubTypes.Int();
-    
+    [JsonIgnore] public override string     Key  { get; set; }
+    [JsonIgnore] public override EntityType Type { get; set; } = EntityType.Plant;
+    [JsonIgnore] public override int        SubTypesFlag => SubTypes.Int();
     public PlantType SubTypes      { get; set; } = PlantType.Undefined;
+    
     public bool      IsWild        { get; set; }
-    public bool      CanCluster    => ClusterDef != null;
-    public float     Order         { get; set; }
+    [JsonIgnore] public bool      CanCluster    => ClusterDef != null;
+    [JsonIgnore] public float     Order         { get; set; }
 
     [JsonIgnore] public RangeDef<float>?  FertilityRange  => GetDefComponent<RangeDef<float>>("fertilityrange");
     [JsonIgnore] public MovementCostDef?  MovementCostDef => GetDefComponent<MovementCostDef>();
@@ -33,6 +37,13 @@ public class PlantDef : EntityDef
     [JsonIgnore] public ClusterDef?       ClusterDef      => GetDefComponent<ClusterDef>();
     [JsonIgnore] public GraphicDef?       GraphicDef      => GetDefComponent<GraphicDef>();
 
+    // NEW Format
+    [JsonPropertyName("Graphic")]   public GraphicDef Graphic { get; set; }
+    [JsonPropertyName("Plant")]     public PlantDetailsDef PlantDetails { get; set; }
+    [JsonPropertyName("Age")]       public AgeDef Age { get; set; }
+    [JsonPropertyName("Grow")]      public GrowthDef Growth { get; set; }
+    [JsonPropertyName("Placement")] public PlacementMaskDef Placement { get; set; }
+    
     #endregion
 
     #region Constructors and Initialisation
@@ -53,9 +64,14 @@ public class PlantDef : EntityDef
         var clone = new PlantDef();
         base.Clone(clone);
 
-        clone.SubTypes   = SubTypes;
+        //clone.SubTypes   = SubTypes;
         clone.IsWild     = IsWild;
         clone.Order      = Order;
+
+        clone.Graphic = Graphic.Clone();
+        clone.PlantDetails = PlantDetails.Clone();
+        clone.Age = Age.Clone();
+        clone.Growth = Growth.Clone();
         
         return clone;
     }
@@ -63,6 +79,11 @@ public class PlantDef : EntityDef
     #endregion
 
     #region Methods
+    
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
     
     public PlacementReport CanPlaceAt(MapCell mapCell)
     {
