@@ -1,0 +1,104 @@
+{
+  "LayerAffordanceBase": {
+    "Abstract": true,
+    "DefType": "Bitspoke.Core.Definitions.Common.Affordances.AffordanceDef",
+    "IsModdable": true
+  },
+  "LayerAffordanceLightStructures": {
+    "Key": "LayerAffordanceLightStructures",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_light_structure",
+    "DescriptionKey": "layer_affordance_light_structure_desc",
+    "OrderIndex": 100,
+    "LayerOverlayDef": {
+      "ColourDef": {
+        "Red": 0.5647059,
+        "Green": 0.93333334,
+        "Blue": 0.5647059,
+        "Alpha": 1.0
+      }
+    }
+  },
+  "LayerAffordanceMediumStructures": {
+    "Key": "LayerAffordanceMediumStructures",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_medium_structure",
+    "DescriptionKey": "layer_affordance_medium_structure_desc",
+    "OrderIndex": 200,
+    "LayerOverlayDef": {
+      "ColourDef": {
+        "Red": 1.0,
+        "Green": 0.64705884,
+        "Alpha": 1.0
+      }
+    }
+  },
+  "LayerAffordanceHeavyStructures": {
+    "Key": "LayerAffordanceHeavyStructures",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_heavy_structure",
+    "DescriptionKey": "layer_affordance_heavy_structure_desc",
+    "OrderIndex": 300,
+    "LayerOverlayDef": {
+      "ColourDef": {
+        "Red": 1.0,
+        "Alpha": 1.0
+      }
+    }
+  },
+  "LayerAffordanceWaterResistant": {
+    "Key": "LayerAffordanceWaterResistant",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_water_resistant",
+    "DescriptionKey": "layer_affordance_water_resistant_desc",
+    "OrderIndex": 400,
+    "LayerOverlayDef": {
+      "ColourDef": {
+        "Red": 0.6784314,
+        "Green": 0.84705883,
+        "Blue": 0.9019608,
+        "Alpha": 1.0
+      }
+    }
+  },
+  "LayerAffordanceWaterProof": {
+    "Key": "LayerAffordanceWaterProof",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_water_proof",
+    "DescriptionKey": "layer_affordance_water_proof_desc",
+    "OrderIndex": 500,
+    "LayerOverlayDef": {
+      "ColourDef": {
+        "Blue": 1.0,
+        "Alpha": 1.0
+      }
+    }
+  },
+  "LayerAffordanceMovingFluid": {
+    "Key": "LayerAffordanceMovingFluid",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_moving_fluid",
+    "DescriptionKey": "layer_affordance_moving_fluid_desc",
+    "OrderIndex": 600,
+    "LayerOverlayDef": {
+      "ColourDef": {
+        "Blue": 0.54509807,
+        "Alpha": 1.0
+      }
+    }
+  },
+  "LayerAffordanceGrowable": {
+    "Key": "LayerAffordanceGrowable",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_growable",
+    "DescriptionKey": "layer_affordance_growable_desc",
+    "OrderIndex": 700
+  },
+  "LayerAffordanceDiggable": {
+    "Key": "LayerAffordanceDiggable",
+    "Parent": "LayerAffordanceBase",
+    "LabelKey": "layer_affordance_diggable",
+    "DescriptionKey": "layer_affordance_diggable_desc",
+    "OrderIndex": 800
+  }
+}

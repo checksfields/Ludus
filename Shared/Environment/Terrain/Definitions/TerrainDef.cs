@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Utils.Json;
@@ -20,6 +21,7 @@ public class TerrainDef : Def
     public List<PlacementMaskDef> AcceptablePlacementMaskDefs { get; set; } = null;
 
     public GraphicDef GraphicDef { get; set; } = null;
+    [JsonPropertyName("Graphic")] public GraphicDef Graphic { get; set; } = null;
 
     #endregion
 

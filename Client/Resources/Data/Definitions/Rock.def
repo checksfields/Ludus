@@ -1,0 +1,113 @@
+{
+  "RockDefBase": {
+    "Abstract": true,
+    "DefType": "Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural.Rocks.Definitions.RockDef",
+    "IsModdable": true,
+    "Graphic": {
+      "Texture": {
+        "RootPath": "Entities/Structure/Natural/Rocks/",
+        "Opacity": 1.0,
+        "Type": {
+          "Atlas": { }
+        },
+        "Variations": {
+          "Normal":  [
+            { "Weight": 1, "Path": "rockatlas" }
+          ]
+        }
+      },
+      "Scale": { "Min": 1.0, "Max": 1.0  }
+    }
+  },
+  "Sandstone": {
+    "Key": "RockSandstone",
+    "Parent": "RockDefBase",
+    "LabelKey": "rock_sandstone",
+    "DescriptionKey": "rock_sandstone_desc",
+    "Type": "Structure",
+    "Graphic": {
+      "Modulate": {
+        "Red": 0.49411765,
+        "Green": 0.40784314,
+        "Blue": 0.36862746,
+        "Alpha": 1.0
+      }
+    },
+    "LinkDef": {
+      "LinkFlags": "Rock, Edge"
+    }
+  },
+  "Granite": {
+    "Key": "RockGranite",
+    "Parent": "RockDefBase",
+    "LabelKey": "rock_granite",
+    "DescriptionKey": "rock_granite_desc",
+    "Type": "Structure",
+    "Graphic": {
+      "Modulate": {
+        "Red": 0.4117647,
+        "Green": 0.37254903,
+        "Blue": 0.38039216,
+        "Alpha": 1.0
+      }
+    },
+    "LinkDef": {
+      "LinkFlags": "Rock, Edge"
+    }
+  },
+  "Marble": {
+    "Key": "RockMarble",
+    "Parent": "RockDefBase",
+    "LabelKey": "rock_marble",
+    "DescriptionKey": "rock_marble_desc",
+    "Type": "Structure",
+    "Graphic": {
+      "Modulate": {
+        "Red": 0.5176471,
+        "Green": 0.5294118,
+        "Blue": 0.5176471,
+        "Alpha": 1.0
+      }
+    },
+    "LinkDef": {
+      "LinkFlags": "Rock, Edge"
+    }
+  },
+  "Limestone": {
+    "Key": "RockLimestone",
+    "Parent": "RockDefBase",
+    "LabelKey": "rock_limestone",
+    "DescriptionKey": "rock_limestone_desc",
+    "Type": "Structure",
+    "Graphic": {
+      "Modulate": {
+        "Red": 0.61960787,
+        "Green": 0.6,
+        "Blue": 0.5294118,
+        "Alpha": 1.0
+      }
+    },
+    "LinkDef": {
+      "LinkFlags": "Rock, Edge"
+    }
+  },
+  "Slate": {
+    "Key": "RockSlate",
+    "Parent": "RockDefBase",
+    "LabelKey": "rock_slate",
+    "DescriptionKey": "rock_slate_desc",
+    "Type": "Structure",
+    "Graphic": {
+      "Modulate": {
+        "Red": 0.27450982,
+        "Green": 0.27450982,
+        "Blue": 0.27450982,
+        "Alpha": 1.0
+      }
+    },
+    "LinkDef": {
+      "LinkFlags": "Rock, Edge"
+    }
+  }
+
+}

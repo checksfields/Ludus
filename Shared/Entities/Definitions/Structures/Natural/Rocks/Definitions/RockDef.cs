@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Definitions.Parts.Common;
 using Bitspoke.Core.Definitions.Parts.Graphics;
@@ -23,6 +24,9 @@ public class RockDef : NaturalStructureDef
     public GraphicDef? GraphicDef { get; set; }
     public LinkDef?    LinkDef { get; set; }
 
+    // NEW
+    [JsonPropertyName("Graphic")] public GraphicDef? Graphic { get; set; }
+    
     #endregion
 
     #region Constructors and Initialisation

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Links;
@@ -17,6 +18,9 @@ public class TerrainDef : LayerDef
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int OrderIndex { get; set; }
     public float? Fertility { get; set; }
    
+    
+    [JsonPropertyName("Graphic")] public GraphicDef Graphic { get; set; } = null;
+    
     #endregion
     
     #region Constructors and Initialisation

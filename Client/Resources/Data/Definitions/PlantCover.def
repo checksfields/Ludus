@@ -1,5 +1,6 @@
 ﻿{
   "Grass": {
+    "Key": "CoverGrass",
     "Parent": "CoverBase",
     "LabelKey": "cover_grass",
     "DescriptionKey": "cover_grass_desc",
@@ -20,6 +21,7 @@
     }
   },
   "TallGrass": {
+    "Key": "CoverTallGrass",
     "Parent": "CoverBase",
     "LabelKey": "cover_tall_grass",
     "DescriptionKey": "cover_tall_grass_desc",

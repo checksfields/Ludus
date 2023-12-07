@@ -1,5 +1,6 @@
 ﻿{
   "TreeOak": {
+    "Key": "TreeOak",
     "Parent": "TreeBase",
     "Order": 3.0,
     "LabelKey": "tree_oak",
@@ -31,6 +32,7 @@
     }
   },
   "TreeBirch": {
+    "Key": "TreeBirch",
     "Parent": "TreeBase",
     "Order": 3.0,
     "LabelKey": "tree_birch",
@@ -53,6 +55,7 @@
     }
   },
   "TreePoplar": {
+    "Key": "TreePoplar",
     "Parent": "TreeBase",
     "Order": 3.0,
     "LabelKey": "tree_poplar",

@@ -21,8 +21,7 @@ namespace Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 public class PlantDef : EntityDef
 {
     #region Properties
-
-    [JsonIgnore] public override string     Key  { get; set; }
+    
     [JsonIgnore] public override EntityType Type { get; set; } = EntityType.Plant;
     [JsonIgnore] public override int        SubTypesFlag => SubTypes.Int();
     public PlantType SubTypes      { get; set; } = PlantType.Undefined;

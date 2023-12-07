@@ -4,7 +4,6 @@
   "AssemblyName": "Shared",
   "Defs": {
     "grass": {
-      "Key": "grass",
       "Type": "Plant",
       "SubTypes": "Cover",
       "IsWild": true,
@@ -122,10 +121,10 @@
           }
         }
       },
+      "Key": "grass",
       "Ascii": "g"
     },
     "tallgrass": {
-      "Key": "tallgrass",
       "Type": "Plant",
       "SubTypes": "Cover",
       "IsWild": true,
@@ -243,10 +242,10 @@
           }
         }
       },
+      "Key": "tallgrass",
       "Ascii": "G"
     },
     "brambles": {
-      "Key": "brambles",
       "Type": "Plant",
       "SubTypes": "Cover",
       "IsWild": true,
@@ -364,10 +363,10 @@
           }
         }
       },
+      "Key": "brambles",
       "Ascii": "r"
     },
     "bush": {
-      "Key": "bush",
       "Type": "Plant",
       "SubTypes": "Bush",
       "IsWild": true,
@@ -467,10 +466,10 @@
           }
         }
       },
+      "Key": "bush",
       "Ascii": "B"
     },
     "dandelion": {
-      "Key": "dandelion",
       "Type": "Plant",
       "SubTypes": "Cover",
       "IsWild": true,
@@ -597,10 +596,10 @@
           }
         }
       },
+      "Key": "dandelion",
       "Ascii": "D"
     },
     "treeoak": {
-      "Key": "treeoak",
       "Type": "Plant",
       "SubTypes": "Tree, Deciduous",
       "IsWild": true,
@@ -701,10 +700,10 @@
           }
         }
       },
+      "Key": "treeoak",
       "Ascii": "T"
     },
     "treepoplar": {
-      "Key": "treepoplar",
       "Type": "Plant",
       "SubTypes": "Tree, Deciduous",
       "IsWild": true,
@@ -805,10 +804,10 @@
           }
         }
       },
+      "Key": "treepoplar",
       "Ascii": "T"
     },
     "healroot": {
-      "Key": "healroot",
       "Type": "Plant",
       "SubTypes": "Bush, Harvestable",
       "IsWild": true,
@@ -917,10 +916,10 @@
           }
         }
       },
+      "Key": "healroot",
       "Ascii": "H"
     },
     "berryplant": {
-      "Key": "berryplant",
       "Type": "Plant",
       "SubTypes": "Bush, Harvestable",
       "IsWild": true,
@@ -1029,6 +1028,7 @@
           }
         }
       },
+      "Key": "berryplant",
       "Ascii": "S"
     }
   }

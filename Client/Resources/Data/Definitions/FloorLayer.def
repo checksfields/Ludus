@@ -1,0 +1,14 @@
+{
+  "FloorLayerBase": {
+    "Abstract": true,
+    "DefType": "Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Floors.FloorLayerDef",
+    "IsModdable": true,
+    "OrderIndex": 200
+  },
+  "FloorLayerWood": {
+    "Key": "FloorLayerWood",
+    "Parent": "FloorLayerBase",
+    "LabelKey": "floor_layer_wood",
+    "DescriptionKey": "floor_layer_wood_desc"
+  }
+}

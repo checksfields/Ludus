@@ -1,0 +1,29 @@
+{
+  "RoofDefBase": {
+    "Abstract": true,
+    "DefType": "Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Roof.RoofDef",
+    "IsModdable": true,
+    "IsNatural": true
+  },
+  "Constructed": {
+    "ElevationMultiplier": 1.4,
+    "Key": "RoofConstructed",
+    "Parent": "RoofDefBase",
+    "LabelKey": "roof_constructed",
+    "DescriptionKey": "roof_constructed_desc"
+  },
+  "Thick": {
+    "ElevationMultiplier": 1.4,
+    "Key": "RoofThick",
+    "Parent": "RoofDefBase",
+    "LabelKey": "roof_thick",
+    "DescriptionKey": "roof_thick_desc"
+  },
+  "Normal": {
+    "ElevationMultiplier": 1.0,
+    "Key": "RoofNormal",
+    "Parent": "RoofDefBase",
+    "LabelKey": "roof_normal",
+    "DescriptionKey": "roof_normal_desc"
+  }
+}
