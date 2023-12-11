@@ -47,19 +47,26 @@ public class MapGenerator
         var tasks = new List<Task>();
         var steps = Find.DB.MapGenStepDefs.Values.Count;
         var currentStep = 1;
-        
+
+        // initialise the steps ... ensure all step dependencies are set correctly
+        var genSteps = new SortedList<int, MapGenStep>();
         foreach (var mapGenStepDef in Find.DB.MapGenStepDefs.Values.OrderBy(o => o.OrderIndex))
         {
             var genStepTypeName = mapGenStepDef.GenStepType;
             var genStep = genStepTypeName.GetInstanceFromTypeFullName<MapGenStep>(map, mapGenStepDef);
                  
+            genSteps.Add(genStep.MapGenStepDef.OrderIndex, genStep);
+        }
+        
+        // process the steps ... run in threads if possible
+        foreach (var genStep in genSteps.Values)
+        {
             tasks.Add(Task.Run(() =>
             {
-                genStep.Generate();
-                Log.Debug($"Step {currentStep++}/{steps}");
+                Profile(genStep.Generate);
+                Log.Debug($"Step {currentStep++}/{steps} - {genStep.MapGenStepDef.OrderIndex}:{genStep.StepName} Complete");
             }));
         }
-
         Task.WaitAll(tasks.ToArray());
     }
         

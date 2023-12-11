@@ -34,7 +34,6 @@ public class MapGenStepTerrainLayer : MapGenStepLayer
     {
         Profiler.Start();
         ProcessCells();
-        ProcessCellsOld();
         Profiler.End();
     }
 

@@ -28,28 +28,28 @@ public class MapGenStepRocksLayer : MapGenStepLayer
         
     protected override void StepGenerate()
     {
-        Profiler.Start();
+        Profile(() => { 
 
-        // generate the noises we will need
-        var strataNoises = new Dictionary<string, GodotNoise>(); 
-        foreach (var availableRockDefKey in Map.MapInitConfig.AvailableRockDefKeys)
-        {
-            var rockDef = Find.DB.RockDefs[availableRockDefKey];
-            Log.Debug($"Processing {rockDef.Key} RockDef");
+            // generate the noises we will need
+            var strataNoises = new Dictionary<string, GodotNoise>();
+            foreach (var availableRockDefKey in Map.MapInitConfig.AvailableRockDefKeys)
+            {
+                var rockDef = Find.DB.RockDefs[availableRockDefKey];
+                Log.Debug($"Processing {rockDef.Key} RockDef");
 
-            var seed = Rand.NextInt();
-            var noise = new GodotNoise(seed, NoiseDef.DEFAULT);
+                var seed = Rand.NextInt();
+                var noise = new GodotNoise(seed, NoiseDef.DEFAULT);
+                    
+                // if (CoreGlobal.DEBUG_ENABLED)
+                //     noise.GenerateImageTexture(325, 325, $"user://Saves/{rockDef.Key}_noise.png");
+                    
+                strataNoises.Add(rockDef.Key, noise);
+            }
                 
-            // if (CoreGlobal.DEBUG_ENABLED)
-            //     noise.GenerateImageTexture(325, 325, $"user://Saves/{rockDef.Key}_noise.png");
-                
-            strataNoises.Add(rockDef.Key, noise);
-        }
-            
-        ProcessCells(strataNoises);
-        //ProcessCellsOld(strataNoises);
+            ProcessCells(strataNoises);
+            //ProcessCellsOld(strataNoises);
 
-        Profiler.End();
+        });
     }
         
     private void ProcessCells(Dictionary<string, GodotNoise> strataNoises)

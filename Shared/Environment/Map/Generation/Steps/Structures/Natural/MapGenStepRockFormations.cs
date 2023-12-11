@@ -24,19 +24,16 @@ public class MapGenStepRockFormations : MapGenStep
 
     protected override void StepGenerate()
     {
-        Profiler.Start();
-        
-        ProcessCells();
-        ProcessCellsOld();
-        
-        Profiler.End();
+        Profile(ProcessCells);
     }
 
     private void ProcessCells()
     {
-        Profiler.Start();
+        Log.Debug();
+        
         // TODO: Get default value (0.7f) from config
         var minElevation = ((MapGenStepRockFormationsDef)MapGenStepDef).MinElevation ?? 0.7f;
+        
         var tasks = new List<Task>();   
         foreach (var cells in Map.Data.CellsContainer.CellsByRegion.Array)
         {
@@ -58,38 +55,6 @@ public class MapGenStepRockFormations : MapGenStep
             }));
         }
         Task.WaitAll(tasks.ToArray());
-        Profiler.End(message: "+++ NEW");
-    }
-    
-    private void ProcessCellsOld(MapCell[]? cells = null)
-    {
-        Profiler.Start();
-
-        cells ??=  Map.Data.CellsContainer.Cells.Array;
-        
-        if (cells.IsNullOrEmpty())
-        {
-            Log.Exception($"MapCell[] cannot be null or empty");
-            return;
-        }
-        
-        // TODO: Get default value (0.7f) from config
-        var minElevation = ((MapGenStepRockFormationsDef)MapGenStepDef).MinElevation ?? 0.7f;
-        
-        foreach (var mapCell in cells!)
-        {
-            var cellElevation = mapCell.Elevation;
-            if (cellElevation <= minElevation)
-                continue;
-            
-            // TODO: Check other data layers????  Caves for example
-
-            // spawn the rock formation
-            mapCell.StructureDef = Find.DB.RockDefs[mapCell.Stratum].Clone();
-            mapCell.StructureDef.Index = mapCell.Index;
-        }
-
-        Profiler.End(message: "+++ OLD");
     }
     
     #endregion
