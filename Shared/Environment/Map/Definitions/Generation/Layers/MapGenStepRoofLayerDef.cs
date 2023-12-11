@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Utils.Json;
+using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Layers;
 
@@ -18,11 +21,20 @@ public class MapGenStepRoofLayerDef : MapGenStepDef
     #endregion
 
     #region Constructors and Initialisation
-
+    // none
     #endregion
 
-    #region Methods
+    #region Overrides
 
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
+
+    #endregion
+    
+    #region Methods
+    // none
     #endregion
 
         

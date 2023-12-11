@@ -4,24 +4,24 @@
     "DefType": "Bitspoke.Ludus.Shared.Environment.Biome.Definitions.BiomeDef",
     "IsModdable": true
   },
-  "BiomeA": {
-    "Key": "BiomeA",
+  "Default": {
+    "Key": "BiomeDefault",
     "Parent": "BiomeBase",
-    "LabelKey": "biomea",
-    "DescriptionKey": "biomea_desc",
+    "LabelKey": "biomedefault",
+    "DescriptionKey": "biomedefault_desc",
     "BiomePlantsDef": {
       "Density": 0.65,
       "GrowthRate": 10,
       "PlantWeights": {
-        "grass": { "Key": "grass", "Frequency": 4.0 },
-        "tallgrass": { "Key": "tallgrass", "Frequency": 1.5 },
-        "brambles": { "Key": "brambles", "Frequency": 1.0 },
-        "bush": { "Key": "bush", "Frequency": 0.6 },
-        "dandelion": { "Key": "dandelion", "Frequency": 0.5 },
-        "treeoak": { "Key": "treeoak", "Frequency": 0.5 },
-        "treepoplar": { "Key": "treepoplar", "Frequency": 0.5 },
-        "healroot": { "Key": "healroot", "Frequency": 0.05 },
-        "berryplant": { "Key": "berry", "Frequency": 0.05 }
+        "CoverGrass": { "Key": "CoverGrass", "Frequency": 4.0 },
+        "CoverTallGrass": { "Key": "CoverTallGrass", "Frequency": 1.5 },
+        "CoverBrambles": { "Key": "CoverBrambles", "Frequency": 0.35 },
+        "BushGeneral": { "Key": "BushGeneral", "Frequency": 0.6 },
+        "CoverDandelion": { "Key": "CoverDandelion", "Frequency": 0.2 },
+        "TreeOak": { "Key": "TreeOak", "Frequency": 0.5 },
+        "TreePoplar": { "Key": "TreePoplar", "Frequency": 0.5 },
+        "BushHealRoot": { "Key": "BushHealRoot", "Frequency": 0.05 },
+        "BushBerry": { "Key": "BushBerry", "Frequency": 0.1 }
       }
     },
     "BiomeAnimalsDef": {
@@ -30,20 +30,20 @@
       "AnimalDefs": {}
     },
     "ElevationTerrainDefs": {
-      "gravel": {
-        "Key": "gravel",
+      "TerrainGravel": {
+        "Key": "TerrainGravel",
         "Min": 0.49,
         "Max": 0.53
       }
     },
     "FertilityTerrainDefs": {
-      "soil": {
-        "Key": "soil",
+      "TerrainSoil": {
+        "Key": "TerrainSoil",
         "Min": -9999.0,
         "Max": 0.7
       },
-      "soilrich": {
-        "Key": "soilrich",
+      "TerrainSoilRich": {
+        "Key": "TerrainSoilRich",
         "Min": 0.7,
         "Max": 9999.0
       }
@@ -58,17 +58,17 @@
         },
         "ThresholdDefs": [
           {
-            "Key": "mud",
+            "Key": "TerrainMud",
             "Min": 0.29,
             "Max": 0.36
           },
           {
-            "Key": "water",
+            "Key": "TerrainWater",
             "Min": 0.36,
             "Max": 0.48
           },
           {
-            "Key": "waterdeep",
+            "Key": "TerrainWaterDeep",
             "Min": 0.48,
             "Max": 1000.0
           }

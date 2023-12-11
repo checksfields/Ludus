@@ -26,23 +26,16 @@ public class MapGenStepMineralFormations : MapGenStep
         Profiler.Start("StepGenerate");
         //Log.TODO("Implement");
 
-
-        Profiler.Start();
-        var terrainDef = Find.DB.DefDB.Get<TerrainDef>("soil");
-        Profiler.End(message:"Find.DB.DefDB.Get<TerrainDef>('soil')");
+        var key = "TerrainSoil";
+        Profile(message: $"Find.DB.DefDB.Get<TerrainDef>('{key}')", toProfile:() => {
+            var terrainDef_Soil = Find.DB.TerrainDefs[key];
+        });
         
-        Profiler.Start();
-        var terrainDef2 = Find.DB.DefDB.Get<TerrainDef>()["mud"];
-        Profiler.End(message:"Find.DB.DefDB.Get<TerrainDef>()['mud']");
-        //var terrainDefs = Find.DB.DefDB.Query<TerrainDef>(t => t?.Fertility > 0.5f);
         
-        Profiler.Start();
-        var terrainDef_Soil = Find.DB.TerrainDefs["soil"];
-        Profiler.End(message:"Find.DB.TerrainDefs2['soil']");
-        
-        Profiler.Start();
-        var terrainDef_Mud = Find.DB.TerrainDefs["mud"];
-        Profiler.End(message:"Find.DB.TerrainDefs2['mud']");
+        Profile(message: $"Find.DB.DefDB.Get<TerrainDef>('{key}')", toProfile:() => {
+            key = "TerrainMud";
+            var terrainDef_Mud = Find.DB.TerrainDefs[key];
+        });
         
         
         Profiler.End(additionalKey:"StepGenerate");

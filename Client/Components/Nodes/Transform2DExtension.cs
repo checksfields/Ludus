@@ -13,8 +13,8 @@ public static class Transform2DExtension
     {
         var transform2D = new Transform2D(Mathf.Pi, location);
             
-        if (graphicsDef.ScaleRange != null)
-            transform2D = transform2D.Scaled(Vector2.One * Rand.NextFloat(graphicsDef.ScaleRange.Min, graphicsDef.ScaleRange.Max));
+        if (graphicsDef.Scale != null)
+            transform2D = transform2D.Scaled(Vector2.One * graphicsDef.Scale.RandRange());
 
         transform2D.Origin = location;
         

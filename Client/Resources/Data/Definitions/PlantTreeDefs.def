@@ -9,13 +9,13 @@
       "Texture": {
           "Variations": {
               "Normal":  [
-                { "Weight": 1, "Path": "oaka" },
-                { "Weight": 1, "Path": "oakb" }
+                { "Weight": 1, "Path": "treeoaka" },
+                { "Weight": 1, "Path": "treeoakb" }
               ],
             
               "Lifeless": [ 
-                { "Path": "oaka_lifeless" },
-                { "Path": "oakb_lifeless" }
+                { "Path": "treeoaka_lifeless" },
+                { "Path": "treeoakb_lifeless" }
               ]
           }
       }
@@ -26,7 +26,7 @@
     },
     "Grow": {
       "DaysByBiome": {
-        "General":  20,
+        "BiomeDefault":  20,
         "Temperate": 20
       }
     }
@@ -41,10 +41,10 @@
       "Texture": {
         "Variations": {
           "Normal": [
-            { "Weight": 1, "Path": "bircha" }
+            { "Weight": 1, "Path": "treebircha" }
           ],
           "Lifeless": [
-            { "Path": "bircha_lifeless" }
+            { "Path": "treebircha_lifeless" }
           ]
         }
       }
@@ -64,10 +64,10 @@
       "Texture": {
         "Variations": {
           "Normal": [
-            { "Weight": 1, "Path": "poplara" }
+            { "Weight": 1, "Path": "treepoplara" }
           ],
           "Lifeless": [
-            { "Path": "poplara_lifeless" }
+            { "Path": "treepoplara_lifeless" }
           ]
         }
       }
@@ -77,7 +77,7 @@
     },
     "Grow": {
       "DaysByBiome": {
-        "General" : 16
+        "BiomeDefault" : 16
       }
     }
   }

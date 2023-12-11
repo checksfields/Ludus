@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using Bitspoke.Core.Definitions;
 using Bitspoke.Core.Definitions.Generation;
 using Bitspoke.Core.Definitions.Parts.Common.Noise;
@@ -14,7 +15,8 @@ public class MapGenStepDef : GenStepDef
 
     public override string Key { get; set; }
     public NoiseDef NoiseDef { get; set; }
-        
+    [JsonPropertyName("GenStepType")] public string GenStepType { get; set; }
+
     #endregion
 
     #region Constructors and Initialisation

@@ -80,20 +80,20 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Tree | PlantType.Deciduous,
             Ascii = 'T',
             Order = 3.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Wieght = 20});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Weight = 20});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.6f, 1f));
         plantDef.AddDefComponent(new MovementCostDef() { Type = MovementCostType.Impassable, Cost = 1f });
         var graphicDef_Tree = new GraphicDef();
-        graphicDef_Tree.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = $"Entities/Plants/Natural/Tree/{textureKey}",
-            TextureTypeDetails = new SingleTextureTypeDetailsDef()
-        };
+        // graphicDef_Tree.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = $"Entities/Plants/Natural/Tree/{textureKey}",
+        //     TextureTypeDetails = new SingleTextureTypeDetailsDef()
+        // };
         plantDef.AddDefComponent(graphicDef_Tree);
         
         AddAgeDef(plantDef);
@@ -107,20 +107,20 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Bush,
             Ascii = 'B',
             Order = 2.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Wieght = 5});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Weight = 5});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.45f, 1f));
         var graphicDef_Bush = new GraphicDef();
-        graphicDef_Bush.ScaleRange = new RangeDef<float>(0.7f, 1.1f);
-        graphicDef_Bush.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = "Entities/Plants/Natural/Bush/busha",
-            TextureTypeDetails = new SingleTextureTypeDetailsDef()
-        };
+        //graphicDef_Bush.ScaleRange = new RangeDef<float>(0.7f, 1.1f);
+        // graphicDef_Bush.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = "Entities/Plants/Natural/Bush/busha",
+        //     TextureTypeDetails = new SingleTextureTypeDetailsDef()
+        // };
         plantDef.AddDefComponent(graphicDef_Bush);
         
         AddAgeDef(plantDef, 0.075f);
@@ -134,27 +134,27 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Cover,
             Ascii = 'g',
             Order = 1.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Wieght = 10});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Weight = 10});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.35f, 1f));
         
         var graphicDef_Grass = new GraphicDef();
-        graphicDef_Grass.ScaleRange = new RangeDef<float>(0.4f, 0.6f);
-        graphicDef_Grass.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = "Entities/Plants/Natural/Grass/grassa",
-            TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
-            {
-                MaxCountInCell = 9,
-                LocationVariationX = new RangeDef<int>(-24, 24),
-                LocationVariationY = new RangeDef<int>(-24, 24),
-            },
-            Opacity = 0.65f,
-        };
+        //graphicDef_Grass.ScaleRange = new RangeDef<float>(0.4f, 0.6f);
+        // graphicDef_Grass.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = "Entities/Plants/Natural/Grass/grassa",
+        //     TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
+        //     {
+        //         MaxCountInCell = 9,
+        //         LocationVariationX = new RangeDef<int>(-24, 24),
+        //         LocationVariationY = new RangeDef<int>(-24, 24),
+        //     },
+        //     Opacity = 0.65f,
+        // };
         plantDef.AddDefComponent(graphicDef_Grass);
 
         AddAgeDef(plantDef, 0.1f);
@@ -168,27 +168,27 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Cover,
             Ascii = 'G',
             Order = 1.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Wieght = 10});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Weight = 10});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.35f, 1f));
         
         var graphicDef_Grass = new GraphicDef();
-        graphicDef_Grass.ScaleRange = new RangeDef<float>(0.6f, 0.85f);
-        graphicDef_Grass.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = $"Entities/Plants/Natural/Grass/{textureKey}",
-            TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
-            {
-                MaxCountInCell = 9,
-                LocationVariationX = new RangeDef<int>(-24, 24),
-                LocationVariationY = new RangeDef<int>(-24, 24),
-            },
-            Opacity = 0.65f,
-        };
+        //graphicDef_Grass.ScaleRange = new RangeDef<float>(0.6f, 0.85f);
+        // graphicDef_Grass.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = $"Entities/Plants/Natural/Grass/{textureKey}",
+        //     TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
+        //     {
+        //         MaxCountInCell = 9,
+        //         LocationVariationX = new RangeDef<int>(-24, 24),
+        //         LocationVariationY = new RangeDef<int>(-24, 24),
+        //     },
+        //     Opacity = 0.65f,
+        // };
         plantDef.AddDefComponent(graphicDef_Grass);
 
         AddAgeDef(plantDef, 0.09f);
@@ -202,26 +202,26 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Cover,
             Ascii = 'r',
             Order = 1.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Wieght = 10});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 4, Weight = 10});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.7f, 1f));
         
         var graphicDef_Brambles = new GraphicDef();
-        graphicDef_Brambles.ScaleRange = new RangeDef<float>(0.7f, 0.85f);
-        graphicDef_Brambles.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = $"Entities/Plants/Natural/Brambles/{textureKey}",
-            TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
-            {
-                MaxCountInCell = 4,
-                LocationVariationX = new RangeDef<int>(-24, 24),
-                LocationVariationY = new RangeDef<int>(-24, 24),
-            }
-        };
+        //graphicDef_Brambles.ScaleRange = new RangeDef<float>(0.7f, 0.85f);
+        // graphicDef_Brambles.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = $"Entities/Plants/Natural/Brambles/{textureKey}",
+        //     TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
+        //     {
+        //         MaxCountInCell = 4,
+        //         LocationVariationX = new RangeDef<int>(-24, 24),
+        //         LocationVariationY = new RangeDef<int>(-24, 24),
+        //     }
+        // };
         plantDef.AddDefComponent(graphicDef_Brambles);
 
         AddAgeDef(plantDef, 0.08f);
@@ -235,21 +235,21 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Bush | PlantType.Harvestable,
             Ascii = 'H',
             Order = 3.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Wieght = 20});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Weight = 20});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.7f, 1f));
         plantDef.AddDefComponent(new MovementCostDef() { Type = MovementCostType.Impassable, Cost = 1f });
         var graphicDef_Healroot = new GraphicDef();
-        graphicDef_Healroot.ScaleRange = new RangeDef<float>(0.3f, 1.0f);
-        graphicDef_Healroot.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = $"Entities/Plants/Natural/Healroot/{textureKey}",
-            TextureTypeDetails = new SingleTextureTypeDetailsDef()
-        };
+        //graphicDef_Healroot.ScaleRange = new RangeDef<float>(0.3f, 1.0f);
+        // graphicDef_Healroot.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = $"Entities/Plants/Natural/Healroot/{textureKey}",
+        //     TextureTypeDetails = new SingleTextureTypeDetailsDef()
+        // };
         plantDef.AddDefComponent(graphicDef_Healroot);
         
         AddAgeDef(plantDef, 0.075f);
@@ -263,21 +263,21 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Bush | PlantType.Harvestable,
             Ascii = 'S',
             Order = 3.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Wieght = 20});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Weight = 20});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.5f, 1f));
         plantDef.AddDefComponent(new MovementCostDef() { Type = MovementCostType.Impassable, Cost = 1f });
         var graphicDef_Berry = new GraphicDef();
-        graphicDef_Berry.ScaleRange = new RangeDef<float>(0.3f, 0.6f);
-        graphicDef_Berry.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = $"Entities/Plants/Natural/BerryPlant/{textureKey}",
-            TextureTypeDetails = new SingleTextureTypeDetailsDef()
-        };
+        //graphicDef_Berry.ScaleRange = new RangeDef<float>(0.3f, 0.6f);
+        // graphicDef_Berry.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = $"Entities/Plants/Natural/BerryPlant/{textureKey}",
+        //     TextureTypeDetails = new SingleTextureTypeDetailsDef()
+        // };
         plantDef.AddDefComponent(graphicDef_Berry);
         
         AddAgeDef(plantDef, 0.075f);
@@ -291,26 +291,26 @@ public class PlantDefsCollection : DefCollection<PlantDef>
         var plantDef = new PlantDef()
         {
             Key = key,
-            IsWild = true,
+            //IsWild = true,
             SubTypes = PlantType.Cover,
             Ascii = 'D',
             Order = 3.0f,
         };
-        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Wieght = 20});
+        plantDef.AddDefComponent(new ClusterDef() { Radius = 8, Weight = 20});
         plantDef.AddDefComponent("fertilityrange", new RangeDef<float>(0.7f, 1f));
         plantDef.AddDefComponent(new MovementCostDef() { Type = MovementCostType.Impassable, Cost = 1f });
         var graphicDef_Dandelion = new GraphicDef();
-        graphicDef_Dandelion.ScaleRange = new RangeDef<float>(0.3f, 0.4f);
-        graphicDef_Dandelion.TextureDef = new TextureDef()
-        {
-            TextureResourcePath = $"Entities/Plants/Natural/Dandelion/{textureKey}",
-            TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
-            {
-                MaxCountInCell = 25,
-                LocationVariationX = new RangeDef<int>(-24, 24),
-                LocationVariationY = new RangeDef<int>(-24, 24),
-            }
-        };
+        //graphicDef_Dandelion.ScaleRange = new RangeDef<float>(0.3f, 0.4f);
+        // graphicDef_Dandelion.TextureDef = new TextureDef()
+        // {
+        //     TextureResourcePath = $"Entities/Plants/Natural/Dandelion/{textureKey}",
+        //     TextureTypeDetails = new MultiMeshTextureTypeDetailsDef()
+        //     {
+        //         MaxCountInCell = 25,
+        //         LocationVariationX = new RangeDef<int>(-24, 24),
+        //         LocationVariationY = new RangeDef<int>(-24, 24),
+        //     }
+        // };
         plantDef.AddDefComponent(graphicDef_Dandelion);
         
         AddAgeDef(plantDef, 0.1f);

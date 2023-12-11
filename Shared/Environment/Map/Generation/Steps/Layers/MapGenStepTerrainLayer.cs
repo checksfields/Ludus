@@ -1,6 +1,7 @@
 ﻿using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural;
+using Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural.Rocks.Definitions;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation;
 using Bitspoke.Ludus.Shared.Environment.Map.Definitions.Layers.Terrain;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
@@ -108,7 +109,7 @@ public class MapGenStepTerrainLayer : MapGenStepLayer
         
     private TerrainDef? GetTerrainDefUsingElevationFor(MapCell mapCell)
     {
-        TerrainDef terrainDef = null;
+        TerrainDef? terrainDef = null;
          
         var maxElevation = float.MinValue;
         foreach (var biomeDefElevationTerrainDef in Map.BiomeDef.ElevationTerrainDefs)
@@ -125,8 +126,8 @@ public class MapGenStepTerrainLayer : MapGenStepLayer
 
         if (terrainDef == null && mapCell.Elevation >= maxElevation)
         {
-            var rockDef = Find.DB.RockDefs[mapCell.Stratum];
-            terrainDef = Find.DB.TerrainDefs[rockDef.AssociatedTerrainDefKey];
+            Find.DB.RockDefs.TryGetValue(mapCell.Stratum, out var rockDef);
+            Find.DB.TerrainDefs.TryGetValue(rockDef?.AssociatedTerrainDefKey ?? string.Empty, out terrainDef);
         }
             
         return terrainDef;

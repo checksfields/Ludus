@@ -11,10 +11,12 @@ public class AgeComponent : Component
     #region Properties
 
     public override string ComponentName => nameof(AgeComponent);
-    public ulong Age { get; set; }
-    public ulong MaxAge { get; set; }
+    public float CurrentAge { get; set; }
+    public ulong CurrentAgeInTicks { get; set; }
+    public float MaxAge { get; set; }
+    public ulong MaxAgeInTicks { get; set; }
 
-    public string DisplayAge() => Age.ToString();
+    public string DisplayAge() => CurrentAge.ToString();
 
     #endregion
 

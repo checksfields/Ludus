@@ -84,7 +84,7 @@ public class TerrainDefsCollection : DefCollection<TerrainDef>
         terrainDef.DescriptionKey = $"LOC_{key.ToUpper()}_DESC";
         terrainDef.Fertility = fertility;
         terrainDef.GraphicDef = new GraphicDef();
-        terrainDef.GraphicDef.TextureDef = new TextureDef
+        terrainDef.GraphicDef.Texture = new TextureDef
         {
             TextureResourcePath = $"{GodotGlobal.TEXTURES_RESOURCE_ROOT_PATH}/{Global.MAP_LAYERS_ROOT_PATH}/{key}",
             TextureTypeDetails = new SingleTextureTypeDetailsDef(),

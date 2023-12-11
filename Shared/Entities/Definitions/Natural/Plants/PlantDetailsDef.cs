@@ -19,7 +19,7 @@ public class PlantDetailsDef : DefPart
     [JsonPropertyName("Fertility")] public FertilityDef FertilityDef { get; set; }
     
     [JsonPropertyName("Cluster")] public ClusterDef ClusterDef { get; set; }
-    [JsonIgnore] public bool CanCluster => ClusterDef is { Radius: > 0, Wieght: > 0 };
+    [JsonIgnore] public bool CanCluster => ClusterDef is { Radius: > 0, Weight: > 0 };
     
     #endregion
 

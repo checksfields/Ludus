@@ -112,7 +112,7 @@ public class AgeSystem : BitspokeSystem//, ITickConsumer
                 
                 foreach (var component in comps)
                 {
-                    component.Age += DeltaTicks;
+                    component.CurrentAge += DeltaTicks;
                 }
             }));    
         }

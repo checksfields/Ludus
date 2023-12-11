@@ -14,12 +14,14 @@ public class GrowthComponent : EntityComponent
     public float MinGrowthPercent { get; set; } = 0f;
     public float MaxGrowthPercent { get; set; } = 1f;
 
-    private float growth = 0.5f;
-    public float CurrentGrowthPercent
-    {
-        get => growth;
-        set => growth = Math.Min(MaxGrowthPercent, value); 
-    }
+    public float GrowDays { get; set; }
+    public float GrowDaysInTicks => GrowDays * CoreGlobal.CalendarConstants.TICKS_PER_DAY;
+    public float CurrentGrowDays { get; set; }
+    public float CurrentGrowDaysInTicks => CurrentGrowDays * CoreGlobal.CalendarConstants.TICKS_PER_DAY;
+    
+    public float CurrentGrowthPercent => CurrentGrowDays / GrowDays;
+    
+    
     public float GrowIncrementPerGrowthUpdate { get; set; } = 0.01f; 
     
     // protected float growthInt = 0.15f;
@@ -34,6 +36,7 @@ public class GrowthComponent : EntityComponent
     // public const float MaxGrowthTemperature = 58f;
     
     public bool IsFullyGrown => CurrentGrowthPercent >= MaxGrowthPercent;
+    
 
     #endregion
 

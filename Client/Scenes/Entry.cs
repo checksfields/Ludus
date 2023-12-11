@@ -176,8 +176,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 		CoreFind.Managers.GameStateManager.SetState(LudusGameStatesTypeData.MAIN_KEY);
 		
 		Profile(() => { AddChild(TerrainLayer = new TerrainLayer(Map)); });
-		Profile(() => GodotXMLLoader.Load(GodotGlobal.FULL_DEFINITIONS_ROOT_PATH));
-		Profile(() => GodotJsonDefLoader.Load());
+		//Profile(() => GodotJsonDefLoader.Load());
 
 
 	}
@@ -241,12 +240,12 @@ public partial class Entry : GodotNode2D, ITickConsumer
 			var mapInitConfig = new MapInitConfig
 			{
 				SeedPart = 1234567890,
-				BiomeKey = "BiomeA", 
+				BiomeKey = "BiomeDefault", 
 				WorldID = Find.CurrentWorld.WorldID, 
 				Size = new Vector2I(275, 275),
 				ElevationTypeDataKey = Find.DB.TypeData.ElevationTypeData["HILLS"].Key,
 				VegetationDensityTypeDataKey = Find.DB.TypeData.VegetationDensityTypeData["MED"].Key,
-				AvailableRockDefKeys  = new() { "sandstone", "slate", "marble" }
+				AvailableRockDefKeys  = new() { "RockSandstone", "RockSlate", "RockMarble" }
 			};
 
 			Map = MapManager.GenerateMap(mapInitConfig);

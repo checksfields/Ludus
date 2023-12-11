@@ -1,4 +1,8 @@
-﻿namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Entities.Natural;
+﻿using System.Text.Json.Nodes;
+using Bitspoke.Core.Definitions;
+using Bitspoke.Core.Utils.Json;
+
+namespace Bitspoke.Ludus.Shared.Environment.Map.Definitions.Generation.Entities.Natural;
 
 public class MapGenStepPlantsDef : MapGenStepDef
 {
@@ -12,6 +16,15 @@ public class MapGenStepPlantsDef : MapGenStepDef
 
     #endregion
 
+    #region Overrides
+
+    public override IDef Deserialize(JsonNode node)
+    {
+        return node.DeserializeAnonymousType(this);
+    }
+
+    #endregion
+    
     #region Methods
 
     #endregion

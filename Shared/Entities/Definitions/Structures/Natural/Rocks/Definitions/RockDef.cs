@@ -72,7 +72,7 @@ public class RockDef : NaturalStructureDef
         return new RockDef
         {
             Key = key,
-            GraphicDef = new GraphicDef { TextureDef = textureDef, Modulate = modulate },
+            GraphicDef = new GraphicDef { Texture = textureDef, Modulate = modulate },
             LinkDef = new() { LinkFlags = LinkFlags.Rock | LinkFlags.Edge }
         };
     }

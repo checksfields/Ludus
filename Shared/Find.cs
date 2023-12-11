@@ -48,38 +48,44 @@ public partial class Find : Bitspoke.GodotEngine.Find
         public static readonly TextureDatabase TextureDB = TextureDatabase.Instance;
         public static readonly ShaderDatabase ShaderDB = ShaderDatabase.Instance;
             
-            
-        public static readonly DefDatabase DefDB = DefDatabase.Instance;
+        
+        public static readonly DefDB DefDB = DefDB.Instance;
+
             
         // BIOME
-        public static readonly BiomeDefsCollection BiomeDefs = DefDB.GetFromDB<BiomeDefsCollection>();
+        public static Dictionary<string, BiomeDef> BiomeDefs = DefDB.Get<BiomeDef>();
+        public static readonly List<BiomeDef> BiomeDefsList = DefDB.GetAsList<BiomeDef>();
             
         // Map
-        public static readonly MapGenStepDefsCollection MapGenStepDefs = DefDB.GetFromDB<MapGenStepDefsCollection>();
+        public static Dictionary<string, MapGenStepDef> MapGenStepDefs = DefDB.Get<MapGenStepDef>();
+        public static readonly List<MapGenStepDef> MapGenStepDefsList = DefDB.GetAsList<MapGenStepDef>();
             
         // Layers
-        public static readonly List<Def> LayerDefsList = DefDB.Values.Where(w => typeof(ILayerDefsCollection).IsAssignableFrom(w.GetType())).ToList();
-        public static readonly List<Def> OrderedLayerDefs = LayerDefsList.OrderBy(o => ((ILayerDefsCollection)o).OrderIndex).ToList();
+        public static readonly List<IDef> LayerDefsList = DefDB.Values.Where(w => typeof(ILayerDefsCollection).IsAssignableFrom(w.GetType())).ToList();
+        public static readonly List<IDef> OrderedLayerDefs = LayerDefsList.OrderBy(o => ((ILayerDefsCollection)o).OrderIndex).ToList();
 
         // Entities
         public static Dictionary<string, EntityDef> EntityDefs = DefDB.Get<EntityDef>();
+        public static List<EntityDef> EntityDefsList = DefDB.GetAsList<EntityDef>();
         // Rocks
-        public static readonly RockDefsCollection RockDefs = DefDB.GetFromDB<RockDefsCollection>();
-        public static readonly List<RockDef> RockDefsList = RockDefs.Defs.Values.ToList();
+        public static readonly Dictionary<string, RockDef> RockDefs = DefDB.Get<RockDef>();
+        public static readonly List<RockDef> RockDefsList = DefDB.GetAsList<RockDef>();
         // Plants
         public static Dictionary<string, PlantDef> PlantDefs = DefDB.Get<PlantDef>();
-        public static Dictionary<string, PlantDef>? WildPlantDefs = DefDB.Get<PlantDef>(p => p?.IsWild ?? false);
-        public static readonly List<PlantDef> PlantDefsList = PlantDefs.Values.ToList();
+        public static List<PlantDef> PlantDefsList = DefDB.GetAsList<PlantDef>();
+        //public static List<PlantDef>? WildPlantDefs = DefDB.Get<PlantDef>(p => p?.IsWild ?? false);
+        public static List<PlantDef>? WildPlantDefs = DefDB.Get<PlantDef>().Values.Where(p => p?.PlantDetails.IsWild ?? false).ToList();
             
         // Roof
-        public static readonly RoofDefsCollection RoofDefs = DefDB.GetFromDB<RoofDefsCollection>();
+        public static readonly Dictionary<string, RoofDef> RoofDefs = DefDB.Get<RoofDef>();
+        public static readonly List<RoofDef> RoofDefsList = DefDB.GetAsList<RoofDef>();
             
             
         // Terrain
         private static Dictionary<string, TerrainDef>? terrainDefs;
         public static Dictionary<string, TerrainDef> TerrainDefs => terrainDefs ??= DefDB.Get<TerrainDef>();
-            
-        public static List<TerrainDef> TerrainDefsList = TerrainDefs.Values.ToList();
+        private static List<TerrainDef>? terrainDefsList;
+        public static List<TerrainDef> TerrainDefsList => terrainDefsList ??= DefDB.GetAsList<TerrainDef>();
             
         public partial class TypeData
         {

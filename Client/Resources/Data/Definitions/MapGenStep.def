@@ -45,9 +45,9 @@
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Structures.Natural.MapGenStepRockFormations",
     "MinElevation": 0.59,
     "AntecedentStepKeys": [
-      "MapGenStepDef_Elevation",
-      "MapGenStepDef_Fertility",
-      "MapGenStepDef_Rocks"
+      "MapGenStepDefElevation",
+      "MapGenStepDefFertility",
+      "MapGenStepDefRocks"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -59,7 +59,7 @@
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Structures.Natural.MapGenStepMineralFormations",
     "MinElevation": 0.59,
     "AntecedentStepKeys": [
-      "MapGenStepDef_RockFormations"
+      "MapGenStepDefRockFormations"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -72,9 +72,9 @@
     "MinElevation": 0.6194999,
     "MinRoofSize": 20,
     "AntecedentStepKeys": [
-      "MapGenStepDef_Elevation",
-      "MapGenStepDef_Rocks",
-      "MapGenStepDef_RockFormations"
+      "MapGenStepDefElevation",
+      "MapGenStepDefRocks",
+      "MapGenStepDefRockFormations"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -84,10 +84,10 @@
     "OrderIndex": 700,
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers.MapGenStepTerrainLayer",
     "AntecedentStepKeys": [
-      "MapGenStepDef_Elevation",
-      "MapGenStepDef_Fertility",
-      "MapGenStepDef_Rocks",
-      "MapGenStepDef_RockFormations"
+      "MapGenStepDefElevation",
+      "MapGenStepDefFertility",
+      "MapGenStepDefRocks",
+      "MapGenStepDefRockFormations"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -97,7 +97,7 @@
     "OrderIndex": 800,
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Structures.Natural.MapGenStepRivers",
     "AntecedentStepKeys": [
-      "MapGenStepDef_Terrain"
+      "MapGenStepDefTerrain"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -107,7 +107,7 @@
     "OrderIndex": 900,
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers.MapGenStepTerrainPatches",
     "AntecedentStepKeys": [
-      "MapGenStepDef_Terrain"
+      "MapGenStepDefTerrain"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -117,7 +117,7 @@
     "OrderIndex": 1000,
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Entities.MapGenStepRockChunks",
     "AntecedentStepKeys": [
-      "MapGenStepDef_Terrain"
+      "MapGenStepDefTerrain"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -129,7 +129,7 @@
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Entities.MapGenStepPlants",
     "IndependentSpawnChance": 0.999,
     "AntecedentStepKeys": [
-      "MapGenStepDef_Terrain"
+      "MapGenStepDefTerrain"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -139,7 +139,7 @@
     "OrderIndex": 1200,
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Entities.MapGenStepAnimals",
     "AntecedentStepKeys": [
-      "MapGenStepDef_Terrain"
+      "MapGenStepDefTerrain"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   },
@@ -149,7 +149,7 @@
     "OrderIndex": 1300,
     "GenStepType": "Bitspoke.Ludus.Shared.Environment.Map.Generation.Steps.Layers.MapGenStepFogLayer",
     "AntecedentStepKeys": [
-      "MapGenStepDef_Terrain"
+      "MapGenStepDefTerrain"
     ],
     "WaitForAntecedentStepsDelayMs": 25
   }

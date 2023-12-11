@@ -36,6 +36,15 @@ public abstract class EntityDef : Def
     public void AddDefComponent(IDef def) => DefCollectionComponent.Add(def.GetType().Name, def);
     public void AddDefComponent(string key, IDef def) => DefCollectionComponent.Add(key, def);
     
+    public bool TryAddDefComponent(IDef def) => DefCollectionComponent.TryAdd(def.GetType().Name, def);
+    public bool TryAddDefComponent(string key, IDef def)
+    {
+        var added = DefCollectionComponent.TryAdd(key, def); 
+        if (!added) Log.Error($"Error attempting to add {key} to DefCollection", -9999999);
+        
+        return added;
+    }
+
     public bool HasDefComponent<T>() => HasDefComponent(typeof(T).Name);
     public bool HasDefComponent(string key) => DefCollectionComponent.Contains(key);
     

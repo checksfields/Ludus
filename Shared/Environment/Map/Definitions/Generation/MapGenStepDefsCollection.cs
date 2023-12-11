@@ -57,8 +57,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
             OrderIndex = orderIndex += 100,
             CanParallelProcess = true,
             NoiseDef = noiseDef,
-            GenStepClassName = typeof(MapGenStepElevationLayer).FullName,
-            GenStepAssemblyName = typeof(MapGenStepElevationLayer).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepElevationLayer).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepElevationLayer).Assembly.GetName().Name,
         };
         defs.Add(elevationLayerDef);
             
@@ -67,8 +67,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
             OrderIndex = orderIndex += 100,
             CanParallelProcess = true,
             NoiseDef = noiseDef,
-            GenStepClassName = typeof(MapGenStepFertilityLayer).FullName,
-            GenStepAssemblyName = typeof(MapGenStepFertilityLayer).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepFertilityLayer).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepFertilityLayer).Assembly.GetName().Name,
         };
         defs.Add(fertilityLayerDef);
 
@@ -76,8 +76,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
             Key = $"{nameof(MapGenStepDef)}_Rocks",
             OrderIndex = orderIndex += 100,
             CanParallelProcess = true,
-            GenStepClassName = typeof(MapGenStepRocksLayer).FullName,
-            GenStepAssemblyName = typeof(MapGenStepRocksLayer).Assembly.GetName().Name
+            // GenStepClassName = typeof(MapGenStepRocksLayer).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepRocksLayer).Assembly.GetName().Name
         };
         defs.Add(rocksLayerDef);
 
@@ -85,8 +85,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var rockFormationsDef = new MapGenStepRockFormationsDef {
             Key = $"{nameof(MapGenStepDef)}_RockFormations",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepRockFormations).FullName,
-            GenStepAssemblyName = typeof(MapGenStepRockFormations).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepRockFormations).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepRockFormations).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -101,8 +101,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var mineralFormationsDef = new MapGenStepMineralFormationsDef {
             Key = $"{nameof(MapGenStepDef)}_Minerals",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepMineralFormations).FullName,
-            GenStepAssemblyName = typeof(MapGenStepMineralFormations).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepMineralFormations).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepMineralFormations).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -115,8 +115,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var roofsMapGenStepDef = new MapGenStepRoofLayerDef() {
             Key = $"{nameof(MapGenStepDef)}_Roof",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepRoofLayer).FullName,
-            GenStepAssemblyName = typeof(MapGenStepRoofLayer).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepRoofLayer).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepRoofLayer).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -132,8 +132,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var terrainLayerDef = new MapGenStepDef {
             Key = $"{nameof(MapGenStepDef)}_Terrain",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepTerrainLayer).FullName,
-            GenStepAssemblyName = typeof(MapGenStepTerrainLayer).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepTerrainLayer).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepTerrainLayer).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -148,8 +148,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var riversDef = new MapGenStepDef {
             Key = $"{nameof(MapGenStepDef)}_Rivers",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepRivers).FullName,
-            GenStepAssemblyName = typeof(MapGenStepRivers).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepRivers).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepRivers).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -161,8 +161,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var terrainPatchesDef = new MapGenStepDef {
             Key = $"{nameof(MapGenStepDef)}_TerrainPatches",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepTerrainPatches).FullName,
-            GenStepAssemblyName = typeof(MapGenStepTerrainPatches).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepTerrainPatches).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepTerrainPatches).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -174,8 +174,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var rockChunksDef = new MapGenStepDef {
             Key = $"{nameof(MapGenStepDef)}_RockChunks",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepRockChunks).FullName,
-            GenStepAssemblyName = typeof(MapGenStepRockChunks).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepRockChunks).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepRockChunks).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -187,8 +187,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var plantsDef = new MapGenStepPlantsDef {
             Key = $"{nameof(MapGenStepDef)}_Plants",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepPlants).FullName,
-            GenStepAssemblyName = typeof(MapGenStepPlants).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepPlants).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepPlants).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -201,8 +201,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var animalDef = new MapGenStepDef {
             Key = $"{nameof(MapGenStepDef)}_Animals",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepAnimals).FullName,
-            GenStepAssemblyName = typeof(MapGenStepAnimals).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepAnimals).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepAnimals).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {
@@ -214,8 +214,8 @@ public class MapGenStepDefsCollection : DefCollection<MapGenStepDef>
         var fogDef = new MapGenStepDef {
             Key = $"{nameof(MapGenStepDef)}_Fog",
             OrderIndex = orderIndex += 100,
-            GenStepClassName = typeof(MapGenStepFogLayer).FullName,
-            GenStepAssemblyName = typeof(MapGenStepFogLayer).Assembly.GetName().Name,
+            // GenStepClassName = typeof(MapGenStepFogLayer).FullName,
+            // GenStepAssemblyName = typeof(MapGenStepFogLayer).Assembly.GetName().Name,
             WaitForAntecedentStepsDelayMs = 25,
             AntecedentStepKeys = new List<string>
             {

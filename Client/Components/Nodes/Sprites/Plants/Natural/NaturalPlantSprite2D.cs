@@ -61,7 +61,7 @@ public partial  class NaturalPlantSprite2D : PlantSprite2D
     public override void BuildSprite(Vector2 parentGlobalPosition, Texture2D? texture2D = null)
     {
         var plantDef = (PlantDef) LudusEntity.Def;
-        texture2D ??= Find.DB.TextureDB[plantDef.GraphicDef.TextureDef.TextureResourcePath];
+        texture2D ??= Find.DB.TextureDB[plantDef.Graphic.Texture.TextureResourcePath];
         
         var locComp = LudusEntity.GetComponent<LocationComponent>();
         var location = (locComp.Location.ToVector2() * 64) + new Vector2(32, 0);

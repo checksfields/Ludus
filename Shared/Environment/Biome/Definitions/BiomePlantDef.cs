@@ -19,12 +19,12 @@ public class BiomePlantDef : DefPart
         
     public bool  WildPlantsIgnoreFertility = false; 
     [JsonIgnore] private List<PlantDef>? CachedWildPlants { get; set; }
-    [JsonIgnore] public List<PlantDef> WildPlants => CachedWildPlants ??= Find.DB.WildPlantDefs.Values
-        .Where(w => w.CanCluster && PlantWeights.ContainsKey(w.Key))
+    [JsonIgnore] public List<PlantDef> WildPlants => CachedWildPlants ??= Find.DB.WildPlantDefs
+        .Where(w => w.PlantDetails.CanCluster && PlantWeights.ContainsKey(w.Key))
         .ToList();
 
     [JsonIgnore] private float? CachedMaxClusterRadius { get; set; }
-    [JsonIgnore] public float MaxClusterRadius => CachedMaxClusterRadius ??= WildPlants?.Max(m => m.ClusterDef?.Radius ?? -1) ?? 0;
+    [JsonIgnore] public float MaxClusterRadius => CachedMaxClusterRadius ??= WildPlants?.Max(m => m.PlantDetails.ClusterDef?.Radius ?? -1) ?? 0;
         
     [JsonIgnore] public float TotalWeight => PlantWeights.Values.Sum(s => s.Frequency);
         

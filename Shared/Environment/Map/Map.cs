@@ -68,7 +68,7 @@ public class Map : LudusEntity
         if (world != null)
             world.Maps[MapID.ID.Value] = this;
             
-        BiomeDef = Find.DB.BiomeDefs.Get<BiomeDef>(initConfig.BiomeKey);
+        BiomeDef = Find.DB.BiomeDefs[initConfig.BiomeKey];
         AddComponentsPostConstructor();
         AddSystems();
                 

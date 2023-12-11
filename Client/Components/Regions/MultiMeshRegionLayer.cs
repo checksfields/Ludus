@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bitspoke.Core.Components.Location;
+using Bitspoke.Core.Databases.Keys;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types;
+using Bitspoke.Core.Utils.Collections;
 using Bitspoke.Core.Utils.Primatives.Float;
 using Bitspoke.GodotEngine.Common.Vector;
 using Bitspoke.GodotEngine.Utils.Vector;
@@ -49,7 +52,9 @@ public partial class MultiMeshRegionLayer : RegionLayer
         LayerID = layerID;
         LayerEntities = layerEntities;
         GraphicDef = graphicDef;
-        LayerTexture = Find.DB.TextureDB[GraphicDef.TextureDef.TextureResourcePath];
+        var rootPath = GraphicDef.Texture.RootPath;
+        var variationPath = GraphicDef.Texture.Variations.Values.First().First().Path;
+        LayerTexture = Find.DB.TextureDB[KeyFactory.TextureDatabaseKey($"{rootPath}{variationPath}")];
     }
 
     public override void Init()
@@ -65,7 +70,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
         MultiMeshInstance2D.Multimesh.Mesh = MeshInstance2D.Mesh;
             
         var  colour = MultiMeshInstance2D.SelfModulate;
-        colour.A = GraphicDef.TextureDef.Opacity;
+        colour.A = GraphicDef.Texture.Opacity;
             
         MultiMeshInstance2D.SelfModulate = colour;
         
@@ -104,11 +109,13 @@ public partial class MultiMeshRegionLayer : RegionLayer
             return;
         
         // we only access one type of entity at a time (one def type)
+        //var graphicsDef = ((IGraphicDef)LayerEntities[0].Def).Graphic;
         var graphicsDef = LayerEntities[0].Def.GetDefComponent<GraphicDef>();
-        MultiMeshTextureTypeDetailsDef multiMeshTextureTypeDef = (MultiMeshTextureTypeDetailsDef) graphicsDef.TextureDef.TextureTypeDetails;
-        var maxCountInCell = multiMeshTextureTypeDef.MaxCountInCell;
-        var xLocationVariation = multiMeshTextureTypeDef.LocationVariationX;
-        var yLocationVariation = multiMeshTextureTypeDef.LocationVariationY;
+        MultiMeshTextureTypeDetailsDef multiMeshTextureTypeDef = (MultiMeshTextureTypeDetailsDef) graphicsDef.Texture.TextureTypeDetails;
+        var minCountInCell = multiMeshTextureTypeDef.Density.Min;
+        var maxCountInCell = multiMeshTextureTypeDef.Density.Max;
+        var xLocationVariation = graphicsDef.PositionVariation;
+        var yLocationVariation = graphicsDef.PositionVariation;
 
         
         // **** 20231115 Benchmark @ 0 ms
@@ -118,7 +125,7 @@ public partial class MultiMeshRegionLayer : RegionLayer
             if (ludusEntity.HasComponent<GrowthComponent>())
                 growth = ludusEntity.GetComponent<GrowthComponent>().CurrentGrowthPercent;
             
-            var numberInCell = (growth * maxCountInCell).Ceiling();
+            var numberInCell = Math.Max(minCountInCell, growth * maxCountInCell).Ceiling();
             AdditionalMeshes.Add(ludusEntity.ID, numberInCell);
         }
         
@@ -143,8 +150,8 @@ public partial class MultiMeshRegionLayer : RegionLayer
             // **** 20231115 Benchmark @ 0 ms
             for (int i = 0; i < numberInCell; i++)
             {
-                var xOffset = xLocationVariation.RandRange();
-                var yOffset = yLocationVariation.RandRange();
+                var xOffset = xLocationVariation.RandRange() * CoreGlobal.STANDARD_CELL_SIZE;
+                var yOffset = yLocationVariation.RandRange() * CoreGlobal.STANDARD_CELL_SIZE;
                 var loc = localLocation + new Vector2(xOffset, yOffset);
                 var transform2D = graphicsDef.GenerateTransform2D(loc);
                 

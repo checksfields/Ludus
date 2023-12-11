@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Entities.Definitions.Structures.Natural.Rocks.Definitions;
 
+[Obsolete("Deprecated", true)]
 public class RockDefsCollection : DefCollection<RockDef>
 {
     #region Properties
@@ -52,16 +53,17 @@ public class RockDefsCollection : DefCollection<RockDef>
     /// </summary>
     private void OnLoadAllComplete()
     {
-        var  orderIndexMax = Find.DB.TerrainDefs.Select(s => s.Value.OrderIndex).Max();
-        foreach (var rockDef in Find.DB.RockDefsList)
-        {
-            var layerKey = $"rock_{rockDef.Key.ToLower()}";
-            var layerDef = TerrainDef.BootstrapRuntime(++orderIndexMax, layerKey);
-            layerDef.Ascii = rockDef.Ascii?.ToUpper();
-            rockDef.AssociatedTerrainDefKey = layerDef.Key;
-            
-            Find.DB.TerrainDefs.Add(layerKey, layerDef);
-        }
+        // TODO: If we ever re-activate this class we need to put this back in
+        // var  orderIndexMax = Find.DB.TerrainDefs.Select(s => s.Value.OrderIndex).Max();
+        // foreach (var rockDef in Find.DB.RockDefsList)
+        // {
+        //     var layerKey = $"rock_{rockDef.Key.ToLower()}";
+        //     var layerDef = TerrainDef.BootstrapRuntime(++orderIndexMax, layerKey);
+        //     layerDef.Ascii = rockDef.Ascii?.ToUpper();
+        //     rockDef.AssociatedTerrainDefKey = layerDef.Key;
+        //     
+        //     Find.DB.TerrainDefs.Add(layerKey, layerDef);
+        // }
     }
     
     #endregion

@@ -34,7 +34,7 @@ public class MapGenStepRoofLayer : MapGenStep
                 continue;
             
             // TODO: Should this be using a collection of RoofDefs rather than just getting the normal one??
-            mapCell.RoofDef = Find.DB.RoofDefs["normal"].Clone();
+            mapCell.RoofDef = Find.DB.RoofDefs["RoofNormal"].Clone();
             mapCell.RoofDef.Index = mapCell.Index;
         }
         Profiler.End();

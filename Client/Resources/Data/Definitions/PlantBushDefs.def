@@ -1,0 +1,86 @@
+﻿{
+  "BushGeneral": {
+    "Key": "BushGeneral",
+    "Parent": "BushBase",
+    "Order": 2.0,
+    "LabelKey": "bush_general",
+    "DescriptionKey": "bush_general_desc",
+    "Graphic": {
+      "Texture": {
+          "Variations": {
+              "Normal":  [
+                { "Weight": 1, "Path": "busha" }
+              ],
+            
+              "Lifeless": [ 
+                { "Path": "busha_lifeless" }
+              ]
+          }
+      }
+    }
+  },
+  "BushBerry": {
+    "Key": "BushBerry",
+    "Parent": "BushBase",
+    "SubTypes": "Bush, Harvestable",
+    "Order": 3.0,
+    "LabelKey": "bush_berry",
+    "DescriptionKey": "bush_berry_desc",
+    "Graphic": {
+      "Texture": {
+        "Variations": {
+          "Normal":  [
+            { "Weight": 1, "Path": "bushberrya" }
+          ],
+
+          "Lifeless": [
+            { "Path": "bushberrya_lifeless" }
+          ]
+        }
+      },
+      "Scale": { "Min": 0.3, "Max": 0.6  }
+    },
+    "Plant": {
+      "Fertility": { "Min": 0.5, "Max": 1.0 },
+      "Cluster": { "Radius": 8, "Weight": 20 }
+    },
+    "Grow": {
+      "DaysByBiome": {
+        "BiomeDefault" : 6,
+        "Temperate" : 6
+      }
+    }
+  },
+  "BushHealRoot": {
+    "Key": "BushHealRoot",
+    "Parent": "BushBase",
+    "SubTypes": "Bush, Harvestable",
+    "Order": 3.0,
+    "LabelKey": "bush_heal_root",
+    "DescriptionKey": "bush_heal_root_desc",
+    "Graphic": {
+      "Texture": {
+        "Variations": {
+          "Normal":  [
+            { "Weight": 1, "Path": "bushhealroota" }
+          ],
+
+          "Lifeless": [
+            { "Path": "bushhealroota_lifeless" }
+          ]
+        }
+      },
+      "Scale": { "Min": 0.3, "Max": 1.0  }
+    },
+    "Plant": {
+      "Fertility": { "Min": 0.7, "Max": 1.0 },
+      "Cluster": { "Radius": 8, "Weight": 20 }
+    },
+    "Grow": {
+      "DaysByBiome": {
+        "BiomeDefault" : 10,
+        "Temperate" : 10
+      }
+    }
+  }
+}

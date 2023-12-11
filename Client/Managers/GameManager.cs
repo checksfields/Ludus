@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Bitspoke.Core.Common.Maths.Geometry;
 using Bitspoke.Core.Common.States.Games;
@@ -81,7 +82,7 @@ public partial class GameManager : GodotNode2D
 
         Log.Info("Setting Instance");
         instance = this;
-
+        
         if (GodotGlobal.RUN_BOOTSTRAP_ENABLED)
         {
             Log.Info("Running Bootstrap");
@@ -133,7 +134,11 @@ public partial class GameManager : GodotNode2D
         Log.Info();
         // load any application specific runtime resources
         // terrain atlas texture
-        var terrainDefsKeys = Find.DB.TerrainDefs.OrderBy(td => td.Value.OrderIndex).Select(s => s.Key).ToList();
+        var terrainDefsKeys = Find.DB.TerrainDefs
+            .OrderBy(td => td.Value.OrderIndex)
+            .Select(s => s.Value.Graphic.Texture.Variations.First().Value.First().Path)
+            .ToList();
+        
         TextureLoader.Instance.LoadAtlasTexture("Terrain/", "Terrain/Atlas", terrainDefsKeys);
     }
         
@@ -142,18 +147,19 @@ public partial class GameManager : GodotNode2D
         Log.Info();
         Circle.PrimeCache((LudusGameSettingsComponent.MapSize.x / 2f).Ceiling());
     }
-        
+    
     private void RunBootstrap()
     {
         Log.Info();
-        BiomeDefsCollection.Bootstrap(true);
-        MapGenStepDefsCollection.Bootstrap(true);
-        LayerAffordanceDefsCollection.Bootstrap(true);
-        TerrainDefsCollection.Bootstrap(true);
-        FloorLayerDefsCollection.Bootstrap(true);
-        RockDefsCollection.Bootstrap(true);
-        RoofDefsCollection.Bootstrap(true);
-        PlantDefsCollection.Bootstrap(true);
+        // TODO: Add Def Bootstrapping back in (if needed)??
+        // BiomeDefsCollection.Bootstrap(true);
+        // MapGenStepDefsCollection.Bootstrap(true);
+        // LayerAffordanceDefsCollection.Bootstrap(true);
+        // TerrainDefsCollection.Bootstrap(true);
+        // FloorLayerDefsCollection.Bootstrap(true);
+        // RockDefsCollection.Bootstrap(true);
+        // RoofDefsCollection.Bootstrap(true);
+        // PlantDefsCollection.Bootstrap(true);
 
         ElevationTypeData.Bootstrap(true);
         LudusGameStatesTypeData.Bootstrap(true);

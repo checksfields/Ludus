@@ -18,29 +18,49 @@ using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 
 namespace Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 
-public class PlantDef : EntityDef
+public class PlantDef : EntityDef, IGraphicDef
 {
     #region Properties
     
     [JsonIgnore] public override EntityType Type { get; set; } = EntityType.Plant;
     [JsonIgnore] public override int        SubTypesFlag => SubTypes.Int();
     public PlantType SubTypes      { get; set; } = PlantType.Undefined;
-    
-    public bool      IsWild        { get; set; }
-    [JsonIgnore] public bool      CanCluster    => ClusterDef != null;
-    [JsonIgnore] public float     Order         { get; set; }
+
+    [JsonIgnore] public bool  IsWild     => PlantDetails.IsWild;
+    [JsonIgnore] public bool  CanCluster => PlantDetails.CanCluster;
+    [JsonIgnore] public float Order      { get; set; }
 
     [JsonIgnore] public RangeDef<float>?  FertilityRange  => GetDefComponent<RangeDef<float>>("fertilityrange");
     [JsonIgnore] public MovementCostDef?  MovementCostDef => GetDefComponent<MovementCostDef>();
     [JsonIgnore] public PlacementMaskDef? PlacementMask   => GetDefComponent<PlacementMaskDef>();
-    [JsonIgnore] public ClusterDef?       ClusterDef      => GetDefComponent<ClusterDef>();
-    [JsonIgnore] public GraphicDef?       GraphicDef      => GetDefComponent<GraphicDef>();
+    //[JsonIgnore] public ClusterDef?       ClusterDef      => GetDefComponent<ClusterDef>();
+    //[JsonIgnore] public GraphicDef?       GraphicDef      => GetDefComponent<GraphicDef>();
 
     // NEW Format
-    [JsonPropertyName("Graphic")]   public GraphicDef Graphic { get; set; }
+    [JsonPropertyName("Graphic")]
+    public GraphicDef Graphic
+    {
+        get => GetDefComponent<GraphicDef>();
+        set => TryAddDefComponent(value);
+    }
+
     [JsonPropertyName("Plant")]     public PlantDetailsDef PlantDetails { get; set; }
-    [JsonPropertyName("Age")]       public AgeDef Age { get; set; }
-    [JsonPropertyName("Grow")]      public GrowthDef Growth { get; set; }
+    
+    [JsonPropertyName("Age")]       
+    public AgeDef Age 
+    {
+        get => GetDefComponent<AgeDef>();
+        set => TryAddDefComponent(value);
+    }
+
+    [JsonPropertyName("Grow")]
+    public GrowthDef? Growth
+    {
+        get => GetDefComponent<GrowthDef>();
+        set => TryAddDefComponent(value);
+    }
+
+
     [JsonPropertyName("Placement")] public PlacementMaskDef Placement { get; set; }
     
     #endregion
@@ -64,7 +84,7 @@ public class PlantDef : EntityDef
         base.Clone(clone);
 
         //clone.SubTypes   = SubTypes;
-        clone.IsWild     = IsWild;
+        //clone.IsWild     = IsWild;
         clone.Order      = Order;
 
         clone.Graphic = Graphic.Clone();

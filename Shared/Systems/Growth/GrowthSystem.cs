@@ -40,6 +40,9 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
     public TickComponent? TickComponent { get; } = new(IDProvisionSystem.NextID(IDType.TimerComponent));
     
     public ulong Ticks { get; set; } = 0u;
+    private ulong PreviousTicks { get; set; } = 0u;
+    private ulong DeltaTicks => Ticks - PreviousTicks;
+    public ulong GrowthTicks { get; set; } = 0u;
     
     #endregion
 
@@ -88,7 +91,9 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
     
     public void OnTick(ulong? ticks)
     {
-        Ticks++;
+        GrowthTicks++;
+        PreviousTicks = Ticks;
+        Ticks += ticks.Value;
         
         // throwing ProcessTick into a task so we can return control asap
         //Profile(() => { Task.Run(ProcessTick).ContinueWith(OnProcessTickComplete); });
@@ -127,7 +132,7 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
                     growthIncrement = GrowthRateModifierForMapLight(growthIncrement, map.Data.Light);
                     growthIncrement = GrowthRateModifierForMapMoisture(growthIncrement, map.Data.Moisture);
                     
-                    growthComponent.CurrentGrowthPercent += growthIncrement;
+                    growthComponent.CurrentGrowDays += DeltaTicks / CoreGlobal.CalendarConstants.TICKS_PER_DAY;
                 }
             }));    
         }

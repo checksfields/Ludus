@@ -1,4 +1,5 @@
-﻿using Bitspoke.Core.Profiling;
+﻿using Bitspoke.Core.Common.Generation.Steps;
+using Bitspoke.Core.Profiling;
 using Bitspoke.Core.Random;
 using Bitspoke.Core.Utils.Reflection;
 using Bitspoke.Ludus.Shared.Common.TypeDatas.Game.States;
@@ -44,13 +45,14 @@ public class MapGenerator
     private static void RunGenSteps(Map map)
     {
         var tasks = new List<Task>();
-        var steps = Find.DB.MapGenStepDefs.Defs.Values.Count;
+        var steps = Find.DB.MapGenStepDefs.Values.Count;
         var currentStep = 1;
-        foreach (var mapGenStepDef in Find.DB.MapGenStepDefs.Defs.Values.OrderBy(o => o.OrderIndex))
+        
+        foreach (var mapGenStepDef in Find.DB.MapGenStepDefs.Values.OrderBy(o => o.OrderIndex))
         {
-            var assembly = mapGenStepDef.GenStepAssemblyName.GetAssembly();
-            var genStep = assembly.GetInstance<MapGenStep>(mapGenStepDef.GenStepClassName, map, mapGenStepDef);
-                
+            var genStepTypeName = mapGenStepDef.GenStepType;
+            var genStep = genStepTypeName.GetInstanceFromTypeFullName<MapGenStep>(map, mapGenStepDef);
+                 
             tasks.Add(Task.Run(() =>
             {
                 genStep.Generate();
@@ -59,17 +61,6 @@ public class MapGenerator
         }
 
         Task.WaitAll(tasks.ToArray());
-            
-            
-            
-        Profiler.Start();
-        var all2 = map.Data.CellsContainer.CellsByRegion.Array.SelectMany(a => a.Values);
-        Profiler.End();
-            
-        Profiler.Start();
-        var all = map.Data.CellsContainer.CellsByRegion.Array.AsParallel().SelectMany(a => a.Values);
-        Profiler.End();
-
     }
         
     #endregion

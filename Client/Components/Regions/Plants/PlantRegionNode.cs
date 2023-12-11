@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bitspoke.Core.Common.Graphics.Textures;
+using Bitspoke.Core.Databases.Keys;
 using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Ludus.Client.Components.Nodes.Sprites;
 using Bitspoke.Ludus.Client.Components.Nodes.Sprites.Plants.Natural;
@@ -56,7 +57,27 @@ public partial class PlantRegionNode : RegionNode
         {
             var def = Find.DB.PlantDefs[plantByTypeKey];
             PlantDefs.Add(plantByTypeKey, def);
-            Textures.Add(plantByTypeKey, Find.DB.TextureDB[def.GraphicDef.TextureDef.TextureResourcePath]);
+            
+            foreach (var (key, value) in def.Graphic.Texture.Variations)
+            {                    
+                // TODO - Tier 1: Critical Fix this ... it is only getting the first instance of the variations.  It needs to hold all of them
+                var ok = false;
+                
+                foreach (var textureVariationDef in value)
+                {
+                    var fullPath = $"{def.Graphic.Texture.RootPath }{textureVariationDef.Path}";
+                    Find.DB.TextureDB.TryGetValue(KeyFactory.TextureDatabaseKey(fullPath), out var texture);
+                    if (texture == null)
+                        continue;
+                    
+                    ok = Textures.TryAdd(plantByTypeKey, texture);
+                    if (ok)
+                        break;
+                }
+                
+                if (ok)
+                    break;
+            }
         }
         Name = $"{RegionID}_{NodeName}_{GetInstanceId()}";
     }
@@ -93,8 +114,11 @@ public partial class PlantRegionNode : RegionNode
                 foreach (var ludusEntity in toAdd.Value)
                 {
                     var sprite2D = ludusEntity.BuildSprite<NaturalPlantSprite2D>(GlobalPosition, texture);
-                    Sprites.AddChild(sprite2D);
-                    SpriteNodes.Add(ludusEntity.ID, sprite2D);
+                    
+                    if (SpriteNodes.TryAdd(ludusEntity.ID, sprite2D))
+                    {
+                        Sprites.AddChild(sprite2D);
+                    }
                 }
             }
             EntitiesToAdd.Clear();
@@ -152,7 +176,7 @@ public partial class PlantRegionNode : RegionNode
         foreach (var plantByType in Region.PlantsByType())
         {
             var def = PlantDefs[plantByType.Key];
-            var textureType = def.GraphicDef.TextureDef.TextureTypeDetails.TextureType;
+            var textureType = def.Graphic.Texture.TextureTypeDetails.TextureType;
 
             ItemCount += plantByType.Value.Count;
                 
@@ -175,7 +199,7 @@ public partial class PlantRegionNode : RegionNode
                     //     AddChild(layer);
                     // }
                     layerID++;
-                    AddMeshes(layerID, def.GraphicDef, plantByType.Value);
+                    AddMeshes(layerID, def.Graphic, plantByType.Value);
                         
                     break;
                 case TextureType.Single:

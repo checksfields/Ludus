@@ -15,7 +15,7 @@
     },
     "Grow": {
       "DaysByBiome": {
-        "General": 1,
+        "BiomeDefault": 1,
         "Temperate": 1.2
       }
     }
@@ -37,8 +37,68 @@
     },
     "Grow": {
       "DaysByBiome": {
-        "General": 1.1,
+        "BiomeDefault": 1.1,
         "Temperate": 1.3
+      }
+    }
+  },
+  "Brambles": {
+    "Key": "CoverBrambles",
+    "Parent": "CoverBase",
+    "LabelKey": "cover_brambles",
+    "DescriptionKey": "cover_brambles_desc",
+    "Graphic": {
+      "Opacity": 1.0,
+      "Texture": {
+        "Variations": {
+          "Normal":  [
+            { "Weight": 1, "Path": "bramblesa" }
+          ]
+        },
+        "Details": {
+          "DefType": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.MultiMeshTextureTypeDetailsDef",
+          "TextureType": "MultiMesh",
+          "Density": { "Min": 1, "Max": 4 }
+        }
+      },
+      "Scale": { "Min": 0.7, "Max": 0.85  }
+    },
+    "Grow": {
+      "DaysByBiome": {
+        "BiomeDefault": 3,
+        "Temperate": 3
+      }
+    }
+  },
+  "Dandelion": {
+    "Key": "CoverDandelion",
+    "Parent": "CoverBase",
+    "Order": 3.0,
+    "LabelKey": "cover_dandelion",
+    "DescriptionKey": "cover_dandelion_desc",
+    "Graphic": {
+      "Opacity": 1.0,
+      "Texture": {
+        "Variations": {
+          "Normal":  [
+            { "Weight": 1, "Path": "dandelion" }
+          ]
+        },
+        "Details": {
+          "DefType": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.MultiMeshTextureTypeDetailsDef",
+          "TextureType": "MultiMesh",
+          "Density": { "Min": 5, "Max": 25 }
+        }
+      },
+      "Scale": { "Min": 0.15, "Max": 0.25  }
+    },
+    "Plant": {
+      "Cluster": { "Radius": 8, "Weight": 20 }
+    },
+    "Grow": {
+      "DaysByBiome": {
+        "BiomeDefault": 2.5,
+        "Temperate": 2.5
       }
     }
   }

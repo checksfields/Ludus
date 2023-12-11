@@ -92,7 +92,7 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         if (!found)
             return false;
 
-        var plant = new Plant((PlantDef) result.Key);
+        var plant = new Plant((PlantDef) result.Key, mapCell);
 
         plant.MapCell = mapCell;
         
@@ -180,21 +180,21 @@ public class NaturalPlantSpawnSystem : NaturalEntitySpawnSystem<Plant>
         var totalWeight = Map.BiomeDef.BiomePlantsDef.TotalWeight;
         var plantWeightPercent = plantWeight / totalWeight;
         var totalOtherWeight = totalWeight - plantWeight;
-        var plantClustrerWeight = plantWeight * plantDef.ClusterDef.Wieght;
+        var plantClustrerWeight = plantWeight * plantDef.PlantDetails.ClusterDef.Weight;
         var clusterWeight = totalOtherWeight + plantClustrerWeight;
-        var commonality = (double) plantWeight * plantDef.ClusterDef.Wieght / clusterWeight;
+        var commonality = (double) plantWeight * plantDef.PlantDetails.ClusterDef.Weight / clusterWeight;
         
         
         
-        float outTo1 = (float) (1.0 / Math.PI * Math.Pow(plantDef.ClusterDef.Radius, 2));
+        float outTo1 = (float) (1.0 / Math.PI * Math.Pow(plantDef.PlantDetails.ClusterDef.Radius, 2));
         float outTo2 = new Range(plantWeightPercent, 1f).Lerp(new Range(1f, outTo1), (float) commonality);
 
         var medianDistance = 0f;
         if (PlantDefMedianDistanceToSimilarPlants.TryGetValue(plantDef, out medianDistance))
         {
             var squareRootMedianDistance = medianDistance.Sqrt();
-            var range = new Range(plantDef.ClusterDef.Radius * 0.9f, plantDef.ClusterDef.Radius * 1.1f);
-            var lerpRange = new Range(plantDef.ClusterDef.Wieght, outTo2);
+            var range = new Range(plantDef.PlantDetails.ClusterDef.Radius * 0.9f, plantDef.PlantDetails.ClusterDef.Radius * 1.1f);
+            var lerpRange = new Range(plantDef.PlantDetails.ClusterDef.Weight, outTo2);
             plantWeight = range.Lerp(lerpRange, squareRootMedianDistance);
         }
         else

@@ -49,12 +49,14 @@ public abstract class MapGenStep
         {
             foreach (var runAfterGenStepKey in MapGenStepDef.AntecedentStepKeys)
             {
-                var def = Find.DB.MapGenStepDefs.Defs[runAfterGenStepKey];
+                var def = Find.DB.MapGenStepDefs[runAfterGenStepKey];
                 if (def != null)
                 {
-                    var assembly = def.GenStepAssemblyName.GetAssembly();
-                    var genStepType = assembly.GetType(def.GenStepClassName);
-                    var key = $"{genStepType.Name}_Complete";
+                    var genStep = def.GenStepType.GetTypeFromTypeFullName();
+                    
+                    // var assembly = def.GenStepAssemblyName.GetAssembly();
+                    // var genStep = assembly.GetType(def.GenStepType);
+                    var key = $"{genStep.Name}_Complete";
 
                     AntecedentStepsCompletedFlags.Add(key, false);
                         
@@ -80,7 +82,7 @@ public abstract class MapGenStep
     public void Generate()
     {
         if (!IsInitialised)
-            Log.Error($"{MapGenStepDef.GenStepClassName} has not been initialised.  Please call Init first.", -9999999);
+            Log.Error($"{MapGenStepDef.GenStepType} has not been initialised.  Please call Init first.", -9999999);
 
         while (!CanRun())
             Task.Run(async () => { await Task.Delay(WaitForAntecedentStepsDelayMs); }).Wait();

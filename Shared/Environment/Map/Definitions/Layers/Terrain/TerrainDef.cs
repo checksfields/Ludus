@@ -60,7 +60,7 @@ public class TerrainDef : LayerDef
         terrainDef.Fertility = fertility;
         terrainDef.GraphicDef = new GraphicDef
         {
-            TextureDef = new TextureDef
+            Texture = new TextureDef
             {
                 TextureResourcePath = $"{GodotGlobal.TEXTURES_RESOURCE_ROOT_PATH}/{Global.MAP_LAYERS_ROOT_PATH}/{key}",
                 TextureTypeDetails = new SingleTextureTypeDetailsDef(),
@@ -75,7 +75,7 @@ public class TerrainDef : LayerDef
     {
         var terrainLayerDef = Bootstrap(index, key, 0f);
         terrainLayerDef.AvailableAffordanceKeys = new() { "LightStructures", "MediumStructures", "HeavyStructures" };
-        terrainLayerDef.GraphicDef.TextureDef.TextureResourcePath = $"{GodotGlobal.TEXTURES_RESOURCE_ROOT_PATH}/{Global.MAP_LAYERS_ROOT_PATH}/RoughStone";
+        terrainLayerDef.GraphicDef.Texture.TextureResourcePath = $"{GodotGlobal.TEXTURES_RESOURCE_ROOT_PATH}/{Global.MAP_LAYERS_ROOT_PATH}/RoughStone";
         
         return terrainLayerDef;
     }

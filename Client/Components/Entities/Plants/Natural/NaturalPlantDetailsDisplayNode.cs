@@ -14,7 +14,7 @@ public partial class NaturalPlantDetailsDisplayNode : PlantDetailsDisplayNode
 
     public NaturalPlantDetailsDisplayNode(Plant plant) : base(plant)
     {
-        if (!plant.PlantDef?.IsWild ?? false)
+        if (!plant.PlantDef?.PlantDetails.IsWild ?? false)
             Log.Exception($"Plant must be of a Natural plant.", -9999999);
     }
     

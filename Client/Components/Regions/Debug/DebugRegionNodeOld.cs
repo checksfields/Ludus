@@ -57,7 +57,7 @@ public partial class DebugRegionNodeOld : RegionNode
             var def = Find.DB.TerrainDefs[terrainByType.Key];
             //var texture = Find.DB.TextureDB[def.GraphicDef.TextureDef.TextureResourcePath];
             var texture = Find.DB.TextureDB["default"];
-            var textureType = def.GraphicDef.TextureDef.TextureTypeDetails.TextureType;
+            var textureType = def.GraphicDef.Texture.TextureTypeDetails.TextureType;
 
             ItemCount += terrainByType.Value.Count;
             var layer = new DebugMultiMeshRegionLayer(layerID, texture, terrainByType.Value);

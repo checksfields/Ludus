@@ -7,8 +7,9 @@
       "Texture": {
         "RootPath": "Entities/Structure/Natural/Rocks/",
         "Opacity": 1.0,
-        "Type": {
-          "Atlas": { }
+        "Details": {
+          "DefType": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.AtlasTextureTypeDetailsDef",
+          "TextureType": "Atlas"
         },
         "Variations": {
           "Normal":  [

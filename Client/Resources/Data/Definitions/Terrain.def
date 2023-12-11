@@ -11,13 +11,9 @@
       "Texture": {
         "RootPath": "Images/Terrain/",
         "Opacity": 1.0,
-        "Type": {
-          "Single": { }
-        },
-        "Variations": {
-          "Normal":  [
-            { "Weight": 1, "Path": "rockatlas" }
-          ]
+        "Details": {
+          "DefType": "Bitspoke.Core.Definitions.Parts.Graphics.Textures.Types.SingleTextureTypeDetailsDef",
+          "TextureType": "Single"
         }
       },
       "Scale": { "Min": 1.0, "Max": 1.0  }
@@ -37,11 +33,16 @@
       "Growable",
       "Diggable"
     ],
-    "GraphicDef": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "soil" }
-        ]
+    "Graphic": {
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "soil"
+            }
+          ]
+        }
       }
     }
   },
@@ -59,11 +60,16 @@
       "Growable",
       "Diggable"
     ],
-    "GraphicDef": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "soilrich" }
-        ]
+    "Graphic": {
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "soilrich"
+            }
+          ]
+        }
       }
     }
   },
@@ -82,10 +88,15 @@
       "Diggable"
     ],
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "gravel" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "gravel"
+            }
+          ]
+        }
       }
     }
   },
@@ -101,10 +112,15 @@
       "Diggable"
     ],
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "softsand" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "softsand"
+            }
+          ]
+        }
       }
     }
   },
@@ -114,17 +130,22 @@
     "Parent": "TerrainDefBase",
     "LabelKey": "terrain_sand",
     "DescriptionKey": "terrain_sand_desc",
-    "Fertility": 0.10000001,
+    "Fertility": 0.1,
     "AvailableAffordanceKeys": [
       "LightStructures",
       "MediumStructures",
       "Diggable"
     ],
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "sand" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "sand"
+            }
+          ]
+        }
       }
     }
   },
@@ -136,10 +157,15 @@
     "DescriptionKey": "terrain_mud_desc",
     "Fertility": 0.0,
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "mud" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "mud"
+            }
+          ]
+        }
       }
     }
   },
@@ -158,10 +184,15 @@
       "Diggable"
     ],
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "mossy" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "mossy"
+            }
+          ]
+        }
       }
     }
   },
@@ -178,10 +209,15 @@
       "Diggable"
     ],
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "marshy" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "marshy"
+            }
+          ]
+        }
       }
     }
   },
@@ -198,10 +234,15 @@
       "Diggable"
     ],
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "ice" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "ice"
+            }
+          ]
+        }
       }
     }
   },
@@ -213,10 +254,15 @@
     "DescriptionKey": "terrain_water_desc",
     "Fertility": 0.0,
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "water" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "water"
+            }
+          ]
+        }
       }
     }
   },
@@ -228,10 +274,15 @@
     "DescriptionKey": "terrain_water_deep_desc",
     "Fertility": 0.0,
     "Graphic": {
-      "Variations": {
-        "Normal":  [
-          { "Weight": 1, "Path": "waterdeep" }
-        ]
+      "Texture": {
+        "Variations": {
+          "Normal": [
+            {
+              "Weight": 1,
+              "Path": "waterdeep"
+            }
+          ]
+        }
       }
     }
   }
