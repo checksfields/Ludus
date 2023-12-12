@@ -22,7 +22,7 @@
     },
     "Plant": {
       "Fertility": { "Range": { "Min": 0.6, "Max": 0.95 } },
-      "Cluster": { "Weight": 48 }
+      "Cluster": { "Radius": 12, "Weight": 75 }
     },
     "Grow": {
       "DaysByBiome": {

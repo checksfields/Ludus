@@ -105,7 +105,7 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
     /// </summary>
     private void ProcessTick()
     {
-        //Profile(() => { 
+        Profile(() => { 
             
         var map = Find.CurrentMap;    
             
@@ -125,19 +125,18 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
                 
                 foreach (var growthComponent in comps)
                 {
-                    var map = Find.CurrentMap;
-                    
-                    var growthIncrement = growthComponent.GrowIncrementPerGrowthUpdate;
+                    var growthIncrement = DeltaTicks;
                     growthIncrement = GrowthRateModifierForMapTemp(growthIncrement, map.Data.Temp);
                     growthIncrement = GrowthRateModifierForMapLight(growthIncrement, map.Data.Light);
                     growthIncrement = GrowthRateModifierForMapMoisture(growthIncrement, map.Data.Moisture);
-                    
-                    growthComponent.CurrentGrowDays += DeltaTicks / CoreGlobal.CalendarConstants.TICKS_PER_DAY;
+
+                    growthComponent.CurrentGrowDaysInTicks += growthIncrement;
                 }
             }));    
         }
         Task.WaitAll(tasks.ToArray());
-        //});
+        
+        });
     }
     
     private void OnProcessTickComplete(Task obj)
@@ -149,6 +148,8 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
         // //               to fix this we can move this back to the ProcessTick method, but it may slow that down, but 
         // //               it will be thread safe.
         // Task.Run(PurgeComponents).ContinueWith(OnPurgeComponentsComplete);
+        
+        PurgeComponents();  
         
         TickComplete.Invoke();
     }
@@ -168,27 +169,27 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
 
     #region Calculators
 
-    public static float GrowthRateModifierForMapTemp(float growthIncrement, float temp)
+    public static ulong GrowthRateModifierForMapTemp(ulong growthIncrement, float temp)
     {
         // temp is in Celsius.
         
         // TODO - Tier 1 - implement growth modifier calculation
         var growthModifier = 1f;
-        return growthIncrement * growthModifier;
+        return (ulong) (growthIncrement * growthModifier);
     }
 
-    public static float GrowthRateModifierForMapMoisture(float growthIncrement, float moisture)
+    public static ulong GrowthRateModifierForMapMoisture(ulong growthIncrement, float moisture)
     {
         // TODO - Tier 1 - implement growth modifier calculation
         var growthModifier = 1f;
-        return growthIncrement * growthModifier;
+        return (ulong) (growthIncrement * growthModifier);
     }
     
-    public static float GrowthRateModifierForMapLight(float growthIncrement, float light)
+    public static ulong GrowthRateModifierForMapLight(ulong growthIncrement, float light)
     {
         // TODO - Tier 1 - implement growth modifier calculation
         var growthModifier = 1f;
-        return growthIncrement * growthModifier;
+        return (ulong) (growthIncrement * growthModifier);
     }
     
     #endregion

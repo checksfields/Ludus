@@ -26,14 +26,7 @@ public static class NameValueGridContainerHelper
     public static void AddGrowthComponent(this NameValueGridContainer container, GrowthComponent component, int order = -1, bool showDetailed = true)
     {
         //container.AddHeader("Growth", false);
-        container.AddNameValuePair($"Current Growth:", component.CurrentGrowthPercent.ToString, order != -1 ? order++ : order, !showDetailed);
-        
-        if (!showDetailed)
-            return;
-        
-        container.AddNameValuePair($"Max Growth:", component.MaxGrowthPercent.ToString,  order != -1 ? order++ : order, false);
-        container.AddNameValuePair($"Min Growth:", component.MaxGrowthPercent.ToString,  order != -1 ? order++ : order, false);
-        container.AddNameValuePair($"Is Fully Grown:", component.IsFullyGrown.ToString,  order != -1 ? order++ : order);
+        container.AddNameValuePair($"Current Growth:", component.GetCurrentGrowPercentForDisplay, order != -1 ? order++ : order, true);
     }
     
     public static void AddAgeComponent(this NameValueGridContainer container, AgeComponent component, int order = -1, bool showDetailed = true)

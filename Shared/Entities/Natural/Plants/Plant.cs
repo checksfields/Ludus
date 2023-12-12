@@ -78,7 +78,7 @@ public class Plant : LudusSpawnableEntity
             GrowthDef?.DaysByBiome.TryGetValue(biomeKey, out growDays);
             
             growthComponent.GrowDays = growDays;
-            growthComponent.CurrentGrowDays = growDays * PlantGlobal.InitialGrowthRange.Rand();
+            growthComponent.CurrentGrowDaysInTicks = (growDays * PlantGlobal.InitialGrowthRange.Rand()) * CoreGlobal.CalendarConstants.TICKS_PER_DAY;
         }
         else
             // TODO: Implement for not map gen events (such as in-game spawn)

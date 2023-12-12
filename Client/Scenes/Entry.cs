@@ -49,6 +49,7 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	public Console Console { get; set; }
 	public PerformanceComponent PerformanceComponent { get; set; }
 	public GameStateInformationComponent GameStateInformationComponent { get; set; }
+	public GameInformationComponent GameInformationComponent { get; set; }
 	
 	public ToolTipCanvasLayer ToolTipLayer { get; set; }
 	
@@ -82,7 +83,8 @@ public partial class Entry : GodotNode2D, ITickConsumer
 	{
 		//this.AddComponent(SettingsComponent = new LudusGameSettingsComponent());
 		this.AddGodotNode(PerformanceComponent = new PerformanceComponent());
-		this.AddGodotNode(GameStateInformationComponent = new GameStateInformationComponent());
+		//this.AddGodotNode(GameStateInformationComponent = new GameStateInformationComponent());
+		this.AddGodotNode(GameInformationComponent = new GameInformationComponent());
 		this.AddGodotNode(ToolTipLayer = new ToolTipCanvasLayer());
 	}
 
