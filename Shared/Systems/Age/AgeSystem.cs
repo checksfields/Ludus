@@ -96,27 +96,34 @@ public class AgeSystem : BitspokeSystem//, ITickConsumer
     
     private void ProcessTick()
     {
-        var arrayCopy = new AgeComponent[AgeComponents.Count];
-        lock (AgeComponents)
-            AgeComponents.CopyTo(arrayCopy, 0);
-        
-        var slices = arrayCopy.Slice(12);
-        var tasks = new List<Task>();
-        
-        for (int i = 0; i < slices.Length; i++)
+        Profile(() =>
         {
-            var index = i;
-            tasks.Add(Task.Run(() =>
+            var arrayCopy = new AgeComponent[AgeComponents.Count];
+            lock (AgeComponents)
+                AgeComponents.CopyTo(arrayCopy, 0);
+
+            var slices = arrayCopy.Slice(12);
+            var tasks = new List<Task>();
+
+            for (int i = 0; i < slices.Length; i++)
             {
-                var comps = slices[index];
-                
-                foreach (var component in comps)
+                var index = i;
+                tasks.Add(Task.Run(() =>
                 {
-                    component.CurrentAge += DeltaTicks;
-                }
-            }));    
-        }
-        Task.WaitAll(tasks.ToArray());    
+                    var comps = slices[index];
+                    
+                    if (comps == null || comps.Length == 0)
+                        return;
+
+                    foreach (var component in comps)
+                    {
+                        component.CurrentAgeInTicks += DeltaTicks;
+                    }
+                }));
+            }
+
+            Task.WaitAll(tasks.ToArray());
+        });
     }
     
     private void OnProcessTickComplete(Task obj)
@@ -129,7 +136,19 @@ public class AgeSystem : BitspokeSystem//, ITickConsumer
         // //               it will be thread safe.
         // Task.Run(PurgeComponents).ContinueWith(OnPurgeComponentsComplete);
         
+        PurgeComponents();  
+        
         TickComplete.Invoke();
+    }
+
+    private void PurgeComponents()
+    {
+        // @PERFORMANCE => 20231117 Benchmark: ~ 1.0 ms
+        lock (AgeComponents)
+        {
+            //GrownComponents.AddRange(GrowthComponents.Where(w => w.IsFullyGrown));
+            AgeComponents.RemoveAll(c => c.IsExpired);
+        }
     }
     
     #endregion

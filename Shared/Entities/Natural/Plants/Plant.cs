@@ -121,7 +121,6 @@ public class Plant : LudusSpawnableEntity
             // if (ageDiffAbs < CoreGlobal.CalendarConstants.TICKS_PER_HOUR) 
             //     initialAge = (ulong) (maxAge * Rand.NextFloat(0.9f, 0.95f)).Ceiling();
             
-            ageComponent.CurrentAge =  initialAge;
             ageComponent.CurrentAgeInTicks =  (ulong) (initialAge * CoreGlobal.CalendarConstants.TICKS_PER_DAY);
             ageComponent.MaxAge =  maxAgeInDays;
             ageComponent.MaxAgeInTicks =  (ulong) (maxAgeInDays * CoreGlobal.CalendarConstants.TICKS_PER_DAY);

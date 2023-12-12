@@ -11,12 +11,14 @@ public class AgeComponent : Component
     #region Properties
 
     public override string ComponentName => nameof(AgeComponent);
-    public float CurrentAge { get; set; }
+    public float CurrentAge => (float) CurrentAgeInTicks / CoreGlobal.CalendarConstants.TICKS_PER_DAY;
     public ulong CurrentAgeInTicks { get; set; }
     public float MaxAge { get; set; }
     public ulong MaxAgeInTicks { get; set; }
 
-    public string DisplayAge() => CurrentAge.ToString();
+    public bool IsExpired => MaxAgeInTicks <= CurrentAgeInTicks;
+
+    public string DisplayAge() => CurrentAge.ToString("F");
 
     #endregion
 

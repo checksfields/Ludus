@@ -105,7 +105,7 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
     /// </summary>
     private void ProcessTick()
     {
-        Profile(() => { 
+        //Profile(() => { 
             
         var map = Find.CurrentMap;    
             
@@ -123,6 +123,9 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
             {
                 var comps = slices[index];
                 
+                if (comps == null || comps.Length == 0)
+                    return;
+                
                 foreach (var growthComponent in comps)
                 {
                     var growthIncrement = DeltaTicks;
@@ -136,7 +139,7 @@ public class GrowthSystem : BitspokeSystem//, ITickConsumer
         }
         Task.WaitAll(tasks.ToArray());
         
-        });
+        //});
     }
     
     private void OnProcessTickComplete(Task obj)
