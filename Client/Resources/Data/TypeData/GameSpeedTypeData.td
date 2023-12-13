@@ -56,6 +56,15 @@
       "Value": 15,
       "ValueClassName": "System.Int32",
       "ValueAssemblyName": "System.Private.CoreLib"
+    },
+    "INSANE": {
+      "Key": "INSANE",
+      "NameKey": "LOC_INSANE",
+      "DescriptionKey": "LOC_ENTITY_INSANE_TYPE_DATA_DESC_KEY",
+      "IsDisplayable": true,
+      "Value": 150,
+      "ValueClassName": "System.Int32",
+      "ValueAssemblyName": "System.Private.CoreLib"
     }
   }
 }

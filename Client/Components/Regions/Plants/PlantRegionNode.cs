@@ -6,6 +6,7 @@ using Bitspoke.Core.Definitions.Parts.Graphics;
 using Bitspoke.Ludus.Client.Components.Nodes.Sprites;
 using Bitspoke.Ludus.Client.Components.Nodes.Sprites.Plants.Natural;
 using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Components.Entities.Living;
 using Bitspoke.Ludus.Shared.Entities.Definitions.Natural.Plants;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions;
 using Godot;
@@ -123,6 +124,15 @@ public partial class PlantRegionNode : RegionNode
             }
             EntitiesToAdd.Clear();
             SpritesReadyForRefresh = false;
+            
+            foreach (var toRemove in EntitiesToRemove)
+            {
+                if (SpriteNodes.ContainsKey(toRemove))
+                {
+                    SpriteNodes[toRemove].QueueFree();
+                    SpriteNodes.Remove(toRemove);
+                }
+            }
         }
 
         if (MeshesReadyForRefresh)
@@ -237,9 +247,17 @@ public partial class PlantRegionNode : RegionNode
     private void UpdateSprites(Texture2D texture, List<LudusEntity> regionEntities)
     {
         var processedIDs = SpriteNodes.Keys.ToList();
+        
         foreach (var ludusEntity in regionEntities)
         {
             var id = ludusEntity.ID;
+
+            if (ludusEntity.GetComponent<AgeComponent>().IsExpired)
+            {
+                // don't add this entity to the processed IDs list as we want it to be removed later
+                continue;
+            }
+            
             if (SpriteNodes.ContainsKey(id))
             {
                 processedIDs.Remove(id);

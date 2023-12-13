@@ -1,16 +1,19 @@
 ﻿using Bitspoke.Core.Components;
+using Bitspoke.Core.Components.Entities;
 using Bitspoke.Core.Entities;
-using Bitspoke.Core.Systems.Age;
+using Bitspoke.Ludus.Shared.Common.Entities;
+using Bitspoke.Ludus.Shared.Systems.Age;
 
 namespace Bitspoke.Ludus.Shared.Components.Entities.Living;
 
-public class AgeComponent : Component
+public class AgeComponent : EntityComponent
 {
     public AgeComponent(Entity entity) : base(entity) { }
 
     #region Properties
 
-    public override string ComponentName => nameof(AgeComponent);
+    public LudusEntity? LudusEntity => (Entity is LudusEntity ludusEntity) ? ludusEntity : null;
+    
     public float CurrentAge => (float) CurrentAgeInTicks / CoreGlobal.CalendarConstants.TICKS_PER_DAY;
     public ulong CurrentAgeInTicks { get; set; }
     public float MaxAge { get; set; }
@@ -35,7 +38,6 @@ public class AgeComponent : Component
         
     }
     
-    public override void AddComponents() { }
     public override void ConnectSignals() { }
 
     #endregion
