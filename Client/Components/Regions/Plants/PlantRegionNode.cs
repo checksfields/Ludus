@@ -30,8 +30,8 @@ public partial class PlantRegionNode : RegionNode
     public bool SpritesReadyForRefresh { get; set; } = false;
 
     private Dictionary<Texture2D, List<LudusEntity>> EntitiesToAdd { get; set; } = new();
-    private Dictionary<ulong, NaturalPlantSprite2D> SpriteNodes { get; set; } = new();
-    private List<ulong> EntitiesToRemove { get; set; } = new();
+    private Dictionary<string, Dictionary<ulong, NaturalPlantSprite2D>> SpriteNodes { get; set; } = new();
+    private Dictionary<string, List<ulong>> EntitiesToRemove { get; set; } = new();
     
     public bool MeshIsDirty { get; set; }
     public bool MeshesReadyForRefresh { get; set; } = false;
@@ -115,8 +115,12 @@ public partial class PlantRegionNode : RegionNode
                 foreach (var ludusEntity in toAdd.Value)
                 {
                     var sprite2D = ludusEntity.BuildSprite<NaturalPlantSprite2D>(GlobalPosition, texture);
+
+                    var key = ludusEntity.Def.Key;
+                    if (!SpriteNodes.ContainsKey(key))
+                        SpriteNodes.Add(key, new Dictionary<ulong, NaturalPlantSprite2D>());
                     
-                    if (SpriteNodes.TryAdd(ludusEntity.ID, sprite2D))
+                    if (SpriteNodes[key].TryAdd(ludusEntity.ID, sprite2D))
                     {
                         Sprites.AddChild(sprite2D);
                     }
@@ -127,12 +131,14 @@ public partial class PlantRegionNode : RegionNode
             
             foreach (var toRemove in EntitiesToRemove)
             {
-                if (SpriteNodes.ContainsKey(toRemove))
+                foreach (var id in toRemove.Value)
                 {
-                    SpriteNodes[toRemove].QueueFree();
-                    SpriteNodes.Remove(toRemove);
+                    var sprite = SpriteNodes[toRemove.Key][id]; 
+                    SpriteNodes[toRemove.Key].Remove(id);
+                    sprite.QueueFree();  
                 }
             }
+            EntitiesToRemove.Clear();
         }
 
         if (MeshesReadyForRefresh)
@@ -182,9 +188,13 @@ public partial class PlantRegionNode : RegionNode
     {
         //var plantsByType = Map.Data.EntitiesContainer.EntitiesByRegion[RegionID];
         //Log.Debug($"Region[{RegionID}] - ProcessPlants");
+        var spriteNodeKeys = new List<string>(SpriteNodes.Keys);
         int layerID = 0;
-        foreach (var plantByType in Region.PlantsByType())
+        
+        var plantsByType = Region.PlantsByType();
+        foreach (var plantByType in plantsByType)
         {
+            spriteNodeKeys.Remove(plantByType.Key);
             var def = PlantDefs[plantByType.Key];
             var textureType = def.Graphic.Texture.TextureTypeDetails.TextureType;
 
@@ -215,12 +225,28 @@ public partial class PlantRegionNode : RegionNode
                 case TextureType.Single:
                     layerID++;
                     var texture = Textures[plantByType.Key];
-                    UpdateSprites(texture, plantByType.Value);
+                    UpdateSprites(texture, def.Key, plantByType.Value);
                     break;
                 default:
                     break;
             }
         }
+        
+        foreach (var spriteNodeKey in spriteNodeKeys)
+        {
+            var nodeIDList = SpriteNodes[spriteNodeKey]?.Keys.ToList() ?? new List<ulong>();
+            if (nodeIDList.Count > 0)
+            {
+                if (EntitiesToRemove.ContainsKey(spriteNodeKey))
+                {
+                    EntitiesToRemove[spriteNodeKey].AddRange(nodeIDList);
+                    continue;
+                }
+                
+                EntitiesToRemove.Add(spriteNodeKey, nodeIDList);
+            }
+        }
+        
     }
     
     #endregion
@@ -244,25 +270,29 @@ public partial class PlantRegionNode : RegionNode
         MeshesReadyForRefresh = true;
     }
     
-    private void UpdateSprites(Texture2D texture, List<LudusEntity> regionEntities)
+    private void UpdateSprites(Texture2D texture, string entityTypeKey, List<LudusEntity> regionEntities)
     {
-        var processedIDs = SpriteNodes.Keys.ToList();
+        var unprocessedIDs = SpriteNodes.ContainsKey(entityTypeKey) ? SpriteNodes[entityTypeKey]?.Keys.ToList() : new();
         
         foreach (var ludusEntity in regionEntities)
         {
+            var key = ludusEntity.Def.Key;
             var id = ludusEntity.ID;
 
-            if (ludusEntity.GetComponent<AgeComponent>().IsExpired)
-            {
-                // don't add this entity to the processed IDs list as we want it to be removed later
-                continue;
-            }
+            // if (ludusEntity.GetComponent<AgeComponent>().IsExpired)
+            // {
+            //     // don't add this entity to the processed IDs list as we want it to be removed later
+            //     continue;
+            // }
             
-            if (SpriteNodes.ContainsKey(id))
+            if (SpriteNodes.ContainsKey(key))
             {
-                processedIDs.Remove(id);
-                SpriteNodes[id].UpdateSprite();
-                continue;
+                if (SpriteNodes[key].ContainsKey(id))
+                {
+                    unprocessedIDs.Remove(id);
+                    SpriteNodes[key][id].UpdateSprite();
+                    continue;
+                }
             }
             
             // new entity to add
@@ -272,7 +302,12 @@ public partial class PlantRegionNode : RegionNode
             EntitiesToAdd[texture].Add(ludusEntity);
         }
 
-        EntitiesToRemove = SpriteNodes.Keys.Where(w => !processedIDs.Contains(w)).ToList();
+        if (SpriteNodes.ContainsKey(entityTypeKey))
+        {
+            var toBeRemoved = SpriteNodes[entityTypeKey].Keys.Where(w => unprocessedIDs.Contains(w)).ToList();
+            EntitiesToRemove.Add(entityTypeKey, toBeRemoved);
+        }
+
         SpritesReadyForRefresh = true;
     }
 }

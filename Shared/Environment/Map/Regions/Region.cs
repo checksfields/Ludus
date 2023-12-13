@@ -18,7 +18,7 @@ public class Region
     public List<MapCell>? cachedCells;
     public List<MapCell>? CachedCells {
         get {
-            if (cachedCells == null)
+            if (cachedCells == null || cachedCells.Count == 0)
                 // @PERFORMANCE: about 12ms call
                 cachedCells =  Map.Data.CellsContainer.Cells.Where(s => Dimension.HasPoint(s.Location.ToVector2I())).ToList();
 
@@ -78,7 +78,7 @@ public class Region
     
     public void ClearEntitiesCache()
     {
-        
+        cachedCells?.Clear();
     }
     
     public List<LudusEntity> EntitiesBy(EntityType type)
@@ -99,20 +99,29 @@ public class Region
         var result = new Dictionary<string, List<LudusEntity>>();
 
         //var entities = Map.Entities.GetByRegion(Index);
-        var entities = Map.Data.EntitiesContainer.EntitiesByRegion[Index];
-        
+        var entities = new List<LudusEntity?>(Map.Data.EntitiesContainer.EntitiesByRegion[Index]);
+
+        if (entities == null)
+            return result;
+
+        // lock (Map.Data.EntitiesContainer.EntitiesByRegion[Index])
+        // {
         foreach (var entity in entities)
         {
+            if (entity?.Def == null)
+                continue;
+
             if (entity.Def.Type == EntityType.Plant)
             {
                 var key = entity.Def.Key;
                 if (!result.ContainsKey(key))
                     result.Add(key, new List<LudusEntity>());
-            
+
                 result[key].Add(entity);
-            }
+            } 
         }
-    
+        // }
+
         return result;
     }
 

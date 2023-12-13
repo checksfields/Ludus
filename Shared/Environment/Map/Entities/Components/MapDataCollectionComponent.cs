@@ -1,6 +1,8 @@
 ﻿using Bitspoke.Core.Profiling;
 using Bitspoke.GodotEngine.Components.Nodes;
+using Bitspoke.Ludus.Shared.Common.Entities;
 using Bitspoke.Ludus.Shared.Entities.Containers;
+using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Bitspoke.Ludus.Shared.Environment.Map.MapCells.Components;
 using Bitspoke.Ludus.Shared.Environment.Map.Regions.Components;
 using Godot;
@@ -44,6 +46,25 @@ public partial class MapDataCollectionComponent : GodotNode
 
     #region Methods
 
+    public void RemoveEntity(LudusEntity entity)
+    {
+        MapCell? cell = null;
+        if (entity is LudusSpawnableEntity)
+            cell = ((LudusSpawnableEntity)entity).MapCell;
+
+        
+        EntitiesContainer.Remove(entity, cell);
+
+        if (cell != null)
+        {
+            RegionsContainer.Regions[cell.RegionIndex]?.ClearEntitiesCache();
+            //CellsContainer.CellsByRegion.
+        }
+        
+        
+    }
+    
+    
     public override void Init()
     {
         // TODO - Tier 1 - Calculate Environmental Variables based on season, time of day and current events

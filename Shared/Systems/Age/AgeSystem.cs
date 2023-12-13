@@ -116,7 +116,7 @@ public class AgeSystem : BitspokeSystem//, ITickConsumer
                         component.CurrentAgeInTicks += DeltaTicks;
                         if (component.IsExpired)
                         {
-                            Find.CurrentMap.Data.EntitiesContainer.Remove(component.LudusEntity, null);
+                            Find.CurrentMap.Data.RemoveEntity(component.LudusEntity);
                         }
                     }
                 }

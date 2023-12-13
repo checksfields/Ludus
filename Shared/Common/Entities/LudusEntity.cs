@@ -1,6 +1,7 @@
 ﻿using Bitspoke.Core.Components;
 using Bitspoke.Core.Entities;
 using Bitspoke.Ludus.Shared.Entities.Definitions;
+using Bitspoke.Ludus.Shared.Environment.Map.MapCells;
 using Newtonsoft.Json;
 
 namespace Bitspoke.Ludus.Shared.Common.Entities;
@@ -9,9 +10,9 @@ public abstract class LudusEntity : Entity
 {
     #region Properties
 
-    [JsonIgnore] public EntityDef Def { get; set; }
-    protected string EntityDefKey => Def.Key;
-
+    [JsonIgnore] public EntityDef? Def { get; set; }
+    protected string EntityDefKey => Def?.Key ?? string.Empty;
+    
     #endregion
 
     #region Constructors and Initialisation
